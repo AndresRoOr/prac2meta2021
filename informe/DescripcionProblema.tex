@@ -1,0 +1,68 @@
+	\section{Definición y análisis del problema}
+	
+	\paragraph{}Dado un conjunto \emph{N} de tamaño \emph{n}, se pide encontrar un subconjunto \emph{M} de tamaño \emph{m}, que maximice
+	la función: 
+	
+		\[ C(M)=\sum_{s_i , s_j \in M} d_{ij}\]
+	donde  $d_{ij}$ es la diversidad del elemento $s_i$ respecto al elemento $s_j$
+	
+	\subsection{Representación de la solución}
+	
+	\paragraph{} Para representar la solución se ha optado por el uso de un vector de enteros, en el que el elemento contenido en cada posición se corresponde con un integrante de la solución. La solución vendrá dada por las siguientes restricciones:
+		\begin{itemize}
+			
+			\item La solución no puede contener elementos repetidos.
+			
+			\item Debe tener exactamente \emph{m} elementos.
+			
+			\item El orden de los elementos es irrelevante.
+			
+		\end{itemize}
+	
+	
+	\subsection{Función objetivo}
+	
+	\[ C(M)=\sum_{s_i , s_j \in M} d_{ij}\]
+	
+	\subsection{Operadores comunes}
+	
+	\paragraph{}El operador de intercambio es el 1-opt, se seleccionara un elemento de la solución actual en base a un criterio y se sustituirá por un elemento que no pertenece a la solución. 
+	
+	\section{Clases auxiliares}
+	
+	\paragraph{} A continuación se enumeran las diferentes clases auxiliares utilizadas en el programa acompañadas de una breve descripción de las mismas.
+	
+	\paragraph{nota:}Para obtener información detallada se deben consultar los comentarios insertados en el código de cada una de las clases.
+	
+	\subsection{Archivo}
+	
+	\paragraph{}Esta clase se encarga de almacenar toda la información que se encuentra dentro de cada archivo que contiene cada uno de los problemas.
+	
+	
+	\subsection{Configurador}
+	
+	\paragraph{}Utilizamos esta clase para leer y almacenar los parámetros del programa que se encuentran dentro del archivo de configuración.
+	
+	\subsection{ElementoSolucion}
+	
+	\paragraph{}Clase encargada de representar a un elemento perteneciente a una solución y almacenar toda la información necesaria para la ejecución de las metaheurísticas del programa.
+	
+	\subsection{GestorLog}
+	
+	\paragraph{}La función principal de esta clase es la administración de los archivos Log del programa y el almacenamiento de información para debug en los mismos.
+	
+	\subsection{Metaheuristicas}
+	
+	\paragraph{}Esta clase se utiliza para lanzar la ejecución de los algoritmos para cada problema facilitado como parámetro.
+	
+	\subsection{Pair}
+	
+	\paragraph{}Representa un par formado por un candidato y un coste asociado a este.
+	
+	\subsection{RandomP}
+	
+	\paragraph{}Clase para generar números aleatorios.
+	
+	\subsection{Timer}
+	
+	\paragraph{}Clase para gestionar los tiempos de ejecución del algoritmo.
