@@ -84,10 +84,9 @@ public class Genetico {
         
         while(_evaluaciones < _evaluacionesObjetivo){
         
-        
             operadorSeleccion(aleatorio);   
             
-            operadorReproduccion();
+            operadorReproduccion(aleatorio);
                    
             operadorRepararCromosomas();
         
@@ -100,7 +99,6 @@ public class Genetico {
             _evaluaciones+=50;
         
         }
-        
         
     }
     
@@ -144,10 +142,8 @@ public class Genetico {
                         cromosomasElite.remove(0);
                     }
                 }
-            }
-            
-        }
-        
+            }    
+        }     
     }
     
     
@@ -163,10 +159,7 @@ public class Genetico {
                 coste += _archivoDatos.getMatriz()[a][b];
             }
         }
-
-        return coste;
-    
-        
+        return coste;        
     }
     
     
@@ -182,24 +175,43 @@ public class Genetico {
             }else{
                 _cromosomasPadre.add(new HashSet<>(_cromosomas.get(candidato2)));
             }
-            
-        }
-        
+        } 
     }
     
-    void operadorReproduccion(){
+    void operadorReproduccion(Random_p alea){
         
-        
-        _cromosomasHijo = new ArrayList<>(_cromosomasPadre);
-        
+        //_cromosomasHijo = new ArrayList<>(_cromosomasPadre);
         
         if(_operadorMPX == true){
             
-            for(Set<Integer> cromosoma : _cromosomasPadre ){
-                
-                
+            while(_cromosomasHijo.size()!= _numeroCromosomas) {
+
+                HashSet<Integer> cromosoma = new HashSet<>();
+
+                float probRepro = (float) alea.Randfloat(0, 1);
+
+                int padre1 = alea.Randint(0, _numeroCromosomas-1);
+                int padre2 = alea.Randint(0, _numeroCromosomas-1);
+
+                if(probRepro < _probReproduccion){
+
+                    for(Integer gen : _cromosomasPadre.get(padre1)){
+                        float prob = (float) alea.Randfloat(0, 1);
+                        if(prob > 0.5){ cromosoma.add(gen); }
+                    }
+
+                    for(Integer gen : _cromosomasPadre.get(padre2)){
+                        float prob = (float) alea.Randfloat(0, 1);
+                        if(prob > 0.5){ cromosoma.add(gen); }
+                    }
+
+                    _cromosomasHijo.add(cromosoma);
+
+                }else{
+                    _cromosomasHijo.add(new HashSet<>(padre1));
+                    _cromosomasHijo.add(new HashSet<>(padre2));
+                }
             }
-            
             
         }else{
             
@@ -216,34 +228,30 @@ public class Genetico {
     
     void operadorRepararCromosomas(){
         
-        int tamañoCromosoma = _archivoDatos.getTama_Solucion();
+        int numeroGenes = _archivoDatos.getTama_Solucion();
         
         for(Set<Integer> cromosoma : _cromosomasHijo){
             
-            if(cromosoma.size()!=tamañoCromosoma){
+            if(cromosoma.size()!=numeroGenes){
                 
-                if(cromosoma.size()<tamañoCromosoma){
+                if(cromosoma.size()<numeroGenes){
                     
-                    while(cromosoma.size()!=tamañoCromosoma){
+                    while(cromosoma.size()!=numeroGenes){
                         
                         
                         //Calcular mejor coste como en Greedy
                         
                     }
                     
-                }else if(cromosoma.size()>tamañoCromosoma){
+                }else if(cromosoma.size()>numeroGenes){
                     
-                    while(cromosoma.size()!=tamañoCromosoma){
+                    while(cromosoma.size()!=numeroGenes){
                     
                         //Quitar los que menos aportan
-                    }
-                    
+                    }           
                 }
-
-            }
-            
-        }
-        
+            }         
+        }      
     }
     
     
@@ -258,14 +266,14 @@ public class Genetico {
                
                double probabilidad = ale.Randfloat(0, 1);
                
-               if(probabilidad < _probMutacion){
+               if(probabilidad < _probMutacion){     
                    
-                   alelosMutados.add(gen);
+                   alelosMutados.add(gen);    
                    
-                   boolean reemplazo = false;
+                   boolean reemplazo = false;  
                    
                    while(reemplazo == false){
-                       
+                     
                        int generado = ale.Randint(0,_archivoDatos.getTama_Matriz()-1);
                        
                        if(!cromosoma.contains(generado) && !alelosNuevos.contains(generado)){
@@ -276,12 +284,10 @@ public class Genetico {
                }                
            }   
 
-           
            while(!alelosMutados.isEmpty() || !alelosNuevos.isEmpty()){ 
                cromosoma.remove(alelosMutados.remove(0));
                cromosoma.add(alelosNuevos.remove(0));
            }
-
         }    
     }
     

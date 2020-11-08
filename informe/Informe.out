@@ -1,0 +1,22 @@
+\BOOKMARK [1][-]{section.1}{Definici\363n y an\341lisis del problema}{}% 1
+\BOOKMARK [2][-]{subsection.1.1}{Representaci\363n de la soluci\363n}{section.1}% 2
+\BOOKMARK [2][-]{subsection.1.2}{Funci\363n objetivo}{section.1}% 3
+\BOOKMARK [2][-]{subsection.1.3}{Operadores comunes}{section.1}% 4
+\BOOKMARK [1][-]{section.2}{Clases auxiliares}{}% 5
+\BOOKMARK [2][-]{subsection.2.1}{Archivo}{section.2}% 6
+\BOOKMARK [2][-]{subsection.2.2}{Configurador}{section.2}% 7
+\BOOKMARK [2][-]{subsection.2.3}{ElementoSolucion}{section.2}% 8
+\BOOKMARK [2][-]{subsection.2.4}{GestorLog}{section.2}% 9
+\BOOKMARK [2][-]{subsection.2.5}{Metaheuristicas}{section.2}% 10
+\BOOKMARK [2][-]{subsection.2.6}{Pair}{section.2}% 11
+\BOOKMARK [2][-]{subsection.2.7}{RandomP}{section.2}% 12
+\BOOKMARK [2][-]{subsection.2.8}{Timer}{section.2}% 13
+\BOOKMARK [1][-]{section.3}{Pseudoc\363digo}{}% 14
+\BOOKMARK [1][-]{section.4}{Experimentos y an\341lisis de resultados}{}% 15
+\BOOKMARK [2][-]{subsection.4.1}{Procedimiento de desarrollo de la pr\341ctica}{section.4}% 16
+\BOOKMARK [3][-]{subsubsection.4.1.1}{Equipo de pruebas}{subsection.4.1}% 17
+\BOOKMARK [3][-]{subsubsection.4.1.2}{Manual de usuario}{subsection.4.1}% 18
+\BOOKMARK [2][-]{subsection.4.2}{Par\341metros de los algoritmos}{section.4}% 19
+\BOOKMARK [3][-]{subsubsection.4.2.1}{Genetico}{subsection.4.2}% 20
+\BOOKMARK [3][-]{subsubsection.4.2.2}{Semillas}{subsection.4.2}% 21
+\BOOKMARK [2][-]{subsection.4.3}{An\341lisis de los resultados}{section.4}% 22
