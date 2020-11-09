@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 /**
@@ -186,14 +187,14 @@ public class Genetico {
             
             while(_cromosomasHijo.size()!= _numeroCromosomas) {
 
-                HashSet<Integer> cromosoma = new HashSet<>();
-
                 float probRepro = (float) alea.Randfloat(0, 1);
 
                 int padre1 = alea.Randint(0, _numeroCromosomas-1);
                 int padre2 = alea.Randint(0, _numeroCromosomas-1);
 
                 if(probRepro < _probReproduccion){
+                    
+                    HashSet<Integer> cromosoma = new HashSet<>();
 
                     for(Integer gen : _cromosomasPadre.get(padre1)){
                         float prob = (float) alea.Randfloat(0, 1);
@@ -216,14 +217,51 @@ public class Genetico {
         }else{
             
             //Aplico cruce en dos puntos
-            
-            for(Set<Integer> cromosoma : _cromosomasPadre ){
-                
-                
+
+            for (int i = 0; i < _cromosomasPadre.size(); i+=2) {
+
+                float probRepro = (float) alea.Randfloat(0, 1);
+
+                if(probRepro < _probReproduccion){
+                    
+                    HashSet<Integer> hijo1 = new HashSet<>();
+                    HashSet<Integer> hijo2 = new HashSet<>();
+                    
+                    int crosspoint1 = alea.Randint(1,_archivoDatos.getTama_Solucion()-2 );
+                    int crosspoint2 = alea.Randint(1,_archivoDatos.getTama_Solucion()-2 );
+                    
+                    if (crosspoint1 == crosspoint2){
+                        crosspoint1--;  
+                    }
+
+                    if (crosspoint2 < crosspoint1) {
+                        int temp = crosspoint1;
+                        crosspoint1 = crosspoint2;
+                        crosspoint2 = temp;
+                    }
+                    
+                    Iterator<Integer> iterator = _cromosomasPadre.get(i).iterator();
+                    Iterator<Integer> iterator1 = _cromosomasPadre.get(+1).iterator();
+                    
+                    for (int j = 0; j <_archivoDatos.getTama_Solucion(); j++) {
+                        
+                        if (i < crosspoint1 || i > crosspoint2){
+                            hijo1.add(iterator.next());
+                            hijo2.add(iterator1.next());
+                        }else{
+                            hijo1.add(iterator1.next());
+                            hijo2.add(iterator.next());
+                        }
+                    }
+                   
+                }else{
+                    
+                    _cromosomasHijo.add(new HashSet<>(i));
+                    _cromosomasHijo.add(new HashSet<>(i+1));
+                               
+                }        
             }
-            
-        }
-        
+        }    
     }
     
     void operadorRepararCromosomas(){
@@ -237,8 +275,7 @@ public class Genetico {
                 if(cromosoma.size()<numeroGenes){
                     
                     while(cromosoma.size()!=numeroGenes){
-                        
-                        
+                              
                         //Calcular mejor coste como en Greedy
                         
                     }
