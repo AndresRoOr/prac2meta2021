@@ -172,6 +172,10 @@ public final class Genetico {
             int candidato1 = ale.Randint(0,_numeroCromosomas -1);
             int candidato2 = ale.Randint(0,_numeroCromosomas -1);
             
+            while(candidato1 == candidato2){
+                candidato2 = ale.Randint(0,_numeroCromosomas -1);
+            }
+            
             if(_costes.get(candidato1)>_costes.get(candidato2)){
                 _cromosomasPadre.add(new HashSet<>(_cromosomas.get(candidato1)));
             }else{
