@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.BufferedReader;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * @brief Clase que almacena todos los parámetros principales del programa
@@ -31,6 +32,7 @@ public class Configurador {
     Boolean cruceMpx;
     Float probReproduccion;
     Float probMutacion;
+    Float probMpx;
     Integer numeroCromosomas;
 
 
@@ -53,7 +55,7 @@ public class Configurador {
             BufferedReader b = new BufferedReader(f);
 
             while ((linea = b.readLine()) != null) {
-                String[] split = linea.split("=");
+                String[] split = StringUtils.split(linea,"=");
                 switch (split[0]) {
                     case "Datos":
                         String[] v = split[1].split(" ");
@@ -88,6 +90,10 @@ public class Configurador {
                         
                     case "Cromosomas":
                         numeroCromosomas = Integer.parseInt(split[1]);
+                        break;
+                                
+                    case "Probabilidad MPX":
+                        probMpx = Float.parseFloat(split[1]);
                         break;
                 }
             }
@@ -158,6 +164,10 @@ public class Configurador {
     
     public Integer getNumeroCromosomas() {
         return numeroCromosomas;
+    }
+    
+    public Float getProbMpx() {
+        return probMpx;
     }
 
     /**

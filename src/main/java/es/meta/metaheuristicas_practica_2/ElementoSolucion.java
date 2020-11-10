@@ -7,8 +7,6 @@
  */
 package es.meta.metaheuristicas_practica_2;
 
-import java.util.Set;
-
 /**
  * @brief Clase que almacena la información de cada elemento que forma parte de
  * la solución
@@ -17,14 +15,14 @@ import java.util.Set;
  * @author David Díaz Jiménez
  * @date 02/11/2020
  */
-public final class Cromosomas implements Comparable<Cromosomas> {
+public final class ElementoSolucion implements Comparable<ElementoSolucion> {
 
     ///Atributos de la clase:
-    private Set<Integer> cromosoma;
+    private int id;///<Indica el elemento de la solución que representa
     private float _contribucion;///<Coste que aporta a la solución
+    ///de la solución
 
     /**
-     * @param cromo
      * @brief Constructor parametrizado de la clase ElementoSolucion
      * @author Andrés Rojas Ortega
      * @author David Díaz Jiménez
@@ -32,16 +30,28 @@ public final class Cromosomas implements Comparable<Cromosomas> {
      * @param id Integer
      * @param _contribucion Float
      */
-    public Cromosomas(Set<Integer>cromo, float _contribucion) {
-        this.cromosoma = cromo;
+    public ElementoSolucion(int id, float _contribucion) {
+        this.id = id;
         this._contribucion = _contribucion;
+    }
 
+    /**
+     * @brief Constructor parametrizado de la clase ElementoSolucion
+     * @author Andrés Rojas Ortega
+     * @author David Díaz Jiménez
+     * @date 03/10/2020
+     * @param id Integer
+     * @param veces int
+     */
+    public ElementoSolucion(int id, int veces) {
+        this.id = id;
+        this._contribucion = veces;
     }
 
     @Override
-    public int compareTo(Cromosomas otro) {
+    public int compareTo(ElementoSolucion vecino) {
         Float ele1 = this.getContribucion();
-        Float ele2 = otro.getContribucion();
+        Float ele2 = vecino.getContribucion();
         int comparativa = ele1.compareTo(ele2);
 
         if (comparativa < 0) {
@@ -52,6 +62,17 @@ public final class Cromosomas implements Comparable<Cromosomas> {
             return 0;
         }
 
+    }
+
+    /**
+     * @brief Metodo getter del atributo id
+     * @author Andrés Rojas Ortega
+     * @author David Díaz Jiménez
+     * @date 02/1/2020
+     * @return id int
+     */
+    public int getId() {
+        return this.id;
     }
 
     /**
@@ -77,5 +98,15 @@ public final class Cromosomas implements Comparable<Cromosomas> {
         this._contribucion = cont;
     }
 
+    /**
+     * @brief Metodo toString de la clase
+     * @author Andrés Rojas Ortega
+     * @author David Díaz Jiménez
+     * @date 02/11/2020
+     * @return Devuelve la información de la clase en una cadena String
+     */
+    public String toString() {
+        return "Key: " + getId() + ", Value: " + getContribucion();
+    }
 
 }

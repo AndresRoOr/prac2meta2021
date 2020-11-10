@@ -6,3 +6,4 @@ OperadorMPX=true
 Probabilidad de mutacion=0.05
 Probabilidad de reproduccion=0.70
 Cromosomas=50
+Probabilidad MPX=0.50

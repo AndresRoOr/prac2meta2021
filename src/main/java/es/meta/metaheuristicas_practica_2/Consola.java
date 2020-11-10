@@ -5,13 +5,11 @@
  */
 package es.meta.metaheuristicas_practica_2;
 
-import javax.swing.JMenuItem;
-
 /**
  *
  * @author David
  */
-public class Consola extends javax.swing.JFrame {
+public final class Consola extends javax.swing.JFrame {
 
     int eleccion;
     

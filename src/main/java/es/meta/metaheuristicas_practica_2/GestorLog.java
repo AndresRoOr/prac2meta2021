@@ -17,7 +17,7 @@ import java.io.PrintWriter;
  * @author David Díaz Jiménez
  * @date 02/11/2020
  */
-public class GestorLog {
+public final class GestorLog {
 
     ///Atributos de la clase:
     private String _archiveName;

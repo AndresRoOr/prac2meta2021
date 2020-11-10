@@ -20,7 +20,7 @@ import java.util.ArrayList;
  * @author David Díaz Jiménez
  * @date 27/09/2020
  */
-public class Metaheuristicas {
+public final class Metaheuristicas {
 
     ///Atributos de la clase:
     Configurador _config;///<Contiene los parámetros principales del programa
@@ -112,7 +112,7 @@ public class Metaheuristicas {
 
                     Genetico g = new Genetico(ar, gestor, _config.getEvaluaciones(),_config.getElitismo(),
                             _config.getCruceMpx(), _config.getProbReproduccion(),
-                            _config.getProbMutacion());
+                            _config.getProbMutacion(), _config.getProbMpx());
 
                     t.startTimer();
 

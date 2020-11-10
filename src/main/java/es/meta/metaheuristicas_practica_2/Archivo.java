@@ -6,7 +6,7 @@
  * @date 27/09/2020
  */
 package es.meta.metaheuristicas_practica_2;
-
+import org.apache.commons.lang3.StringUtils;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -20,7 +20,7 @@ import java.io.IOException;
  * @author David Díaz Jiménez
  * @date 27/09/2020
  */
-public class Archivo {
+public final class Archivo {
 
     ///Atributos de la clase:
     String _nombre;///<Nombre del objeto                                        
@@ -56,7 +56,7 @@ public class Archivo {
             while (currentRecord != null) {
                 if (!currentRecord.isEmpty()) {
 
-                    String[] linea = currentRecord.split(" ");
+                    String[] linea = StringUtils.split(currentRecord," ");
 
                     if (num_linea == 0) {
                         _tama_Matriz = Integer.parseInt(linea[0]);
