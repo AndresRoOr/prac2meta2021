@@ -23,17 +23,17 @@ import org.apache.commons.lang3.StringUtils;
 public class Configurador {
 
     ///Atributos de la clase:
-    ArrayList<String> directoriosDatos;///<Almacena los directorios donde se 
+     ArrayList<String> directoriosDatos;///<Almacena los directorios donde se 
     ///encuentran los archivos con la información del problema
-    Long semilla;///<Semilla utilizada para generar número aleatorios
-    Integer evaluaciones;///<Número de iteraciones
-    Long recuperarSemilla;///<Almacena el valor inicial de la semilla
-    Integer elitismo;
-    Boolean cruceMpx;
-    Float probReproduccion;
-    Float probMutacion;
-    Float probMpx;
-    Integer numeroCromosomas;
+    private Long semilla;///<Semilla utilizada para generar número aleatorios
+    private Integer evaluaciones;///<Número de iteraciones
+    private Long recuperarSemilla;///<Almacena el valor inicial de la semilla
+    private Integer elitismo;
+    private Boolean cruceMpx;
+    private Float probReproduccion;
+    private Float probMutacion;
+    private Float probMpx;
+    private Integer numeroCromosomas;
 
 
     /**

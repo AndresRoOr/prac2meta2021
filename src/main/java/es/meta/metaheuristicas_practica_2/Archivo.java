@@ -23,11 +23,11 @@ import java.io.IOException;
 public final class Archivo {
 
     ///Atributos de la clase:
-    String _nombre;///<Nombre del objeto                                        
-    String _ruta;///<Ruta completa del archivo de datos
-    Integer _tama_Matriz;///<Tamaño de la matriz de datos
-    Integer _tama_Solucion;///<Tamaño de la solución             
-    float[][] _matriz;///<Matriz que almacena los datos del archivo
+    private String _nombre;///<Nombre del objeto                                        
+    private String _ruta;///<Ruta completa del archivo de datos
+    private Integer _tama_Matriz;///<Tamaño de la matriz de datos
+    private Integer _tama_Solucion;///<Tamaño de la solución             
+    private float[][] _matriz;///<Matriz que almacena los datos del archivo
 
     /**
      * @brief Constructor parametrizado de la clase Archivo

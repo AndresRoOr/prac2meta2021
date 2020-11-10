@@ -11,7 +11,7 @@ package es.meta.metaheuristicas_practica_2;
  */
 public final class Consola extends javax.swing.JFrame {
 
-    int eleccion;
+    private int eleccion;
     
     
     /**

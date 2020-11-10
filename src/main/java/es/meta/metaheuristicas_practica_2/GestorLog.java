@@ -21,8 +21,8 @@ public final class GestorLog {
 
     ///Atributos de la clase:
     private String _archiveName;
-    FileWriter fichero = null;
-    PrintWriter pw = null;
+    private FileWriter fichero = null;
+    private PrintWriter pw = null;
 
     /**
      * @brief Constructor parametrizado de la clase GestorLog

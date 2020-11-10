@@ -18,7 +18,7 @@ import java.util.Set;
  * @author David
  */
 public final class Genetico {
-
+  
     Archivo _archivoDatos;///<Contiene los datos del problema
     private GestorLog _gestor;///<Gestor encargado de la creación del Log
     int _elitismo;
@@ -103,7 +103,7 @@ public final class Genetico {
 
     }
 
-    void generarCromosomasIniciales(Random_p alea) {
+    private void generarCromosomasIniciales(Random_p alea) {
 
         int tamCromosoma = _archivoDatos.getTama_Solucion();
         for (int i = 0; i < _numeroCromosomas; i++) {
@@ -120,7 +120,7 @@ public final class Genetico {
         }
     }
 
-    void obtenerCostes(ArrayList<Set<Integer>> cromosomas, boolean ObtenerElite) {
+    private void obtenerCostes(ArrayList<Set<Integer>> cromosomas, boolean ObtenerElite) {
 
         float mejorCoste = 0.0f;
 
@@ -146,7 +146,7 @@ public final class Genetico {
         }
     }
 
-    float calcularCoste(Set<Integer> cromosoma) {
+    private float calcularCoste(Set<Integer> cromosoma) {
 
         float coste = 0.0f;
         Object[] sol = cromosoma.toArray();
@@ -162,7 +162,7 @@ public final class Genetico {
         return coste;
     }
 
-    void operadorSeleccion(Random_p ale) {
+    private void operadorSeleccion(Random_p ale) {
 
         for (int i = 0; i < _numeroCromosomas; i++) {
 
@@ -181,7 +181,7 @@ public final class Genetico {
         }
     }
 
-    void operadorReproduccion(Random_p alea) {
+    private void operadorReproduccion(Random_p alea) {
 
         //_cromosomasHijo = new ArrayList<>(_cromosomasPadre);
         if (_operadorMPX == true) {
@@ -281,7 +281,7 @@ public final class Genetico {
         }
     }
 
-    void operadorRepararCromosomas() {
+    private void operadorRepararCromosomas() {
 
         int numeroGenes = _archivoDatos.getTama_Solucion();
 
@@ -323,7 +323,7 @@ public final class Genetico {
         }
     }
 
-    void operadorMutación(Random_p ale) {
+    private void operadorMutación(Random_p ale) {
 
         for (Set<Integer> cromosoma : _cromosomasHijo) {
 
@@ -359,7 +359,7 @@ public final class Genetico {
         }
     }
 
-    void operadorElitismo() {
+    private void operadorElitismo() {
 
         ArrayList<Integer> indice = new ArrayList<>();
         ArrayList<Float> peoresCostes = new ArrayList<>();

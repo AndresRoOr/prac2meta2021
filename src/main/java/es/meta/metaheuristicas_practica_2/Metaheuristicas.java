@@ -23,11 +23,11 @@ import java.util.ArrayList;
 public final class Metaheuristicas {
 
     ///Atributos de la clase:
-    Configurador _config;///<Contiene los parámetros principales del programa
-    String _nombre;///<Nombre del objeto Metaheuristicas
-    ArrayList<Archivo> _archivos;///<Contiene el nombre de los archivos que 
+    private Configurador _config;///<Contiene los parámetros principales del programa
+    private String _nombre;///<Nombre del objeto Metaheuristicas
+    private ArrayList<Archivo> _archivos;///<Contiene el nombre de los archivos que 
     ///contienen los datos sobre los que hacer los cálculos
-    String _ruta_Carpeta_Archivos;///<Directorio que contiene los archivos
+    private String _ruta_Carpeta_Archivos;///<Directorio que contiene los archivos
 
     /**
      * @brief Constructor parametrizado de la clase Metaheuristicas
@@ -120,7 +120,7 @@ public final class Metaheuristicas {
 
                     double tiempo = t.stopTimer();
 
-                    Main.console.presentarSalida("Datos de la solución al problema: " + ar._nombre);
+                    Main.console.presentarSalida("Datos de la solución al problema: " + ar.getNombre());
                     Main.console.presentarSalida("Tiempo de ejecución del algoritmo: " + tiempo + " milisegundos");
 
                     g.PresentarResultados();
