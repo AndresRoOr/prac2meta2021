@@ -4,15 +4,15 @@
 		\begin{algorithm}[H]
 			\caption{Algoritmo Genético}
 			\begin{algorithmic}
-				\STATE $poblacion \leftarrow GeneraPoblacionInicial(semilla)$
+				\STATE $poblacionPadres \leftarrow GeneraPoblacionInicial(semilla)$
 				\WHILE{evaluacionesRelizadas$<$evaluacionesLimite}
-				\STATE Evaluacion(poblacion)
-				\STATE $elites \leftarrow SeleccionElites(poblacion)$
-				\STATE CruzarPoblacion(poblacion,semilla)
-				\STATE Reparar(poblacion)
-				\STATE MutarPoblacion(poblacion,semilla)
-				\STATE Evaluacion(poblacion)
-				\STATE ReemplazarElite(poblacion, elite)
+				\STATE Evaluacion(poblacionPadres)
+				\STATE $elites \leftarrow SeleccionElites(poblacionPadres)$
+				\STATE $poblacionHijos \leftarrow CruzarPoblacion(poblacionPadres,semilla)$
+				\STATE Reparar(poblacionHijos)
+				\STATE MutarPoblacion(poblacionHijos,semilla)
+				\STATE Evaluacion(poblacionHijos)
+				\STATE $poblacionPadres \leftarrow ReemplazarElite(poblacionHijos, elite)$
 				\ENDWHILE	
 			\end{algorithmic}
 		\end{algorithm}
@@ -20,6 +20,8 @@
 	\begin{algorithm}[H]
 		\caption{GeneraPoblacionInicial(semilla)}
 		\begin{algorithmic}
+			\STATE $individuo \leftarrow \emptyset$
+			\STATE $poblacion \leftarrow \emptyset$
 			\WHILE{tamañoPoblacion$<$numIndividuosPoblacion}
 			\WHILE{numGenesIndividuo$<$numGenesIndividuos)}
 			\STATE $genAleatorio \leftarrow GeneraEnteroAleatorio(semilla)$
@@ -29,6 +31,7 @@
 			\ENDWHILE
 			\STATE $poblacion \leftarrow poblacion\cup\{individuo\}$
 			\ENDWHILE
+			\RETURN poblacion
 		\end{algorithmic}
 	\end{algorithm}
 
@@ -45,15 +48,16 @@
 			\STATE $individuosElites \leftarrow \emptyset$
 			\STATE $mejor \leftarrow \emptyset$
 			\STATE $costeMejor \leftarrow 0$
-			\WHILE{tamañoIndividuosElites$<$numElites}
+			\WHILE{individuosElites.tamaño()$<$numElites}
 			\FOR{$individuo \in poblacion$ }
-			\IF{costeIndividuo$>$costeMejor$\wedge$$individuo \notin individuosElite$}
+			\IF{(individuo.coste$>$costeMejor)$\wedge$($individuo \notin individuosElite$)}
 			\STATE $mejor \leftarrow individuo$
-			\STATE $costemMejor \leftarrow costeIndividuo$
+			\STATE $costeMejor \leftarrow individuo.coste$
 			\ENDIF
 			\ENDFOR
 			\STATE $individuosElites \leftarrow individuosElites\cup\{mejor\}$
 			\ENDWHILE
+			\RETURN individuosElites
 		\end{algorithmic}
 	\end{algorithm}
 
@@ -78,6 +82,7 @@
 			\STATE $individuoSeleccionado \leftarrow SeleccionaIndividuo(poblacion,semilla)$
 			\STATE $poblacionHijos \leftarrow poblacionHijos\cup\{individuoSeleccionado\}$
 			\ENDWHILE
+			\RETURN poblacionHijos
 		\end{algorithmic}
 	\end{algorithm}
 
@@ -89,7 +94,7 @@
 			\WHILE{seleccionado1==seleccionado2}
 			\STATE $seleccionado2 \leftarrow GeneraEnteroAleatorio(semilla)$
 			\ENDWHILE
-			\IF{poblacion[seleccionado1] $>$ poblacion[seleccionado2]}
+			\IF{poblacion[seleccionado1].coste $>$ poblacion[seleccionado2].coste}
 			\RETURN poblacion[seleccionado1]
 			\ELSE
 			\RETURN poblacion[seleccionado2]
@@ -142,18 +147,71 @@
 		\begin{algorithmic}
 			
 			\FOR{$individuo \in poblacionHijos$}
-			\IF{!Factible(individuo)}
+			\IF{!FuncionSolucion(individuo)}
 			\IF{tamañoIndividuo$>$tamañoIndividuoProblema}
 			\WHILE{tamañoIndividuo$>$tamañoIndividuoProblema}
 			\STATE $elementoMenor \leftarrow CalcularAportes(individuo)$
 			\STATE $individuo \leftarrow individuo\{elementoMenor\}$
 			\ENDWHILE
 			\ELSIF{tamañoIndividuo$<$tamañoIndividuoProblema}
-			\STATE $elementoMayor \leftarrow CalcularMayorAporte()$
+			\STATE $elementoMayor \leftarrow CalcularMayorAporte(individuo)$
 			\STATE $individuo \leftarrow individuo\cup\{elementoMayor\}$
 			\ENDIF
 			\ENDIF
 			\ENDFOR
+		\end{algorithmic}
+	\end{algorithm}
+
+	\begin{algorithm}[H]
+		\caption{FuncionSolucion(individuo)}
+		\begin{algorithmic}
+			\FOR {i=0;i$<$numGenesIndividuo-1;i++}
+			\FOR {j=i+1;numGenesIndividuo;j++}
+			\IF{individuo[i]==individuo[j]}
+			\STATE $seRepite \leftarrow true$
+			\ENDIF
+			\ENDFOR
+			\STATE $numGenes \leftarrow numGenes+1$
+			\ENDFOR
+			\IF{numGenes!=numGenesIndividuo}
+			\STATE malTamaño $\leftarrow true$
+			\ENDIF
+			\RETURN !(malTamaño $\vee$ seRepite)
+			
+		\end{algorithmic}
+	\end{algorithm}
+
+	\begin{algorithm}[H]
+		\caption{CalcularAportes(individuo)}
+		\begin{algorithmic}
+			\STATE $aporte \leftarrow 0$
+			\STATE $listaAportes \leftarrow \emptyset$
+			\FOR {gen1 $\in$ individuo}
+			\FOR{gen2 $\in$ individuo}
+			\STATE $aporte \leftarrow aporte + matrizDistancias[gen1][gen2]$
+			\ENDFOR
+			\STATE AñadirAporte(gen1,aporte)
+			\ENDFOR
+			\STATE Sort(listaAportes)
+			\RETURN listaAportes[0]
+			
+		\end{algorithmic}
+	\end{algorithm}
+
+	\begin{algorithm}[H]
+		\caption{CalcularMayorAporte(individuo)}
+		\begin{algorithmic}
+			\STATE $aporte \leftarrow 0$
+			\STATE $listaAportes \leftarrow \emptyset$
+			\FOR {gen1 $\in$ matrizDatos}
+			\FOR{gen2 $\in$ matrizDatos}
+			\STATE $aporte \leftarrow aporte + matrizDistancias[gen1][gen2]$
+			\ENDFOR
+			\STATE AñadirAporte(gen1,aporte)
+			\ENDFOR
+			\STATE Sort(listaAportes)
+			\RETURN listaAportes[numGenesIndividuos-1]
+			
 		\end{algorithmic}
 	\end{algorithm}
 
@@ -177,6 +235,7 @@
 			\STATE $poblacionHijos[indice] \leftarrow elite$
 			\STATE $indice \leftarrow indice+1$
 			\ENDFOR
+			\RETURN poblacionHijos
 		\end{algorithmic}
 	\end{algorithm}
 	
