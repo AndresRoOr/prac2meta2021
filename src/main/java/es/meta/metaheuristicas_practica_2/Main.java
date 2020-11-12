@@ -33,7 +33,6 @@ public class Main {
      * @throws IOException
      */
     public static Consola console = new Consola();
-    public static int narchivos;
 
     public static void main(String[] args) throws IOException {
 
