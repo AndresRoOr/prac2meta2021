@@ -5,7 +5,6 @@
  */
 package es.meta.metaheuristicas_practica_2;
 
-import com.sun.codemodel.internal.JExpr;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -19,25 +18,25 @@ import java.util.Set;
  */
 public final class Genetico {
   
-    Archivo _archivoDatos;///<Contiene los datos del problema
-    private GestorLog _gestor;///<Gestor encargado de la creación del Log
-    int _elitismo;
-    boolean _operadorMPX;
-    int _evaluaciones;
-    int _evaluacionesObjetivo;
-    int _numeroCromosomas;
+    private final Archivo _archivoDatos;///<Contiene los datos del problema
+    private final GestorLog _gestor;///<Gestor encargado de la creación del Log
+    private final int _elitismo;
+    private final boolean _operadorMPX;
+    private int _evaluaciones;
+    private final int _evaluacionesObjetivo;
+    private final int _numeroCromosomas;
 
-    float _probMutacion;
-    float _probReproduccion;
-    float _probMpx;
+    private final float _probMutacion;
+    private final float _probReproduccion;
+    private final float _probMpx;
 
-    ArrayList<Set<Integer>> _cromosomas;
-    ArrayList<Set<Integer>> _cromosomasPadre;
-    ArrayList<Set<Integer>> _cromosomasHijo;
-    ArrayList<Float> _costes;
-    ArrayList<Boolean> recalcularCostes;
+    private ArrayList<Set<Integer>> _cromosomas;
+    private ArrayList<Set<Integer>> _cromosomasPadre;
+    private ArrayList<Set<Integer>> _cromosomasHijo;
+    private ArrayList<Float> _costes;
+    private ArrayList<Boolean> recalcularCostes;
 
-    ArrayList<Cromosomas> cromosomasElite;
+    private ArrayList<Cromosomas> cromosomasElite;
 
     public Genetico(Archivo _archivoDatos, GestorLog gestor, int evaluaciones, int Elitismo, boolean OperadorMPX, float probReini,
              float probMutacion, float probMpx) {
@@ -80,6 +79,12 @@ public final class Genetico {
         while (cromosomasElite.size() >= _elitismo) {
             cromosomasElite.remove(0);
         }
+        
+        _gestor.escribirArchivo("Cromosomas Iniciales: ");
+        
+        for(Set<Integer> cromosoma : _cromosomas){
+            _gestor.escribirArchivo(cromosoma.toString());
+        }
 
         _evaluaciones += 50;
 
@@ -93,7 +98,7 @@ public final class Genetico {
 
             operadorMutación(aleatorio);
 
-            obtenerCostes(_cromosomasHijo, false);
+            obtenerCostes(_cromosomasHijo, true);
 
             operadorElitismo();
 
@@ -136,10 +141,9 @@ public final class Genetico {
                 mejorCoste = coste;
 
                 if (ObtenerElite == true) {
+                    
                     if (mejorCoste > cromosomasElite.get(0).getContribucion()) {
-                        cromosomasElite.add(new Cromosomas(new HashSet<>(cromosoma), mejorCoste));
-                        Collections.sort(cromosomasElite);
-                        cromosomasElite.remove(0);
+                        cromosomasElite.add(0,new Cromosomas(new HashSet<>(cromosoma), mejorCoste));
                     }
                 }
             }
@@ -187,10 +191,10 @@ public final class Genetico {
         if (_operadorMPX == true) {
 
             int pos = 0;
-            int max = _archivoDatos.getTama_Solucion();
+            int max = _numeroCromosomas-1;
 
             while (_cromosomasHijo.size() < _numeroCromosomas) {
-
+                
                 float probRepro = (float) alea.Randfloat(0, 1);
 
                 int padre1 = pos;
@@ -222,8 +226,8 @@ public final class Genetico {
                 }
 
                 pos += 2;
-
-                if (pos == max) {
+                
+                if (pos >= max) {
                     pos = 0;
                 }
             }
@@ -291,24 +295,29 @@ public final class Genetico {
 
                 if (cromosoma.size() < numeroGenes) {
 
-                    ArrayList<ElementoSolucion> mejorAporte = new ArrayList<>();
-
-                    HashSet<Integer> cromosomaReparado = new HashSet<>(cromosoma);
-                    int tamMatrix = _archivoDatos.getTama_Matriz();
-
-                    for (int i = 0; i < tamMatrix; i++) {
-
-                        if (!cromosomaReparado.contains(i)) {
-                            float coste = calcularCoste(cromosomaReparado);
-                            mejorAporte.add(new ElementoSolucion(i, coste));
-                            cromosomaReparado.remove(i);
-                        }
-                    }
-
-                    Collections.sort(mejorAporte);
-
                     while (cromosoma.size() != numeroGenes) {
-                        cromosoma.add(mejorAporte.remove(mejorAporte.size() - 1).getId());
+                        
+                        float mejor = 0.0f;
+                        int elemento = 0;
+
+                        HashSet<Integer> cromosomaReparado = new HashSet<>(cromosoma);
+                        int tamMatrix = _archivoDatos.getTama_Matriz();
+
+                        for (int i = 0; i < tamMatrix; i++) {
+
+                            if (!cromosomaReparado.contains(i)) {
+                                float coste = calcularCoste(cromosomaReparado);
+                                
+                                if(coste > mejor){
+                                       mejor = coste;
+                                       elemento = 1;
+                                }
+                                cromosomaReparado.remove(i);
+                            }
+                        }
+
+                    
+                        cromosoma.add(elemento);
                     }
 
                     //Calcular mejor coste como en Greedy
@@ -317,10 +326,42 @@ public final class Genetico {
                     while (cromosoma.size() != numeroGenes) {
 
                         //Quitar los que menos aportan
+                        int elemento = CalcularMenorAporte(cromosoma);
+                        cromosoma.remove(elemento);
                     }
                 }
             }
         }
+    }
+    
+    private int CalcularMenorAporte(Set<Integer> cromosoma) {
+
+        float aporte = 0.0f;
+        Iterator<Integer> iterator = cromosoma.iterator();
+        float menorAporte = Float.MAX_VALUE;
+        int elemenor = -1;
+
+        while (iterator.hasNext()) {
+
+            Iterator<Integer> iterator2 = cromosoma.iterator();
+            int i = iterator.next();
+
+            while (iterator2.hasNext()) {
+
+                int j = iterator2.next();
+                aporte += _archivoDatos.getMatriz()[i][j];
+
+            }
+
+            if (aporte < menorAporte) {
+                menorAporte = aporte;
+                elemenor = i;
+            }
+
+            aporte = 0.0f;
+        }
+
+        return elemenor;
     }
 
     private void operadorMutación(Random_p ale) {
@@ -378,12 +419,16 @@ public final class Genetico {
 
         _gestor.escribirArchivo("");
         _gestor.escribirArchivo("Resultados");
+        _gestor.escribirArchivo("Cromosomas finales:");
+        for(Set<Integer> cromosoma : _cromosomas){
+            _gestor.escribirArchivo(cromosoma.toString());
+        }
         _gestor.escribirArchivo("");
-        _gestor.escribirArchivo("Mejor coste: " + cromosomasElite.get(cromosomasElite.size() - 1).getContribucion());
-
+        _gestor.escribirArchivo("Mejor coste: " + cromosomasElite.get(0).getContribucion() );
+        
+        Main.console.presentarSalida("Mejor Coste:  " + cromosomasElite.get(0).getContribucion() );
         Main.console.presentarSalida("");
-
-        System.out.println("");
+        
     }
 
 }

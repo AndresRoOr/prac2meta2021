@@ -79,16 +79,14 @@ public class Main {
             switch (console.getEleccion()) {
 
                 case 1:
-
                     M1.genetico();
                     break;
-
+                    
                 case 4:
                     System.exit(0);
 
             }
-
-            
+                    
 
             console.restaurarEleccion();
         }

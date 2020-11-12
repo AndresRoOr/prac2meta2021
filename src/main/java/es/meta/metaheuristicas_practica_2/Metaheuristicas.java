@@ -120,7 +120,7 @@ public final class Metaheuristicas {
 
                     double tiempo = t.stopTimer();
 
-                    Main.console.presentarSalida("Datos de la solución al problema: " + ar.getNombre());
+                    Main.console.presentarSalida("Datos de la solución al problema: " + ar.getNombre() + ", con SEMILLA: " + _config.getSemilla());
                     Main.console.presentarSalida("Tiempo de ejecución del algoritmo: " + tiempo + " milisegundos");
 
                     g.PresentarResultados();
