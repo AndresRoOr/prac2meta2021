@@ -63,6 +63,7 @@ public class Configurador {
                             directoriosDatos.add(v[i]);
                         }
                         break;
+                        
                     case "Semilla":
                         semilla = Long.parseLong(split[1]);
                         recuperarSemilla = semilla;
@@ -86,7 +87,6 @@ public class Configurador {
                     case "Probabilidad de reproduccion":
                         probReproduccion = Float.parseFloat(split[1]);
                         break;  
-                        
                         
                     case "Cromosomas":
                         numeroCromosomas = Integer.parseInt(split[1]);
@@ -144,8 +144,7 @@ public class Configurador {
     public Integer getEvaluaciones() {
         return evaluaciones;
     }
-    
-    
+      
      public Integer getElitismo() {
         return elitismo;
     }

@@ -9,9 +9,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Random;
 import java.util.Set;
-import javafx.print.Collation;
 
 /**
  *
@@ -42,12 +40,11 @@ public final class Genetico {
     private ArrayList<Cromosomas> cromosomasElite;
 
     public Genetico(Archivo _archivoDatos, GestorLog gestor, int evaluaciones, int Elitismo, boolean OperadorMPX, float probReini,
-             float probMutacion, float probMpx) {
+             float probMutacion, float probMpx, int numeroCromosomas) {
         this._archivoDatos = _archivoDatos;
         this._gestor = gestor;
         this._elitismo = Elitismo;
         this._operadorMPX = OperadorMPX;
-
         this._probMutacion = probMutacion;
         this._probReproduccion = probReini;
         this._probMpx = probMpx;
@@ -55,7 +52,7 @@ public final class Genetico {
         this._evaluaciones = 0;
         this._evaluacionesObjetivo = evaluaciones;
 
-        this._numeroCromosomas = 50;
+        this._numeroCromosomas = numeroCromosomas;
         
         this._vcromosomas = new ArrayList<>();
         this._vcromosomasPadre = new ArrayList<>();
@@ -309,10 +306,14 @@ public final class Genetico {
 
                 if (cromosoma.size() < numeroGenes) {
 
+                    boolean opti = false;
+                    float coste = 0.0f;
                     while (cromosoma.size() != numeroGenes) {
                                      
-                        int elemento = CalcularMayorAporte(cromosoma);
-                        cromosoma.add(elemento);
+                        Pair seleccionado = CalcularMayorAporte(cromosoma,true,coste);
+                        cromosoma.add(seleccionado.getCandidato());
+                        coste = seleccionado.getCoste();
+                        opti = true;
                     }
 
                     //Calcular mejor coste como en Greedy
@@ -328,7 +329,7 @@ public final class Genetico {
         }
     }
     
-    private int CalcularMayorAporte(Set<Integer> cromosoma){
+    private Pair CalcularMayorAporte(Set<Integer> cromosoma, boolean optimizado, float costeAcumulado){
         
         float mejor = 0.0f;
         int elemento = 0;
@@ -340,18 +341,37 @@ public final class Genetico {
 
             if (!cromosomaReparado.contains(i)) {
 
-                cromosomaReparado.add(i);
-                float coste = calcularCoste(cromosomaReparado);
+                if(Boolean.FALSE.equals(optimizado)){
+                    cromosomaReparado.add(i);
+                    float coste = calcularCoste(cromosomaReparado);
 
-                if(coste > mejor){
-                       mejor = coste;
-                       elemento = i;
+                    if(coste > mejor){
+                           mejor = coste;
+                           elemento = i;
+                    }
+                    cromosomaReparado.remove(i);
+                }else{
+                    
+                    float costeMas = 0.0f;
+                    float coste;
+                    Iterator<Integer> iterator = cromosoma.iterator();
+                 
+                    while (iterator.hasNext()) {
+                        int k = iterator.next();
+                        costeMas += _archivoDatos.getMatriz()[k][i];
+                    }
+                    
+                    coste = costeMas + costeAcumulado;
+                    
+                    if(coste > mejor){
+                        mejor = coste;
+                        elemento = i;
+                    }
                 }
-                cromosomaReparado.remove(i);
             }
         }
-        
-        return elemento;
+      
+        return new Pair(elemento, mejor);
     }
     
     private int CalcularMenorAporte(Set<Integer> cromosoma) {
@@ -460,16 +480,18 @@ public final class Genetico {
         _gestor.escribirArchivo("");
         _gestor.escribirArchivo("Resultados");
         _gestor.escribirArchivo("Cromosomas finales:");
+        
         for(Cromosomas cromosoma: _vcromosomas){
             _gestor.escribirArchivo(cromosoma.getCromosoma().toString());
         }
+        
+        float coste = calcularCoste(_mejorCromosoma.getCromosoma());
         _gestor.escribirArchivo("");
-        _gestor.escribirArchivo("Mejor coste: " + _mejorCromosoma.getContribucion() );
-        _gestor.escribirArchivo("Mejor cromosoma: " + _mejorCromosoma.getContribucion());
-        _gestor.escribirArchivo("Tamaño: " + _mejorCromosoma.getContribucion());
+        _gestor.escribirArchivo("Mejor coste: " + coste );
+        _gestor.escribirArchivo("Mejor cromosoma: " + _mejorCromosoma.getCromosoma());
+        _gestor.escribirArchivo("Tamaño: " + coste);
         
         Main.console.presentarSalida("Mejor Coste:  " + _mejorCromosoma.getContribucion() );
-        Main.console.presentarSalida("Tamaño: " + _mejorCromosoma.getContribucion());
         Main.console.presentarSalida("");
         
     }
