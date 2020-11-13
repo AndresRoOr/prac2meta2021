@@ -28,6 +28,10 @@ public final class Genetico {
     private final float _probMutacion;
     private final float _probReproduccion;
     private final float _probMpx;
+    
+    private final boolean _generacional;
+    
+    private int generacion;
 
     //private ArrayList<Float> _costes;
     
@@ -43,7 +47,7 @@ public final class Genetico {
              float probMutacion, float probMpx, int numeroCromosomas) {
         this._archivoDatos = _archivoDatos;
         this._gestor = gestor;
-        this._elitismo = Elitismo;
+        
         this._operadorMPX = OperadorMPX;
         this._probMutacion = probMutacion;
         this._probReproduccion = probReini;
@@ -61,14 +65,26 @@ public final class Genetico {
         this.cromosomasElite = new ArrayList<>();
         
         this._mejorCromosoma = new  Cromosomas(new HashSet<Integer>(), 0.0f);
+        
+        if( Elitismo == 0 ){
+            _elitismo = 1;
+            _generacional = true;
+        }else{
+              this._elitismo = Elitismo;
+              this._generacional = false;
+        }
+        
+        generacion = 1;
 
     }
 
     void genetico(Random_p aleatorioSemilla) {
-
+        
         Random_p aleatorio = aleatorioSemilla;
 
         generarCromosomasIniciales(aleatorio);
+        
+        registroConfiguración();
     
         cromosomasElite.add(new Cromosomas(_vcromosomas.get(0).getCromosoma(), _vcromosomas.get(0).getContribucion()));
 
@@ -76,12 +92,7 @@ public final class Genetico {
 
         Collections.sort(cromosomasElite);
         
-        /*_gestor.escribirArchivo("Cromosomas Iniciales: ");
         
-        for(Cromosomas cromosoma : _vcromosomas){
-            _gestor.escribirArchivo(cromosoma.getCromosoma().toString());
-        }*/
-
         while (_evaluaciones < _evaluacionesObjetivo) {
 
             operadorSeleccion(aleatorio);
@@ -95,6 +106,8 @@ public final class Genetico {
             obtenerCostes(_vcromosomasHijo, false);
 
             operadorElitismo();
+            
+            generacion++;
 
         }
         
@@ -430,21 +443,45 @@ public final class Genetico {
             Cromosoma.setCromosoma(cromosoma);
         }
     }
+    
+    private void registroConfiguración(){
+        
+        _gestor.escribirArchivo("Cromosomas Iniciales: ");
+        
+        for(Cromosomas cromosoma : _vcromosomas){
+            _gestor.escribirArchivo(cromosoma.getCromosoma().toString());
+        }
+        
+    }
+    
+    private void registroElites(){
+        _gestor.escribirArchivo("");
+        _gestor.escribirArchivo("Generación: " + generacion + ", "+ _elitismo + " mejores individuos de la población");
+        for(Cromosomas cromosoma : cromosomasElite){
+            _gestor.escribirArchivo(cromosoma.getCromosoma().toString());
+        }
+    }
 
     private void operadorElitismo() {
         
-        for (Cromosomas Mejores : cromosomasElite){
-            _vcromosomasHijo.add(new Cromosomas(Mejores));
+        if(_generacional == false){
+            for(Cromosomas Mejores : cromosomasElite){
+                _vcromosomasHijo.add(new Cromosomas(Mejores));
+            }
         }
+        
         Collections.sort(_vcromosomasHijo);
         
         while(_vcromosomasHijo.size()>_numeroCromosomas){
             _vcromosomasHijo.remove(0);
         }
         int i = 1;
+        
+        
         for(Cromosomas elite : cromosomasElite){
             elite.setCromosoma(_vcromosomasHijo.get(_numeroCromosomas-i).getCromosoma());
             elite.setContribucion(_vcromosomasHijo.get(_numeroCromosomas-i).getContribucion());
+            i++;
         }
         
         _vcromosomas.clear();
@@ -453,12 +490,13 @@ public final class Genetico {
         _vcromosomasHijo.clear();
         _vcromosomasPadre.clear();
         
-        Collections.sort(cromosomasElite);
         
-        if(cromosomasElite.get(_elitismo-1).getContribucion() > _mejorCromosoma.getContribucion()){
-            _mejorCromosoma = new Cromosomas(cromosomasElite.get(_elitismo-1));
+        if(cromosomasElite.get(0).getContribucion() > _mejorCromosoma.getContribucion()){
+            _mejorCromosoma = new Cromosomas(cromosomasElite.get(0));
         }
-
+        
+        
+        registroElites();
     }
 
     void PresentarResultados() {
