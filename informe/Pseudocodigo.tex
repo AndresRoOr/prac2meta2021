@@ -17,6 +17,8 @@
 			\end{algorithmic}
 		\end{algorithm}
 	
+	\paragraph{}La primera acción que se realiza en la función principal es la generación de un conjunto de individuos aleatorios que se almacenará en la variable global "poblacionPadres". La función encargada de realizar esta labor es "GeneraPoblacionInicial(semilla)"
+	
 	\begin{algorithm}[H]
 		\caption{GeneraPoblacionInicial(semilla)}
 		\begin{algorithmic}
@@ -30,10 +32,25 @@
 			\ENDIF
 			\ENDWHILE
 			\STATE $poblacion \leftarrow poblacion\cup\{individuo\}$
+			\STATE $individuo \leftarrow \emptyset$
 			\ENDWHILE
 			\RETURN poblacion
 		\end{algorithmic}
 	\end{algorithm}
+
+	\paragraph{}Inicializamos las variables "individuo" y "poblacion". La variable "individuo" se utilizará como contenedor de todos los genes que se vayan generando aleatoriamente, se inicializa como un conjunto vacío. "poblacion" irá almacenando cada uno de los individuos generados, se inicializa como un conjunto vacío.
+	
+	\paragraph{}Hasta que "poblacion" no contenga el número de individuos especificado como parámetro del programa hacemos lo siguiente:
+	
+	\paragraph{}Generamos un genotipo aleatorio haciendo uso de la función "GeneraEnteroAleatorio(semilla)" y lo almacenamos en la variable local "genAleatorio".
+	
+	\paragraph{}Comprobamos que "genAleatorio" no se encuentre ya contenido dentro de "individuo" y lo añadimos en el caso de que cumpla con esta condición.
+	
+	\paragraph{}Repetimos la generación aleatoria de genotipos hasta que el número de los mismos contenido en "individuo" se corresponda con el número de genotipos pasado como parámetro del programa.
+	
+	\paragraph{}Cuando "individuo" tiene el número de genes deseado, se añade a "poblacion" y acto seguido se modifica el valor de "individuo" a vacío para dar paso a la generación de otro "individuo" nuevo.
+	
+	\paragraph{}Una vez tengamos hayamos completado "poblacion", la devolvemos como resultado de la ejecución de la función.
 
 	\begin{algorithm}[H]
 		\caption{Evaluacion(poblacion)}
