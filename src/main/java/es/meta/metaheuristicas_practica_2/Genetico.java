@@ -11,6 +11,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Random;
 import java.util.Set;
+import javafx.print.Collation;
 
 /**
  *
@@ -36,6 +37,7 @@ public final class Genetico {
     private ArrayList<Cromosomas> _vcromosomasPadre;
     private ArrayList<Cromosomas> _vcromosomasHijo;
     
+    private Cromosomas _mejorCromosoma;
 
     private ArrayList<Cromosomas> cromosomasElite;
 
@@ -58,9 +60,10 @@ public final class Genetico {
         this._vcromosomas = new ArrayList<>();
         this._vcromosomasPadre = new ArrayList<>();
         this._vcromosomasHijo = new ArrayList<>();
-        
-        //this._costes = new ArrayList<>();
+
         this.cromosomasElite = new ArrayList<>();
+        
+        this._mejorCromosoma = new  Cromosomas(new HashSet<Integer>(), 0.0f);
 
     }
 
@@ -92,7 +95,7 @@ public final class Genetico {
 
             operadorMutación(aleatorio);
 
-            obtenerCostes(_vcromosomasHijo, true);
+            obtenerCostes(_vcromosomasHijo, false);
 
             operadorElitismo();
 
@@ -127,7 +130,7 @@ public final class Genetico {
 
         for (Cromosomas cromosoma : cromosomas) {
 
-            if(cromosoma.isRecalcular() == true){
+            if(cromosoma.isRecalcular() == true || cromosoma.getContribucion() == 0.0f){
                 float coste = calcularCoste(cromosoma.getCromosoma());
                 cromosoma.setContribucion(coste);
                 _evaluaciones++;
@@ -139,7 +142,6 @@ public final class Genetico {
                     if (ObtenerElite == true) {
 
                         if (mejorCoste > cromosomasElite.get(0).getContribucion()) {
-                            cromosomasElite.remove(0);
                             cromosomasElite.add(0,new Cromosomas(new HashSet<>(cromosoma.getCromosoma()), mejorCoste));
                             Collections.sort(cromosomasElite);
                             if(cromosomasElite.size()> _elitismo){
@@ -257,13 +259,10 @@ public final class Genetico {
         }
     }
     
-    private void operadorCruceMPX(Random_p alea){
-        
-        int max = _numeroCromosomas-1;
+    private void operadorCruceMPX(Random_p alea){       
 
-        for (int i = 0; i < _numeroCromosomas || _vcromosomasHijo.size() < _numeroCromosomas ; i += 2) {
-
-            if (i >= max)  i = 0;        
+        for (int i = 0; i <= _numeroCromosomas && _vcromosomasHijo.size() < _numeroCromosomas ; i += 2) {
+    
             float probRepro = (float) alea.Randfloat(0, 1);
 
             int padre1 = i;
@@ -293,6 +292,8 @@ public final class Genetico {
                     _vcromosomasHijo.add(new Cromosomas(_vcromosomasPadre.get(padre2).getCromosoma(),0.0f));
                 }
             }
+            
+            if (i == _numeroCromosomas-2)  i =0;
         }
     }
 
@@ -398,6 +399,7 @@ public final class Genetico {
 
                 if (probabilidad < _probMutacion) {
 
+                    Cromosoma.setRecalcular(true);
                     alelosMutados.add(gen);
 
                     boolean reemplazo = false;
@@ -424,19 +426,32 @@ public final class Genetico {
     }
 
     private void operadorElitismo() {
-
-        ArrayList<Integer> indice = new ArrayList<>();
-        ArrayList<Float> peoresCostes = new ArrayList<>();
-
-        // Eliminamos los peores cromosomas por los mejores de los
-        // no seleccionados
         
+        for (Cromosomas Mejores : cromosomasElite){
+            _vcromosomasHijo.add(new Cromosomas(Mejores));
+        }
+        Collections.sort(_vcromosomasHijo);
+        
+        while(_vcromosomasHijo.size()>_numeroCromosomas){
+            _vcromosomasHijo.remove(0);
+        }
+        int i = 1;
+        for(Cromosomas elite : cromosomasElite){
+            elite.setCromosoma(_vcromosomasHijo.get(_numeroCromosomas-i).getCromosoma());
+            elite.setContribucion(_vcromosomasHijo.get(_numeroCromosomas-i).getContribucion());
+        }
         
         _vcromosomas.clear();
         _vcromosomas = new ArrayList<>(_vcromosomasHijo);
 
         _vcromosomasHijo.clear();
         _vcromosomasPadre.clear();
+        
+        Collections.sort(cromosomasElite);
+        
+        if(cromosomasElite.get(_elitismo-1).getContribucion() > _mejorCromosoma.getContribucion()){
+            _mejorCromosoma = new Cromosomas(cromosomasElite.get(_elitismo-1));
+        }
 
     }
 
@@ -449,12 +464,12 @@ public final class Genetico {
             _gestor.escribirArchivo(cromosoma.getCromosoma().toString());
         }
         _gestor.escribirArchivo("");
-        _gestor.escribirArchivo("Mejor coste: " + cromosomasElite.get(0).getContribucion() );
-        _gestor.escribirArchivo("Mejor cromosoma: " + cromosomasElite.get(0).getCromosoma());
-        _gestor.escribirArchivo("Tamaño: " + cromosomasElite.get(0).getCromosoma());
+        _gestor.escribirArchivo("Mejor coste: " + _mejorCromosoma.getContribucion() );
+        _gestor.escribirArchivo("Mejor cromosoma: " + _mejorCromosoma.getContribucion());
+        _gestor.escribirArchivo("Tamaño: " + _mejorCromosoma.getContribucion());
         
-        Main.console.presentarSalida("Mejor Coste:  " + cromosomasElite.get(0).getContribucion() );
-        Main.console.presentarSalida("Tamaño: " + cromosomasElite.get(0).getCromosoma().size());
+        Main.console.presentarSalida("Mejor Coste:  " + _mejorCromosoma.getContribucion() );
+        Main.console.presentarSalida("Tamaño: " + _mejorCromosoma.getContribucion());
         Main.console.presentarSalida("");
         
     }
