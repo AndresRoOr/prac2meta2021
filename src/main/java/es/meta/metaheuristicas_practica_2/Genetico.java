@@ -100,6 +100,8 @@ public final class Genetico {
         
         _vcromosomasHijo.clear();
         _vcromosomasPadre.clear();
+        _vcromosomas.clear();
+        cromosomasElite.clear();
 
     }
 
@@ -306,17 +308,12 @@ public final class Genetico {
 
                 if (cromosoma.size() < numeroGenes) {
 
-                    boolean opti = false;
-                    float coste = 0.0f;
                     while (cromosoma.size() != numeroGenes) {
-                                     
-                        Pair seleccionado = CalcularMayorAporte(cromosoma,true,coste);
-                        cromosoma.add(seleccionado.getCandidato());
-                        coste = seleccionado.getCoste();
-                        opti = true;
+                        //Calcular mejor coste como en Greedy      
+                        int gen = CalcularMayorAporte(cromosoma);
+                        cromosoma.add(gen);
                     }
 
-                    //Calcular mejor coste como en Greedy
                 } else {
 
                     while (cromosoma.size() != numeroGenes) {
@@ -329,7 +326,7 @@ public final class Genetico {
         }
     }
     
-    private Pair CalcularMayorAporte(Set<Integer> cromosoma, boolean optimizado, float costeAcumulado){
+    private int CalcularMayorAporte(Set<Integer> cromosoma){
         
         float mejor = 0.0f;
         int elemento = 0;
@@ -340,38 +337,27 @@ public final class Genetico {
         for (int i = 0; i < tamMatrix; i++) {
 
             if (!cromosomaReparado.contains(i)) {
+  
+                float costeMas = 0.0f;
+                float coste;
+                Iterator<Integer> iterator = cromosoma.iterator();
 
-                if(Boolean.FALSE.equals(optimizado)){
-                    cromosomaReparado.add(i);
-                    float coste = calcularCoste(cromosomaReparado);
-
-                    if(coste > mejor){
-                           mejor = coste;
-                           elemento = i;
-                    }
-                    cromosomaReparado.remove(i);
-                }else{
-                    
-                    float costeMas = 0.0f;
-                    float coste;
-                    Iterator<Integer> iterator = cromosoma.iterator();
-                 
-                    while (iterator.hasNext()) {
-                        int k = iterator.next();
-                        costeMas += _archivoDatos.getMatriz()[k][i];
-                    }
-                    
-                    coste = costeMas + costeAcumulado;
-                    
-                    if(coste > mejor){
-                        mejor = coste;
-                        elemento = i;
-                    }
+                while (iterator.hasNext()) {
+                    int k = iterator.next();
+                    costeMas += _archivoDatos.getMatriz()[k][i];
                 }
+
+                coste = costeMas;
+
+                if(coste > mejor){
+                    mejor = coste;
+                    elemento = i;
+                }
+                
             }
         }
       
-        return new Pair(elemento, mejor);
+        return elemento;
     }
     
     private int CalcularMenorAporte(Set<Integer> cromosoma) {
