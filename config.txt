@@ -1,8 +1,8 @@
-Datos=archivos/Datos/GKD
+Datos=archivos/Datos/SOM
 Semilla=77356084
 Evaluaciones=50000
 Elitismo=3
-OperadorMPX=false
+OperadorMPX=true
 Probabilidad de mutacion=0.05
 Probabilidad de reproduccion=0.70
 Cromosomas=50

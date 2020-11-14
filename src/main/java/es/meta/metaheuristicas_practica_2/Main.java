@@ -33,6 +33,7 @@ public class Main {
      * @throws IOException
      */
     public static Consola console = new Consola();
+    public static GestorLog gestor = new GestorLog("");
 
     public static void main(String[] args) throws IOException {
 
@@ -43,6 +44,7 @@ public class Main {
         }
 
         Configurador config = new Configurador("./config.txt");
+        GestorLog gestor = new GestorLog("");
 
         ArrayList<File> directorios = new ArrayList<>();
         directorios.add(new File("./archivos"));
@@ -78,15 +80,12 @@ public class Main {
             switch (console.getEleccion()) {
 
                 case 1:
+                    
                     M1.genetico();
                     break;
-                    
-                case 4:
-                    System.exit(0);
-
+                   
             }
                     
-
             console.restaurarEleccion();
         }
         System.exit(0);

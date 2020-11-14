@@ -139,7 +139,6 @@ public final class Genetico {
 
         float mejorCoste = 0.0f;
 
-
         for (Cromosomas cromosoma : cromosomas) {
 
             if(cromosoma.isRecalcular() == true || cromosoma.getContribucion() == 0.0f){
@@ -445,13 +444,10 @@ public final class Genetico {
     }
     
     private void registroConfiguración(){
-        
         _gestor.escribirArchivo("Cromosomas Iniciales: ");
-        
         for(Cromosomas cromosoma : _vcromosomas){
             _gestor.escribirArchivo(cromosoma.getCromosoma().toString());
         }
-        
     }
     
     private void registroElites(){
@@ -475,9 +471,8 @@ public final class Genetico {
         while(_vcromosomasHijo.size()>_numeroCromosomas){
             _vcromosomasHijo.remove(0);
         }
+        
         int i = 1;
-        
-        
         for(Cromosomas elite : cromosomasElite){
             elite.setCromosoma(_vcromosomasHijo.get(_numeroCromosomas-i).getCromosoma());
             elite.setContribucion(_vcromosomasHijo.get(_numeroCromosomas-i).getContribucion());
@@ -490,11 +485,9 @@ public final class Genetico {
         _vcromosomasHijo.clear();
         _vcromosomasPadre.clear();
         
-        
         if(cromosomasElite.get(0).getContribucion() > _mejorCromosoma.getContribucion()){
             _mejorCromosoma = new Cromosomas(cromosomasElite.get(0));
-        }
-        
+        }    
         
         registroElites();
     }
@@ -503,11 +496,6 @@ public final class Genetico {
 
         _gestor.escribirArchivo("");
         _gestor.escribirArchivo("Resultados");
-        _gestor.escribirArchivo("Cromosomas finales:");
-        
-        for(Cromosomas cromosoma: _vcromosomas){
-            _gestor.escribirArchivo(cromosoma.getCromosoma().toString());
-        }
         
         float coste = calcularCoste(_mejorCromosoma.getCromosoma());
         _gestor.escribirArchivo("");
@@ -519,5 +507,4 @@ public final class Genetico {
         Main.console.presentarSalida("");
         
     }
-
 }
