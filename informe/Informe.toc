@@ -28,22 +28,29 @@
 \contentsline {paragraph}{}{4}{section*.15}%
 \contentsline {paragraph}{}{4}{section*.16}%
 \contentsline {paragraph}{}{4}{section*.17}%
-\contentsline {paragraph}{}{5}{section*.18}%
+\contentsline {paragraph}{}{4}{section*.18}%
 \contentsline {paragraph}{}{5}{section*.19}%
 \contentsline {paragraph}{}{5}{section*.20}%
 \contentsline {paragraph}{}{5}{section*.21}%
 \contentsline {paragraph}{}{5}{section*.22}%
-\contentsline {section}{\numberline {4}Experimentos y análisis de resultados}{9}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Procedimiento de desarrollo de la práctica}{9}{subsection.4.1}%
-\contentsline {paragraph}{}{9}{section*.23}%
-\contentsline {subsubsection}{\numberline {4.1.1}Equipo de pruebas}{9}{subsubsection.4.1.1}%
-\contentsline {paragraph}{}{9}{section*.24}%
-\contentsline {subsubsection}{\numberline {4.1.2}Manual de usuario}{9}{subsubsection.4.1.2}%
-\contentsline {paragraph}{}{9}{section*.25}%
-\contentsline {paragraph}{}{10}{section*.26}%
-\contentsline {subsection}{\numberline {4.2}Parámetros de los algoritmos}{10}{subsection.4.2}%
-\contentsline {subsubsection}{\numberline {4.2.1}Genetico}{10}{subsubsection.4.2.1}%
-\contentsline {subsubsection}{\numberline {4.2.2}Semillas}{10}{subsubsection.4.2.2}%
-\contentsline {paragraph}{}{10}{section*.27}%
-\contentsline {paragraph}{}{10}{section*.28}%
-\contentsline {subsection}{\numberline {4.3}Análisis de los resultados}{10}{subsection.4.3}%
+\contentsline {paragraph}{}{5}{section*.23}%
+\contentsline {paragraph}{}{5}{section*.24}%
+\contentsline {paragraph}{}{5}{section*.25}%
+\contentsline {paragraph}{}{6}{section*.26}%
+\contentsline {paragraph}{}{6}{section*.27}%
+\contentsline {paragraph}{}{6}{section*.28}%
+\contentsline {paragraph}{}{6}{section*.29}%
+\contentsline {section}{\numberline {4}Experimentos y análisis de resultados}{10}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Procedimiento de desarrollo de la práctica}{10}{subsection.4.1}%
+\contentsline {paragraph}{}{10}{section*.30}%
+\contentsline {subsubsection}{\numberline {4.1.1}Equipo de pruebas}{10}{subsubsection.4.1.1}%
+\contentsline {paragraph}{}{10}{section*.31}%
+\contentsline {subsubsection}{\numberline {4.1.2}Manual de usuario}{10}{subsubsection.4.1.2}%
+\contentsline {paragraph}{}{10}{section*.32}%
+\contentsline {paragraph}{}{11}{section*.33}%
+\contentsline {subsection}{\numberline {4.2}Parámetros de los algoritmos}{11}{subsection.4.2}%
+\contentsline {subsubsection}{\numberline {4.2.1}Genetico}{11}{subsubsection.4.2.1}%
+\contentsline {subsubsection}{\numberline {4.2.2}Semillas}{11}{subsubsection.4.2.2}%
+\contentsline {paragraph}{}{11}{section*.34}%
+\contentsline {paragraph}{}{11}{section*.35}%
+\contentsline {subsection}{\numberline {4.3}Análisis de los resultados}{11}{subsection.4.3}%

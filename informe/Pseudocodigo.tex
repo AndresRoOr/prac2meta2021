@@ -19,6 +19,12 @@
 	
 	\paragraph{}La primera acción que se realiza en la función principal es la generación de un conjunto de individuos aleatorios que se almacenará en la variable global "poblacionPadres". La función encargada de realizar esta labor es "GeneraPoblacionInicial(semilla)"
 	
+	\paragraph{}Damos paso a la ejecución de un bucle while hasta que alcancemos el número de evaluaciones objetivo. Este número de evaluaciones lo indica la variable "evaluacionesLimite", parámetro del programa.
+	
+	\paragraph{}Lo primero que realizamos dentro del bucle while es calcular los costes de todos y cada uno de los individuos pertenecientes a "poblacionPadres". Esta tarea sera encomendada a la función "Evaluacion(poblacionPadre)".
+	
+	\paragraph{} Cuando ya dispongamos de los costes calculados de todos los individuos de "poblacionPadres", lo siguiente que debemos hacer es guardar en "elites" los individuos élites que nos indique "numElites" (parámetro del programa). La función "SeleccionElites(poblacionPadres)" será la encargada de realizar esta tarea.
+	
 	\begin{algorithm}[H]
 		\caption{GeneraPoblacionInicial(semilla)}
 		\begin{algorithmic}
@@ -77,6 +83,14 @@
 			\RETURN individuosElites
 		\end{algorithmic}
 	\end{algorithm}
+
+	\paragraph{}El primer paso de todos es inicializar las variables locales "individuosElites", "mejor" y "costeMejor". "individuosElites" es un vector encargado de ir almacenando los mejores individuos de "población" que se encuentren, se inicializa como un conjunto vacío. "mejor" se utiliza para ir almacenan uno a uno los individuos de "poblacion" que presenten un mejor coste para guardarlos posteriormente en "individuosElites", su valor se inicia como vacío. "costeMejor" guarda el coste del mejor individuo encontrado hasta el momento para poder comparar con el resto de individuos de "poblacion", su valor se inicia a cero.
+	
+	\paragraph{}El algoritmo de la función realiza un bucle for hasta que el tamaño de "individuosElites" se corresponda con "numElites", es decir, el número de individuos elites que se guardan. El valor de "numElites" se deberá pasar como parámetro del programa.
+	
+	\paragraph{}El bucle for consiste en recorrer todos los individuos de "poblacion" y, si el coste de "individuo" mejora a "mejorCoste" y no ha sido introducido aún en "individuosElites", se actualizan los valores de "mejor" y "mejorCoste" con los datos del individuo. Cuando se termina el bucle for se introduce el mejor individuo encontrado en esa iteración del bucle while en "individuosElites".
+	
+	\paragraph{}Una vez que hayamos completado "individuosElites", lo devolvemos como resultado de la ejecución de la función.
 
 	\begin{algorithm}[H]
 		\caption{CruzarPoblacion(poblacion,semilla)}
