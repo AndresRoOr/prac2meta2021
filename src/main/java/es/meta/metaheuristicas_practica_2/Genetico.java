@@ -235,14 +235,8 @@ public final class Genetico {
                 int crosspoint1 = alea.Randint(1, _archivoDatos.getTama_Solucion() - 2);
                 int crosspoint2 = alea.Randint(1, _archivoDatos.getTama_Solucion() - 2);
 
-                if (crosspoint1 == crosspoint2) {
-                    crosspoint1--;
-                }
-
-                if (crosspoint2 < crosspoint1) {
-                    int temp = crosspoint1;
-                    crosspoint1 = crosspoint2;
-                    crosspoint2 = temp;
+                while(crosspoint1 == crosspoint2){
+                    crosspoint2 = alea.Randint(1, _archivoDatos.getTama_Solucion() - 2);
                 }
 
                 Iterator<Integer> iterator = _vcromosomasPadre.get(i).getCromosoma().iterator();

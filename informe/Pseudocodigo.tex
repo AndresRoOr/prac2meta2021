@@ -4,20 +4,20 @@
 		\begin{algorithm}[H]
 			\caption{Algoritmo Genético}
 			\begin{algorithmic}
-				\STATE $poblacionPadres \leftarrow GeneraPoblacionInicial(semilla)$
-				\WHILE{evaluacionesRelizadas$<$evaluacionesLimite}
+				\STATE $poblacion \leftarrow GeneraPoblacionInicial(semilla)$
 				\STATE Evaluacion(poblacionPadres)
-				\STATE $elites \leftarrow SeleccionElites(poblacionPadres)$
-				\STATE $poblacionHijos \leftarrow CruzarPoblacion(poblacionPadres,semilla)$
-				\STATE Reparar(poblacionHijos)
-				\STATE MutarPoblacion(poblacionHijos,semilla)
-				\STATE Evaluacion(poblacionHijos)
-				\STATE $poblacionPadres \leftarrow ReemplazarElite(poblacionHijos, elite)$
+				\WHILE{evaluacionesRelizadas$<$evaluacionesLimite}
+					\STATE $poblacionPadres \leftarrow SeleccionaPoblacion(poblacion,semilla)$
+					\STATE $poblacionHijos \leftarrow CruzarPoblacion(poblacionPadres,semilla)$
+					\STATE Reparar(poblacionHijos)
+					\STATE MutarPoblacion(poblacionHijos,semilla)
+					\STATE Evaluacion(poblacionHijos)
+					\STATE $poblacionPadres \leftarrow ReemplazarElite(poblacionHijos, elite)$
 				\ENDWHILE	
 			\end{algorithmic}
 		\end{algorithm}
 	
-	\paragraph{}La primera acción que se realiza en la función principal es la generación de un conjunto de individuos aleatorios que se almacenará en la variable global "poblacionPadres". La función encargada de realizar esta labor es "GeneraPoblacionInicial(semilla)"
+	\paragraph{}La primera acción que se realiza en la función principal es la generación de un conjunto de individuos aleatorios que se almacenará en la variable global "poblacion". La función encargada de realizar esta labor es "GeneraPoblacionInicial(semilla)"
 	
 	\begin{algorithm}[H]
 		\caption{GeneraPoblacionInicial(semilla)}
@@ -25,15 +25,15 @@
 			\STATE $individuo \leftarrow \emptyset$
 			\STATE $poblacion \leftarrow \emptyset$
 			\WHILE{tamañoPoblacion$<$numIndividuosPoblacion}
-			\WHILE{numGenesIndividuo$<$numGenesIndividuos)}
-			\STATE $genAleatorio \leftarrow GeneraEnteroAleatorio(semilla)$
-			\IF{$genAleatorio \notin individuo$}
-			\STATE $individuo \leftarrow individuo\cup\{genAleatorio\}$
-			\ENDIF
-			\ENDWHILE
-			\STATE $poblacion \leftarrow poblacion\cup\{individuo\}$
-			\STATE $individuo \leftarrow \emptyset$
-			\ENDWHILE
+				\WHILE{numGenesIndividuo$<$numGenesIndividuos)}
+					\STATE $genAleatorio \leftarrow GeneraEnteroAleatorio(semilla)$
+					\IF{$genAleatorio \notin individuo$}
+						\STATE $individuo \leftarrow individuo\cup\{genAleatorio\}$
+					\ENDIF
+				\ENDWHILE
+				\STATE $poblacion \leftarrow poblacion\cup\{individuo\}$
+				\STATE $individuo \leftarrow \emptyset$
+				\ENDWHILE
 			\RETURN poblacion
 		\end{algorithmic}
 	\end{algorithm}
@@ -120,39 +120,72 @@
 	\end{algorithm}
 
 	\begin{algorithm}[H]
-		\caption{RealizarCruceMPX(poblacionHijos)}
+		\caption{RealizarCruceMPX(poblacionPadres)}
 		\begin{algorithmic}
-			\STATE
+			\FOR{i=0; i$<$tamañoPoblación \& TamañoPoblacionHijos $<$ tamañoPoblación; i+=2}
+				\STATE $probRepro \leftarrow GeneraFloatAleatorio(semilla)$
+				\STATE $padre1 \leftarrow i$
+				\STATE $padre2 \leftarrow i+1$
+				\IF{probRepro $<$ probabilidadReproducción }
+					\STATE $hijo \leftarrow \emptyset $
+					\FOR{gen in padre1}
+					
+						\STATE $prob \leftarrow GeneraFloatAleatorio(semilla)$
+						\IF{prob $<$ probabilidadMPX}
+							\STATE $hijo \leftarrow hijo\cup gen$
+						\ENDIF
+					\ENDFOR
+					\FOR{gen in padre2}
+						\STATE $hijo \leftarrow hijo\cup gen$
+					\ENDFOR
+					\STATE $poblacionHijos \leftarrow poblacionHijos\cup\{hijo\}$
+				\ELSE
+					\STATE $poblacionHijos \leftarrow poblacionHijos\cup\{padre1\}$
+					\IF{TamañoPoblación}
+						\STATE $poblacionHijos \leftarrow poblacionHijos\cup\{padre2\}$
+					\ENDIF
+				\ENDIF
+				\IF{i $==$ TamañoPoblación -2}
+					\STATE i $\leftarrow$ 0
+				\ENDIF
+			\ENDFOR
+			\RETURN poblacionHijos
 			
 		\end{algorithmic}
 	\end{algorithm}
 
 	\begin{algorithm}[H]
-		\caption{RealizarCruce2p(poblacionHijos)}
+		\caption{RealizarCruce2p(poblacionPadres)}
 		\begin{algorithmic}
 			
-			\FOR{i=0; i$<$49; i+=2}
-			\STATE $corte1 \leftarrow GeneraEnteroAleatorio(semilla)$
-			\STATE $corte2 \leftarrow GeneraEnteroAleatorio(semilla)$
-			\STATE $padre1 \leftarrow poblacionPadre[i]$
-			\STATE $padre2 \leftarrow poblacionPadre[i+1]$
-			\WHILE{corte1==corte2}
-			\STATE $corte2 \leftarrow GeneraEnteroAleatorio(semilla)$
-			\ENDWHILE
-			\FOR{j=0;j$<$corte1;j++}
-			\STATE $hijo1 \leftarrow hijo1\cup padre1.getGen[j]$
-			\STATE $hijo2 \leftarrow hijo2\cup padre2.getGen[j]$
-			\ENDFOR
-			\FOR{j=corte1;j$<$corte2;j++}
-			\STATE $hijo1 \leftarrow hijo1\cup padre2.getGen[j]$
-			\STATE $hijo2 \leftarrow hijo2\cup padre1.getGen[j]$
-			\ENDFOR
-			\FOR{j=corte2;j$<$tamañoIndividuo;j++}
-			\STATE $hijo1 \leftarrow hijo1\cup padre1.getGen[j]$
-			\STATE $hijo2 \leftarrow hijo2\cup padre2.getGen[j]$
-			\ENDFOR
-			\STATE $poblacionHijos \leftarrow poblacionHijos\cup\{hijo1\}$
-			\STATE $poblacionHijos \leftarrow poblacionHijos\cup\{hijo2\}$
+			\FOR{i=0; i$<$tamañoPoblación; i+=2}
+				\STATE $probRepro \leftarrow GeneraFloatAleatorio(semilla)$
+				\IF{probRepro $<$ probabilidadReproducción }
+					\STATE $corte1 \leftarrow GeneraEnteroAleatorio(semilla)$
+					\STATE $corte2 \leftarrow GeneraEnteroAleatorio(semilla)$
+					\STATE $padre1 \leftarrow poblacionPadres[i]$
+					\STATE $padre2 \leftarrow poblacionPadres[i+1]$
+					\WHILE{corte1==corte2}
+						\STATE $corte2 \leftarrow GeneraEnteroAleatorio(semilla)$
+					\ENDWHILE
+					\FOR{j=0;j$<$corte1;j++}
+						\STATE $hijo1 \leftarrow hijo1\cup padre1.getGen[j]$
+						\STATE $hijo2 \leftarrow hijo2\cup padre2.getGen[j]$
+					\ENDFOR
+					\FOR{j=corte1;j$<$corte2;j++}
+						\STATE $hijo1 \leftarrow hijo1\cup padre2.getGen[j]$
+						\STATE $hijo2 \leftarrow hijo2\cup padre1.getGen[j]$
+					\ENDFOR
+					\FOR{j=corte2;j$<$tamañoIndividuo;j++}
+						\STATE $hijo1 \leftarrow hijo1\cup padre1.getGen[j]$
+						\STATE $hijo2 \leftarrow hijo2\cup padre2.getGen[j]$
+					\ENDFOR
+					\STATE $poblacionHijos \leftarrow poblacionHijos\cup\{hijo1\}$
+					\STATE $poblacionHijos \leftarrow poblacionHijos\cup\{hijo2\}$
+				\ELSE
+					\STATE $poblacionHijos \leftarrow poblacionHijos\cup\{poblacionPadres[i]\}$
+					\STATE $poblacionHijos \leftarrow poblacionHijos\cup\{poblacionPadres[i+1]\}$
+				\ENDIF
 			\ENDFOR
 			\RETURN poblacionHijos
 			
