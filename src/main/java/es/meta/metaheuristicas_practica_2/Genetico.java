@@ -158,7 +158,7 @@ public final class Genetico {
                     if (ObtenerElite == true) {
 
                         if (mejorCoste > cromosomasElite.get(0).getContribucion()) {
-                            cromosomasElite.add(0,new Cromosomas(new HashSet<>(cromosoma.getCromosoma()), mejorCoste));
+                            cromosomasElite.add(new Cromosomas(new HashSet<>(cromosoma.getCromosoma()), mejorCoste));
                             Collections.sort(cromosomasElite);
                             if(cromosomasElite.size()> _elitismo){
                                 cromosomasElite.remove(0);
