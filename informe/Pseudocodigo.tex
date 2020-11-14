@@ -53,9 +53,23 @@
 	\paragraph{}Una vez tengamos hayamos completado "poblacion", la devolvemos como resultado de la ejecución de la función.
 
 	\begin{algorithm}[H]
-		\caption{Evaluacion(poblacion)}
+		\caption{Evaluacion(poblacion,obtenerElite)}
 		\begin{algorithmic}
-			\STATE
+			\STATE $mejorCoste \leftarrow 0$
+			\FOR {$cromosoma \in poblacion$}
+				\IF{$cromosomaRecalcular != true$}
+					\STATE $ coste \leftarrow EvaluarSolucion(cromosoma)$
+					\STATE $ cromosomaCoste \leftarrow coste$
+					\STATE $ evalucionesRealizadas \leftarrow evaluacionesRelizadas + 1$
+					\IF{$coste > mejorCoste$}
+						\STATE $ mejorCoste \leftarrow coste $
+						\IF{$obtenerElite == true$}
+							\STATE $individuosElite \leftarrow individuosElite \cup cromosoma $
+							\STATE $individuosElite \leftarrow individuosElite - peorIndivididuoElite$
+						\ENDIF 
+					\ENDIF 
+				\ENDIF
+			\ENDFOR
 		\end{algorithmic}
 	\end{algorithm}
 
@@ -122,11 +136,11 @@
 	\begin{algorithm}[H]
 		\caption{RealizarCruceMPX(poblacionPadres)}
 		\begin{algorithmic}
-			\FOR{i=0; i$<$tamañoPoblación \& TamañoPoblacionHijos $<$ tamañoPoblación; i+=2}
+			\FOR{i=0; i$<$tamañoPoblación \& TamañoPoblacionHijos $<$ tamañoPoblacion; i+=2}
 				\STATE $probRepro \leftarrow GeneraFloatAleatorio(semilla)$
 				\STATE $padre1 \leftarrow i$
 				\STATE $padre2 \leftarrow i+1$
-				\IF{probRepro $<$ probabilidadReproducción }
+				\IF{probRepro $<$ probabilidadReproduccion }
 					\STATE $hijo \leftarrow \emptyset $
 					\FOR{gen in padre1}
 					
@@ -141,11 +155,11 @@
 					\STATE $poblacionHijos \leftarrow poblacionHijos\cup\{hijo\}$
 				\ELSE
 					\STATE $poblacionHijos \leftarrow poblacionHijos\cup\{padre1\}$
-					\IF{TamañoPoblación}
+					\IF{TamañoPoblacionHijos $<$ tamañoPoblación }
 						\STATE $poblacionHijos \leftarrow poblacionHijos\cup\{padre2\}$
 					\ENDIF
 				\ENDIF
-				\IF{i $==$ TamañoPoblación -2}
+				\IF{i $==$ tamañoPoblacion -2}
 					\STATE i $\leftarrow$ 0
 				\ENDIF
 			\ENDFOR
