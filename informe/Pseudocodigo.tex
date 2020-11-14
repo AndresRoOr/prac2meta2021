@@ -1,1 +1,258 @@
 	\section{Pseudocódigo}
+	
+	
+		\begin{algorithm}[H]
+			\caption{Algoritmo Genético}
+			\begin{algorithmic}
+				\STATE $poblacionPadres \leftarrow GeneraPoblacionInicial(semilla)$
+				\WHILE{evaluacionesRelizadas$<$evaluacionesLimite}
+				\STATE Evaluacion(poblacionPadres)
+				\STATE $elites \leftarrow SeleccionElites(poblacionPadres)$
+				\STATE $poblacionHijos \leftarrow CruzarPoblacion(poblacionPadres,semilla)$
+				\STATE Reparar(poblacionHijos)
+				\STATE MutarPoblacion(poblacionHijos,semilla)
+				\STATE Evaluacion(poblacionHijos)
+				\STATE $poblacionPadres \leftarrow ReemplazarElite(poblacionHijos, elite)$
+				\ENDWHILE	
+			\end{algorithmic}
+		\end{algorithm}
+	
+	\paragraph{}La primera acción que se realiza en la función principal es la generación de un conjunto de individuos aleatorios que se almacenará en la variable global "poblacionPadres". La función encargada de realizar esta labor es "GeneraPoblacionInicial(semilla)"
+	
+	\begin{algorithm}[H]
+		\caption{GeneraPoblacionInicial(semilla)}
+		\begin{algorithmic}
+			\STATE $individuo \leftarrow \emptyset$
+			\STATE $poblacion \leftarrow \emptyset$
+			\WHILE{tamañoPoblacion$<$numIndividuosPoblacion}
+			\WHILE{numGenesIndividuo$<$numGenesIndividuos)}
+			\STATE $genAleatorio \leftarrow GeneraEnteroAleatorio(semilla)$
+			\IF{$genAleatorio \notin individuo$}
+			\STATE $individuo \leftarrow individuo\cup\{genAleatorio\}$
+			\ENDIF
+			\ENDWHILE
+			\STATE $poblacion \leftarrow poblacion\cup\{individuo\}$
+			\STATE $individuo \leftarrow \emptyset$
+			\ENDWHILE
+			\RETURN poblacion
+		\end{algorithmic}
+	\end{algorithm}
+
+	\paragraph{}Inicializamos las variables "individuo" y "poblacion". La variable "individuo" se utilizará como contenedor de todos los genes que se vayan generando aleatoriamente, se inicializa como un conjunto vacío. "poblacion" irá almacenando cada uno de los individuos generados, se inicializa como un conjunto vacío.
+	
+	\paragraph{}Hasta que "poblacion" no contenga el número de individuos especificado como parámetro del programa hacemos lo siguiente:
+	
+	\paragraph{}Generamos un genotipo aleatorio haciendo uso de la función "GeneraEnteroAleatorio(semilla)" y lo almacenamos en la variable local "genAleatorio".
+	
+	\paragraph{}Comprobamos que "genAleatorio" no se encuentre ya contenido dentro de "individuo" y lo añadimos en el caso de que cumpla con esta condición.
+	
+	\paragraph{}Repetimos la generación aleatoria de genotipos hasta que el número de los mismos contenido en "individuo" se corresponda con el número de genotipos pasado como parámetro del programa.
+	
+	\paragraph{}Cuando "individuo" tiene el número de genes deseado, se añade a "poblacion" y acto seguido se modifica el valor de "individuo" a vacío para dar paso a la generación de otro "individuo" nuevo.
+	
+	\paragraph{}Una vez tengamos hayamos completado "poblacion", la devolvemos como resultado de la ejecución de la función.
+
+	\begin{algorithm}[H]
+		\caption{Evaluacion(poblacion)}
+		\begin{algorithmic}
+			\STATE
+		\end{algorithmic}
+	\end{algorithm}
+
+	\begin{algorithm}[H]
+		\caption{SeleccionElites(poblacion)}
+		\begin{algorithmic}
+			\STATE $individuosElites \leftarrow \emptyset$
+			\STATE $mejor \leftarrow \emptyset$
+			\STATE $costeMejor \leftarrow 0$
+			\WHILE{individuosElites.tamaño()$<$numElites}
+			\FOR{$individuo \in poblacion$ }
+			\IF{(individuo.coste$>$costeMejor)$\wedge$($individuo \notin individuosElite$)}
+			\STATE $mejor \leftarrow individuo$
+			\STATE $costeMejor \leftarrow individuo.coste$
+			\ENDIF
+			\ENDFOR
+			\STATE $individuosElites \leftarrow individuosElites\cup\{mejor\}$
+			\ENDWHILE
+			\RETURN individuosElites
+		\end{algorithmic}
+	\end{algorithm}
+
+	\begin{algorithm}[H]
+		\caption{CruzarPoblacion(poblacion,semilla)}
+		\begin{algorithmic}
+			\STATE $poblacionHijos \leftarrow SeleccionaPoblacion(poblacion,semilla)$
+			\IF{tipoCruceMPX}
+			\STATE $poblacionHijos \leftarrow RealizaCruceMPX(poblacionHijos)$
+			\ELSE
+			\STATE $poblacionHijos \leftarrow RelizaCruce2p(poblacionHijos)$
+			\ENDIF
+			\RETURN poblacionHijos
+			
+		\end{algorithmic}
+	\end{algorithm}
+
+	\begin{algorithm}[H]
+		\caption{SeleccionaPoblacion(poblacion,semilla)}
+		\begin{algorithmic}
+			\WHILE{tamañoPoblacionHijos$<$numHijos}
+			\STATE $individuoSeleccionado \leftarrow SeleccionaIndividuo(poblacion,semilla)$
+			\STATE $poblacionHijos \leftarrow poblacionHijos\cup\{individuoSeleccionado\}$
+			\ENDWHILE
+			\RETURN poblacionHijos
+		\end{algorithmic}
+	\end{algorithm}
+
+	\begin{algorithm}[H]
+		\caption{SeleccionaIndividuo(poblacion,semilla)}
+		\begin{algorithmic}
+			\STATE $seleccionado1 \leftarrow GeneraEnteroAleatorio(semilla)$
+			\STATE $seleccionado2 \leftarrow GeneraEnteroAleatorio(semilla)$
+			\WHILE{seleccionado1==seleccionado2}
+			\STATE $seleccionado2 \leftarrow GeneraEnteroAleatorio(semilla)$
+			\ENDWHILE
+			\IF{poblacion[seleccionado1].coste $>$ poblacion[seleccionado2].coste}
+			\RETURN poblacion[seleccionado1]
+			\ELSE
+			\RETURN poblacion[seleccionado2]
+			\ENDIF
+		\end{algorithmic}
+	\end{algorithm}
+
+	\begin{algorithm}[H]
+		\caption{RealizarCruceMPX(poblacionHijos)}
+		\begin{algorithmic}
+			\STATE
+			
+		\end{algorithmic}
+	\end{algorithm}
+
+	\begin{algorithm}[H]
+		\caption{RealizarCruce2p(poblacionHijos)}
+		\begin{algorithmic}
+			
+			\FOR{i=0; i$<$49; i+=2}
+			\STATE $corte1 \leftarrow GeneraEnteroAleatorio(semilla)$
+			\STATE $corte2 \leftarrow GeneraEnteroAleatorio(semilla)$
+			\STATE $padre1 \leftarrow poblacionPadre[i]$
+			\STATE $padre2 \leftarrow poblacionPadre[i+1]$
+			\WHILE{corte1==corte2}
+			\STATE $corte2 \leftarrow GeneraEnteroAleatorio(semilla)$
+			\ENDWHILE
+			\FOR{j=0;j$<$corte1;j++}
+			\STATE $hijo1 \leftarrow hijo1\cup padre1.getGen[j]$
+			\STATE $hijo2 \leftarrow hijo2\cup padre2.getGen[j]$
+			\ENDFOR
+			\FOR{j=corte1;j$<$corte2;j++}
+			\STATE $hijo1 \leftarrow hijo1\cup padre2.getGen[j]$
+			\STATE $hijo2 \leftarrow hijo2\cup padre1.getGen[j]$
+			\ENDFOR
+			\FOR{j=corte2;j$<$tamañoIndividuo;j++}
+			\STATE $hijo1 \leftarrow hijo1\cup padre1.getGen[j]$
+			\STATE $hijo2 \leftarrow hijo2\cup padre2.getGen[j]$
+			\ENDFOR
+			\STATE $poblacionHijos \leftarrow poblacionHijos\cup\{hijo1\}$
+			\STATE $poblacionHijos \leftarrow poblacionHijos\cup\{hijo2\}$
+			\ENDFOR
+			\RETURN poblacionHijos
+			
+		\end{algorithmic}
+	\end{algorithm}
+
+	\begin{algorithm}[H]
+		\caption{Reparar(poblacionHijos)}
+		\begin{algorithmic}
+			
+			\FOR{$individuo \in poblacionHijos$}
+			\IF{!FuncionSolucion(individuo)}
+			\IF{tamañoIndividuo$>$tamañoIndividuoProblema}
+			\WHILE{tamañoIndividuo$>$tamañoIndividuoProblema}
+			\STATE $elementoMenor \leftarrow CalcularAportes(individuo)$
+			\STATE $individuo \leftarrow individuo\{elementoMenor\}$
+			\ENDWHILE
+			\ELSIF{tamañoIndividuo$<$tamañoIndividuoProblema}
+			\STATE $elementoMayor \leftarrow CalcularMayorAporte(individuo)$
+			\STATE $individuo \leftarrow individuo\cup\{elementoMayor\}$
+			\ENDIF
+			\ENDIF
+			\ENDFOR
+		\end{algorithmic}
+	\end{algorithm}
+
+	\begin{algorithm}[H]
+		\caption{FuncionSolucion(individuo)}
+		\begin{algorithmic}
+			\FOR {i=0;i$<$numGenesIndividuo-1;i++}
+			\FOR {j=i+1;numGenesIndividuo;j++}
+			\IF{individuo[i]==individuo[j]}
+			\STATE $seRepite \leftarrow true$
+			\ENDIF
+			\ENDFOR
+			\STATE $numGenes \leftarrow numGenes+1$
+			\ENDFOR
+			\IF{numGenes!=numGenesIndividuo}
+			\STATE malTamaño $\leftarrow true$
+			\ENDIF
+			\RETURN !(malTamaño $\vee$ seRepite)
+			
+		\end{algorithmic}
+	\end{algorithm}
+
+	\begin{algorithm}[H]
+		\caption{CalcularAportes(individuo)}
+		\begin{algorithmic}
+			\STATE $aporte \leftarrow 0$
+			\STATE $listaAportes \leftarrow \emptyset$
+			\FOR {gen1 $\in$ individuo}
+			\FOR{gen2 $\in$ individuo}
+			\STATE $aporte \leftarrow aporte + matrizDistancias[gen1][gen2]$
+			\ENDFOR
+			\STATE AñadirAporte(gen1,aporte)
+			\ENDFOR
+			\STATE Sort(listaAportes)
+			\RETURN listaAportes[0]
+			
+		\end{algorithmic}
+	\end{algorithm}
+
+	\begin{algorithm}[H]
+		\caption{CalcularMayorAporte(individuo)}
+		\begin{algorithmic}
+			\STATE $aporte \leftarrow 0$
+			\STATE $listaAportes \leftarrow \emptyset$
+			\FOR {gen1 $\in$ matrizDatos}
+			\FOR{gen2 $\in$ matrizDatos}
+			\STATE $aporte \leftarrow aporte + matrizDistancias[gen1][gen2]$
+			\ENDFOR
+			\STATE AñadirAporte(gen1,aporte)
+			\ENDFOR
+			\STATE Sort(listaAportes)
+			\RETURN listaAportes[numGenesIndividuos-1]
+			
+		\end{algorithmic}
+	\end{algorithm}
+
+	\begin{algorithm}[H]
+		\caption{Mutar(poblacionHijos,semilla)}
+		\begin{algorithmic}
+			\FOR{$individuo \in poblacionHijos$}
+			\STATE $posMuta \leftarrow GeneraEnteroAleatorio(semilla)$
+			\STATE $eleMutado \leftarrow GeneraEnteroAleatorio(semilla)$
+			\STATE Intercambia(individuo,posMuta,eleMutado)
+			\ENDFOR
+		\end{algorithmic}
+	\end{algorithm}
+
+	\begin{algorithm}[H]
+		\caption{ReemplazarElite(poblacionHijos,elites)}
+		\begin{algorithmic}
+			\STATE Sort(poblacionHijos)
+			\STATE $indice \leftarrow 0$
+			\FOR{$elite \in elites$}
+			\STATE $poblacionHijos[indice] \leftarrow elite$
+			\STATE $indice \leftarrow indice+1$
+			\ENDFOR
+			\RETURN poblacionHijos
+		\end{algorithmic}
+	\end{algorithm}
+	

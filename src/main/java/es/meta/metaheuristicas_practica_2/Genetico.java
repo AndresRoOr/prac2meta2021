@@ -1,7 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * @file    Genetico.java
+ * @author Andrés Rojas Ortega
+ * @author David Díaz Jiménez
+ * @version 1.0
+ * @date 13/11/2020
  */
 package es.meta.metaheuristicas_practica_2;
 
@@ -12,8 +14,11 @@ import java.util.Iterator;
 import java.util.Set;
 
 /**
- *
- * @author David
+ * @brief Clase que implementa toda la funcionalidad del algoritmo genético
+ * @class Genetico
+ * @author Andrés Rojas Ortega
+ * @author David Díaz Jiménez
+ * @date 13/11/2020
  */
 public final class Genetico {
   
