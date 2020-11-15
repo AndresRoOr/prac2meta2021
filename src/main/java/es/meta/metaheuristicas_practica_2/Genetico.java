@@ -157,6 +157,70 @@ public class Genetico {
         
         _cromosomas.clear();
     }
+    
+    /**
+     * @brief Realiza el cruce de la poblacion utilizando el operador de cruce
+     * en dos puntos.
+     * @author David Díaz Jiménez
+     * @author Andrés Rojas Ortega
+     * @date 15/11/2020
+     * @param alea Random_p Utilizado para generar números pseudoaleatorios
+     */
+    private void operadorCruce2puntos(Random_p alea){
+
+        //Recorremos el vector por parejas de padres
+        for (int i = 0; i < _numeroCromosomas-1; i += 2) {
+
+            //Comprobamos si debemos realizar el cruce para la preja
+            float probRepro = (float) alea.Randfloat(0, 1);
+
+            if (probRepro <= _probReproduccion) {
+
+                HashSet<Integer> hijo1 = new HashSet<>();
+                HashSet<Integer> hijo2 = new HashSet<>();
+
+                //Generamos los puntos de corte aleatoriamente
+                int crosspoint1 = alea.Randint(1, _archivoDatos.getTama_Solucion() - 2);
+                int crosspoint2 = alea.Randint(1, _archivoDatos.getTama_Solucion() - 2);
+
+                //Comprobamos que los puntos de corte no coincidan
+                while(crosspoint1 == crosspoint2){
+                    crosspoint2 = alea.Randint(1, _archivoDatos.getTama_Solucion() - 2);
+                }
+
+                //Realizamos el cruce
+                Iterator<Integer> iterator = _cromosomasPadre.get(i).getCromosoma().iterator();
+                Iterator<Integer> iterator1 = _cromosomasPadre.get(i+1).getCromosoma().iterator();
+
+                int length = _archivoDatos.getTama_Solucion();
+                for (int j = 0; j < length; j++) {
+
+                    if (j < crosspoint1 || j > crosspoint2) {
+                        hijo1.add(iterator.next());
+                        hijo2.add(iterator1.next());
+                    } else {
+                        hijo1.add(iterator1.next());
+                        hijo2.add(iterator.next());
+                    }
+                }
+
+                //Almacenamos los hijos generados
+                _cromosomasHijo.add(new Cromosomas(hijo1,0.0f,true));
+                _cromosomasHijo.add(new Cromosomas(hijo2,0.0f,true));
+
+            } else {
+
+                //Guardamos los padres sin cruzar como resultado del cruce
+                
+                Cromosomas hijo1 = _cromosomasPadre.get(i);
+                Cromosomas hijo2 = _cromosomasPadre.get(i+1);
+
+                _cromosomasHijo.add(new Cromosomas(hijo1.getCromosoma(),hijo1.getContribucion()));
+                _cromosomasHijo.add(new Cromosomas(hijo2.getCromosoma(),hijo2.getContribucion()));
+
+            }
+        }
+    }
 
     void PresentarResultados() {
 
