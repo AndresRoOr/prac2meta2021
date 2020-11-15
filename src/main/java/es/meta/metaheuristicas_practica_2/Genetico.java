@@ -113,7 +113,7 @@ public class Genetico {
      * @author David Díaz Jiménez
      * @author Andrés Rojas Ortega
      * @date 15/11/2020
-     * @param alea Random_p Utilizado para generar números aleatorios
+     * @param alea Random_p Utilizado para generar números pseudoaleatorios
      */
     private void operadorReproduccion(Random_p alea) {
 
@@ -126,7 +126,36 @@ public class Genetico {
             operadorCruce2puntos(alea);
         }
         
-        _vcromosomasPadre.clear();
+        _cromosomasPadre.clear();
+    }
+    
+    /**
+     * @brief Selecciona el conjunto de individuos que se reproduciran en la
+     * generación actual aplicando torneo binario.
+     * @author David Díaz Jiménez
+     * @author Andrés Rojas Ortega
+     * @date 15/11/2020
+     * @param ale Random_p Utilizado para generar números pseudoaleatoios
+     */
+    private void operadorSeleccion(Random_p ale) {
+
+        for (int i = 0; i < _numeroCromosomas; i++) {
+
+            int candidato1 = ale.Randint(0, _numeroCromosomas - 1);
+            int candidato2 = ale.Randint(0, _numeroCromosomas - 1);
+
+            while (candidato1 == candidato2) {
+                candidato2 = ale.Randint(0, _numeroCromosomas - 1);
+            }
+
+            if (_cromosomas.get(candidato1).getContribucion() > _cromosomas.get(candidato2).getContribucion()) {
+                _cromosomasPadre.add(new Cromosomas(_cromosomas.get(candidato1)));
+            } else {
+                _cromosomasPadre.add(new Cromosomas(_cromosomas.get(candidato2)));;
+            }
+        }
+        
+        _cromosomas.clear();
     }
 
     void PresentarResultados() {
