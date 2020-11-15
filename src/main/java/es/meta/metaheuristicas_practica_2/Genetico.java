@@ -8,10 +8,18 @@
 package es.meta.metaheuristicas_practica_2;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * @brief Clase que implementa toda la funcionalidad del algoritmo genético
@@ -21,6 +29,66 @@ import java.util.Set;
  * @date 13/11/2020
  */
 public final class Genetico {
+    
+    private class CostTask implements Callable<ArrayList<Cromosomas>> {
+
+        private ArrayList<Cromosomas> Cromosomas;
+        private final int empieza;
+        private final  int termina;
+
+        public CostTask(ArrayList<Cromosomas> cromosomas,int empie, int termi) {
+            Cromosomas = new ArrayList<>(cromosomas);
+            empieza = empie;
+            termina = termi;
+
+        }
+        
+        @Override
+        public ArrayList<Cromosomas> call() throws Exception {
+            int numeroGenes = _archivoDatos.getTama_Solucion();
+
+            ArrayList<Cromosomas> cromosomaReparado = new ArrayList<>();
+            int i = 0;
+            for (Cromosomas Cromosoma : Cromosomas) {
+
+                if(i >= empieza && i<= termina){
+
+                    Set<Integer> cromosoma = Cromosoma.getCromosoma();
+
+                    if (cromosoma.size() != numeroGenes) {
+
+                        if (cromosoma.size() < numeroGenes) {
+
+                            while (cromosoma.size() != numeroGenes) {
+                                //Calcular mejor coste como en Greedy      
+                                int gen = CalcularMayorAporte(cromosoma);
+                                cromosoma.add(gen);
+                            }
+                            
+                            cromosomaReparado.add(new Cromosomas(Cromosoma));
+
+                        } else {
+
+                            while (cromosoma.size() != numeroGenes) {
+                                //Quitar los que menos aportan
+                                int elemento = CalcularMenorAporte(cromosoma);
+                                cromosoma.remove(elemento);
+                            }
+                            
+                            cromosomaReparado.add(new Cromosomas(Cromosoma));
+                        }
+                    }else{
+                        cromosomaReparado.add(new Cromosomas(Cromosoma));
+                    }
+                    i++;
+                }else{
+                    i++;
+                }
+            }
+            return cromosomaReparado;
+        }
+    
+    }
   
     private final Archivo _archivoDatos;///<Contiene los datos del problema
     private final GestorLog _gestor;///<Gestor encargado de la creación del Log
@@ -47,6 +115,8 @@ public final class Genetico {
     private Cromosomas _mejorCromosoma;
 
     private ArrayList<Cromosomas> cromosomasElite;
+    
+    ExecutorService exec = Executors.newFixedThreadPool(2);
 
     public Genetico(Archivo _archivoDatos, GestorLog gestor, int evaluaciones, int Elitismo, boolean OperadorMPX, float probReini,
              float probMutacion, float probMpx, int numeroCromosomas) {
@@ -104,7 +174,7 @@ public final class Genetico {
 
             operadorReproduccion(aleatorio);
 
-            operadorRepararCromosomas();
+            repararConcurrente();
 
             operadorMutación(aleatorio);
 
@@ -185,7 +255,7 @@ public final class Genetico {
         }
         return coste;
     }
-
+    
     private void operadorSeleccion(Random_p ale) {
 
         for (int i = 0; i < _numeroCromosomas; i++) {
@@ -337,6 +407,36 @@ public final class Genetico {
         }
     }
     
+    private void repararConcurrente(){
+        
+        Future<ArrayList<Cromosomas>> future = null;
+        Future<ArrayList<Cromosomas>> future2 = null;
+
+        int tam = (_numeroCromosomas)/2-1;
+        future = exec.submit(new CostTask(_vcromosomasHijo,0,tam));
+        future2 = exec.submit(new CostTask(_vcromosomasHijo,tam+1,_numeroCromosomas-1));
+        
+        try {
+            
+            _vcromosomasHijo.clear();
+            for(Cromosomas cromo : future.get()){
+                _vcromosomasHijo.add(cromo);
+            }
+            for(Cromosomas cromo : future2.get()){
+                _vcromosomasHijo.add(cromo);
+            }
+            
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Genetico.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ExecutionException ex) {
+            Logger.getLogger(Genetico.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+       
+        
+        
+    }
+    
     private int CalcularMayorAporte(Set<Integer> cromosoma){
         
         float mejor = 0.0f;
@@ -351,7 +451,7 @@ public final class Genetico {
   
                 float costeMas = 0.0f;
                 float coste;
-                Iterator<Integer> iterator = cromosoma.iterator();
+                Iterator<Integer> iterator = cromosomaReparado.iterator();
 
                 while (iterator.hasNext()) {
                     int k = iterator.next();

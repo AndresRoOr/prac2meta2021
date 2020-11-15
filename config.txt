@@ -1,4 +1,4 @@
-Datos=archivos/Datos/SOM
+Datos=archivos/Datos/MDG
 Semilla=77356084
 Evaluaciones=50000
 Elitismo=3
