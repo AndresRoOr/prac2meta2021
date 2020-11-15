@@ -24,7 +24,10 @@
 	\paragraph{}Lo primero que realizamos dentro del bucle while es calcular los costes de todos y cada uno de los individuos pertenecientes a "poblacionPadres". Esta tarea sera encomendada a la función "Evaluacion(poblacionPadre)".
 	
 	\paragraph{} Cuando ya dispongamos de los costes calculados de todos los individuos de "poblacionPadres", lo siguiente que debemos hacer es guardar en "elites" los individuos élites que nos indique "numElites" (parámetro del programa). La función "SeleccionElites(poblacionPadres)" será la encargada de realizar esta tarea.
+
+	\paragraph{}Procedemos ahora a cruzar "poblacionPadres". "CruzarPoblacion(poblacionPadres,semilla)" es la función que realiza dicha tarea, y la población resultante se guarda en la variable "poblacionHijos".
 	
+		
 	\begin{algorithm}[H]
 		\caption{GeneraPoblacionInicial(semilla)}
 		\begin{algorithmic}
@@ -95,6 +98,7 @@
 	\begin{algorithm}[H]
 		\caption{CruzarPoblacion(poblacion,semilla)}
 		\begin{algorithmic}
+			\STATE $poblacionHijos \leftarrow \emptyset$
 			\STATE $poblacionHijos \leftarrow SeleccionaPoblacion(poblacion,semilla)$
 			\IF{tipoCruceMPX}
 			\STATE $poblacionHijos \leftarrow RealizaCruceMPX(poblacionHijos)$
@@ -102,13 +106,23 @@
 			\STATE $poblacionHijos \leftarrow RelizaCruce2p(poblacionHijos)$
 			\ENDIF
 			\RETURN poblacionHijos
-			
 		\end{algorithmic}
 	\end{algorithm}
+
+	\paragraph{}Se inicializa el valor de "poblacionHijos" a un conjunto vacío para evitar errores.
+	
+	\paragraph{}A continuación, rellenamos el vector a partir de "poblacion" con la función "SeleccionaPoblacion(poblacion, semilla)".
+	
+	\paragraph{}Una vez tenemos "poblacionHijos" relleno con todos los individuos necesarios, damos paso a ejecutar el cruce. El tipo de cruce viene determinado por la variable "tipoCruceMPX", un booleano.
+	
+	\paragraph{}Si el valor de "tipoCruceMPX" resulta positivo, se lanza la ejecución de "RealizaCruceMPX(poblacionHijos)". En caso contrario, se lanza "RealizaCruce2p(poblacionHijos)".
+	
+	\paragraph{} Una vez se haya realizado la ejecución del cruce, se devuelve "poblacionHijos" como resultado de ejecutar la función.
 
 	\begin{algorithm}[H]
 		\caption{SeleccionaPoblacion(poblacion,semilla)}
 		\begin{algorithmic}
+			\STATE $poblacionHijos \leftarrow \emptyset$
 			\WHILE{tamañoPoblacionHijos$<$numHijos}
 			\STATE $individuoSeleccionado \leftarrow SeleccionaIndividuo(poblacion,semilla)$
 			\STATE $poblacionHijos \leftarrow poblacionHijos\cup\{individuoSeleccionado\}$
@@ -116,6 +130,14 @@
 			\RETURN poblacionHijos
 		\end{algorithmic}
 	\end{algorithm}
+
+	\paragraph{}Mientras que el tamaño de "poblacionHijos" sea inferior a "numHijos" (el número de hijos de cada generación) se realizará lo siguiente:
+	
+	\paragraph{} Se selecciona por torneo binario un individuo perteneciente a "poblacion" haciendo uso de la función "SeleccionaIndividuo(poblacion,semilla)". El individuo que resulte ganador se almacena en la variable "individuoSeleccionado".
+	
+	\paragraph{}"individuoSeleccionado" se añade a "poblacionHijos" y se repite el proceso.
+	
+	\paragraph{}Una vez "poblacionHijos" alcanza el tamaño deseado, finaliza la ejecución de la función y se devuelve como resultado.
 
 	\begin{algorithm}[H]
 		\caption{SeleccionaIndividuo(poblacion,semilla)}
@@ -133,6 +155,12 @@
 		\end{algorithmic}
 	\end{algorithm}
 
+	\paragraph{}Para realizar el torneo binario lo primero que necesitamos es generar dos números aleatorios que se corresponderan con los índices en los que se encuentran los individuos seleecionados. Realizaremos tal generación de números aleatorios con la función "GeneraEnteroAleatorio(semilla)", y almacenaremos los valores resultantes en las variables "seleccionado1" y "seleccionado2".
+	
+	\paragraph{}Comprobamos que no se repitan los valores de "seleccionado1" y "seleccionado2". Si ocurre esto, generamos otro nuevo valor para "seleccionado2" hasta que obtengamos uno válido.
+	
+	\paragraph{}Para finalizar, comparamos el coste de los dos individuos seleccionados y devolvemos como resultado aquel que posea un mejor coste.
+
 	\begin{algorithm}[H]
 		\caption{RealizarCruceMPX(poblacionHijos)}
 		\begin{algorithmic}
@@ -144,8 +172,9 @@
 	\begin{algorithm}[H]
 		\caption{RealizarCruce2p(poblacionHijos)}
 		\begin{algorithmic}
-			
 			\FOR{i=0; i$<$49; i+=2}
+			\STATE $aleatorioCruce\leftarrow GeneraFloatAleatorio(semilla)$
+			\IF{aleatorioCruce$<=$probabilidadCruce}
 			\STATE $corte1 \leftarrow GeneraEnteroAleatorio(semilla)$
 			\STATE $corte2 \leftarrow GeneraEnteroAleatorio(semilla)$
 			\STATE $padre1 \leftarrow poblacionPadre[i]$
@@ -165,13 +194,27 @@
 			\STATE $hijo1 \leftarrow hijo1\cup padre1.getGen[j]$
 			\STATE $hijo2 \leftarrow hijo2\cup padre2.getGen[j]$
 			\ENDFOR
-			\STATE $poblacionHijos \leftarrow poblacionHijos\cup\{hijo1\}$
-			\STATE $poblacionHijos \leftarrow poblacionHijos\cup\{hijo2\}$
+			\STATE $poblacionHijos[i] \leftarrow hijo1$
+			\STATE $poblacionHijos[i+1] \leftarrow hijo2$
+			\ENDIF
 			\ENDFOR
 			\RETURN poblacionHijos
-			
 		\end{algorithmic}
 	\end{algorithm}
+
+	\paragraph{}Recorremos "poblacion" de dos en dos realizando lo que a continuación se expone.
+	
+	\paragraph{}Lo primero a realizar es comprobar si debemos realizar el cruce entre los dos primeros padres. Esta comprobación se realiza comparando "aleatorioCruce" y "probabilidadCruce". "aleatorioCruce" almacena un float aleatorio generado haciendo uso de la función "GeneraFloatAleatorio(semilla)"."probabilidadCruce" tiene almacenada la probabilidad de que dos individuos se reproduzcan, esta información se pasa al programa como parámetro.
+	
+	\paragraph{}En el caso de que sí se tengan que cruzar, generamos dos puntos de corte aleatorios haciendo uso de "GeneraEnteroAleatorio(semilla)" y los almacenamos en las variables "corte1" y "corte2". Almacenamos en las variables "padre1" y "padre2" los individuos a cruzar.
+	
+	\paragraph{}Comprobamos que los cortes generados no sean los mismos y, si lo son, generamos otro valor aleatorio para "corte2" hasta que los dos cortes dejen de ser iguales.
+	
+	\paragraph{}Rellenamos "hijo1" con lo genotipos de "padre2" e "hijo2" con los genotipos de "padre1" hasta llegar a "corte1". Rellenamos los genotipos a continuación de "corte1" de "hijo1" con los genotipos de "padre1", y los genotipos de "hijo2" con los de "padre2" hasta llegar a "corte2". A partir de "corte2" y hasta llegar al final, rellenamos "hijo1" con los genotipos de "padre2", e "hijo2" con los genotipos de "padre1".
+	
+	\paragraph{}Cuando hayamos completado el cruce, sobreescribimos el valor de la posición de "padre1" y "padre2" con el valor de "hijo1" e "hijo2" en "poblacionHijos". 
+	
+	\paragraph{}Una vez hayamos terminado el bucle for principal, tendremos almacenados en "poblacionHijos" todos los nuevos individuos resultantes del cruce. Devolvemos "poblacionHijos" como resultado.
 
 	\begin{algorithm}[H]
 		\caption{Reparar(poblacionHijos)}
