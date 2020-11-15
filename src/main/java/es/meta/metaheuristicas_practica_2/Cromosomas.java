@@ -7,6 +7,7 @@
  */
 package es.meta.metaheuristicas_practica_2;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -17,11 +18,11 @@ import java.util.Set;
  * @author David Díaz Jiménez
  * @date 02/11/2020
  */
-public class Cromosomas implements Comparable<Cromosomas> {
+public final class Cromosomas implements Comparable<Cromosomas> {
 
-    ///Atributos de la clase:
     private Set<Integer> cromosoma;
     private float _contribucion;///<Coste que aporta a la solución
+    private boolean recalcular;
 
     /**
      * @param cromo
@@ -29,12 +30,26 @@ public class Cromosomas implements Comparable<Cromosomas> {
      * @author Andrés Rojas Ortega
      * @author David Díaz Jiménez
      * @date 03/10/2020
-     * @param id Integer
      * @param _contribucion Float
      */
     public Cromosomas(Set<Integer>cromo, float _contribucion) {
         this.cromosoma = cromo;
         this._contribucion = _contribucion;
+        this.recalcular = false;
+
+    }
+    
+    public Cromosomas(Set<Integer>cromo, float _contribucion, boolean recal) {
+        this.cromosoma = cromo;
+        this._contribucion = _contribucion;
+        this.recalcular = recal;
+
+    }
+    
+    public Cromosomas(Cromosomas otro) {
+        this.cromosoma = new HashSet<>(otro.getCromosoma());
+        this._contribucion = otro.getContribucion();
+        this.recalcular = false;
 
     }
 
@@ -76,6 +91,24 @@ public class Cromosomas implements Comparable<Cromosomas> {
     public void setContribucion(float cont) {
         this._contribucion = cont;
     }
+    
+    
+     public Set<Integer> getCromosoma() {
+        return cromosoma;
+    }
 
+    ///Atributos de la clase:
+    public void setCromosoma(Set<Integer> cromosoma) {
+        this.cromosoma = cromosoma;
+    }
+
+    
+    public boolean isRecalcular() {
+        return recalcular;
+    }
+
+    public void setRecalcular(boolean recalcular) {
+        this.recalcular = recalcular;
+    }
 
 }
