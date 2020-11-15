@@ -106,6 +106,28 @@ public class Genetico {
             _cromosomas.add(cromosoma);
         }
     }
+    
+    /**
+     * @brief Función encargada de realizar la reproducción y generación de la
+     * siguiente generación del algoritmo genético.
+     * @author David Díaz Jiménez
+     * @author Andrés Rojas Ortega
+     * @date 15/11/2020
+     * @param alea Random_p Utilizado para generar números aleatorios
+     */
+    private void operadorReproduccion(Random_p alea) {
+
+        if (_operadorMPX == true) {
+
+            operadorCruceMPX(alea);
+            
+        } else {
+
+            operadorCruce2puntos(alea);
+        }
+        
+        _vcromosomasPadre.clear();
+    }
 
     void PresentarResultados() {
 
