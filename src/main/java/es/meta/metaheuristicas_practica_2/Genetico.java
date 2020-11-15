@@ -36,9 +36,9 @@ public class Genetico {
     float _probMutacion;///<Probabilidad de que se produzca una mutación
     float _probReproduccion;///<Probabilidad de que dos individuos se 
     ///reproduzcan
-    ArrayList<Set<Integer>> _cromosomas;///<Almacena los cromosomas iniciales
-    ArrayList<Set<Integer>> _cromosomasPadre;///<Almacena los cromosomas padre
-    ArrayList<Set<Integer>> _cromosomasHijo;///<Almacena los cromosomas hijo
+    ArrayList<Cromosomas> _cromosomas;///<Almacena los cromosomas iniciales
+    ArrayList<Cromosomas> _cromosomasPadre;///<Almacena los cromosomas padre
+    ArrayList<Cromosomas> _cromosomasHijo;///<Almacena los cromosomas hijo
     ArrayList<Float> _costes;///<Almacena los costes de cada cromosoma
     ArrayList<Boolean> recalcularCostes;///<Indica si hay que recalcular los 
     ///costes del cromosoma de la posicion i.
@@ -103,7 +103,7 @@ public class Genetico {
                     cromosoma.add(alelo);
                 }
             }
-            _cromosomas.add(cromosoma);
+            _cromosomas.add(new Cromosomas(cromosoma, 0.0f,true));
         }
     }
     
