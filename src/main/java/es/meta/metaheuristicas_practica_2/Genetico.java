@@ -29,20 +29,20 @@ import java.util.logging.Logger;
  * @date 13/11/2020
  */
 public final class Genetico {
-    
+
     private class CostTask implements Callable<ArrayList<Cromosomas>> {
 
         private ArrayList<Cromosomas> Cromosomas;
         private final int empieza;
-        private final  int termina;
+        private final int termina;
 
-        public CostTask(ArrayList<Cromosomas> cromosomas,int empie, int termi) {
+        public CostTask(ArrayList<Cromosomas> cromosomas, int empie, int termi) {
             Cromosomas = new ArrayList<>(cromosomas);
             empieza = empie;
             termina = termi;
 
         }
-        
+
         @Override
         public ArrayList<Cromosomas> call() throws Exception {
             int numeroGenes = _archivoDatos.getTama_Solucion();
@@ -51,7 +51,7 @@ public final class Genetico {
             int i = 0;
             for (Cromosomas Cromosoma : Cromosomas) {
 
-                if(i >= empieza && i<= termina){
+                if (i >= empieza && i <= termina) {
 
                     Set<Integer> cromosoma = Cromosoma.getCromosoma();
 
@@ -64,6 +64,8 @@ public final class Genetico {
                                 int gen = CalcularMayorAporte(cromosoma);
                                 cromosoma.add(gen);
                             }
+
+                            Cromosoma.setCromosoma(cromosoma);
                             
                             cromosomaReparado.add(new Cromosomas(Cromosoma));
 
@@ -75,21 +77,23 @@ public final class Genetico {
                                 cromosoma.remove(elemento);
                             }
                             
+                            Cromosoma.setCromosoma(cromosoma);
+
                             cromosomaReparado.add(new Cromosomas(Cromosoma));
                         }
-                    }else{
+                    } else {
                         cromosomaReparado.add(new Cromosomas(Cromosoma));
                     }
                     i++;
-                }else{
+                } else {
                     i++;
                 }
             }
             return cromosomaReparado;
         }
-    
+
     }
-  
+
     private final Archivo _archivoDatos;///<Contiene los datos del problema
     private final GestorLog _gestor;///<Gestor encargado de la creación del Log
     private final int _elitismo;
@@ -101,28 +105,27 @@ public final class Genetico {
     private final float _probMutacion;
     private final float _probReproduccion;
     private final float _probMpx;
-    
+
     private final boolean _generacional;
-    
+
     private int generacion;
 
     //private ArrayList<Float> _costes;
-    
     private ArrayList<Cromosomas> _vcromosomas;
     private ArrayList<Cromosomas> _vcromosomasPadre;
     private ArrayList<Cromosomas> _vcromosomasHijo;
-    
+
     private Cromosomas _mejorCromosoma;
 
     private ArrayList<Cromosomas> cromosomasElite;
-    
+
     ExecutorService exec = Executors.newFixedThreadPool(2);
 
     public Genetico(Archivo _archivoDatos, GestorLog gestor, int evaluaciones, int Elitismo, boolean OperadorMPX, float probReini,
-             float probMutacion, float probMpx, int numeroCromosomas) {
+            float probMutacion, float probMpx, int numeroCromosomas) {
         this._archivoDatos = _archivoDatos;
         this._gestor = gestor;
-        
+
         this._operadorMPX = OperadorMPX;
         this._probMutacion = probMutacion;
         this._probReproduccion = probReini;
@@ -132,42 +135,41 @@ public final class Genetico {
         this._evaluacionesObjetivo = evaluaciones;
 
         this._numeroCromosomas = numeroCromosomas;
-        
+
         this._vcromosomas = new ArrayList<>();
         this._vcromosomasPadre = new ArrayList<>();
         this._vcromosomasHijo = new ArrayList<>();
 
         this.cromosomasElite = new ArrayList<>();
-        
-        this._mejorCromosoma = new  Cromosomas(new HashSet<Integer>(), 0.0f);
-        
-        if( Elitismo == 0 ){
+
+        this._mejorCromosoma = new Cromosomas(new HashSet<Integer>(), 0.0f);
+
+        if (Elitismo == 0) {
             _elitismo = 1;
             _generacional = true;
-        }else{
-              this._elitismo = Elitismo;
-              this._generacional = false;
+        } else {
+            this._elitismo = Elitismo;
+            this._generacional = false;
         }
-        
+
         generacion = 1;
 
     }
 
     void genetico(Random_p aleatorioSemilla) {
-        
+
         Random_p aleatorio = aleatorioSemilla;
 
         generarCromosomasIniciales(aleatorio);
-        
+
         registroConfiguración();
-    
+
         cromosomasElite.add(new Cromosomas(_vcromosomas.get(0).getCromosoma(), _vcromosomas.get(0).getContribucion()));
 
         obtenerCostes(_vcromosomas, true);
 
         Collections.sort(cromosomasElite);
-        
-        
+
         while (_evaluaciones < _evaluacionesObjetivo) {
 
             operadorSeleccion(aleatorio);
@@ -181,11 +183,11 @@ public final class Genetico {
             obtenerCostes(_vcromosomasHijo, false);
 
             operadorElitismo();
-            
+
             generacion++;
 
         }
-        
+
         _vcromosomasHijo.clear();
         _vcromosomasPadre.clear();
         _vcromosomas.clear();
@@ -206,7 +208,7 @@ public final class Genetico {
                     cromosoma.add(alelo);
                 }
             }
-            _vcromosomas.add(new Cromosomas(cromosoma, 0.0f,true));
+            _vcromosomas.add(new Cromosomas(cromosoma, 0.0f, true));
         }
     }
 
@@ -216,7 +218,7 @@ public final class Genetico {
 
         for (Cromosomas cromosoma : cromosomas) {
 
-            if(cromosoma.isRecalcular() == true || cromosoma.getContribucion() == 0.0f){
+            if (cromosoma.isRecalcular() == true || cromosoma.getContribucion() == 0.0f) {
                 float coste = calcularCoste(cromosoma.getCromosoma());
                 cromosoma.setContribucion(coste);
                 _evaluaciones++;
@@ -230,7 +232,7 @@ public final class Genetico {
                         if (mejorCoste > cromosomasElite.get(0).getContribucion()) {
                             cromosomasElite.add(new Cromosomas(new HashSet<>(cromosoma.getCromosoma()), mejorCoste));
                             Collections.sort(cromosomasElite);
-                            if(cromosomasElite.size()> _elitismo){
+                            if (cromosomasElite.size() > _elitismo) {
                                 cromosomasElite.remove(0);
                             }
                         }
@@ -255,7 +257,7 @@ public final class Genetico {
         }
         return coste;
     }
-    
+
     private void operadorSeleccion(Random_p ale) {
 
         for (int i = 0; i < _numeroCromosomas; i++) {
@@ -273,7 +275,7 @@ public final class Genetico {
                 _vcromosomasPadre.add(new Cromosomas(_vcromosomas.get(candidato2)));;
             }
         }
-        
+
         _vcromosomas.clear();
     }
 
@@ -282,16 +284,16 @@ public final class Genetico {
         if (_operadorMPX == true) {
 
             operadorCruceMPX(alea);
-            
+
         } else {
 
             operadorCruce2puntos(alea);
         }
-        
+
         _vcromosomasPadre.clear();
     }
-    
-    private void operadorCruce2puntos(Random_p alea){
+
+    private void operadorCruce2puntos(Random_p alea) {
 
         for (int i = 0; i < _numeroCromosomas; i += 2) {
 
@@ -305,12 +307,12 @@ public final class Genetico {
                 int crosspoint1 = alea.Randint(1, _archivoDatos.getTama_Solucion() - 2);
                 int crosspoint2 = alea.Randint(1, _archivoDatos.getTama_Solucion() - 2);
 
-                while(crosspoint1 == crosspoint2){
+                while (crosspoint1 == crosspoint2) {
                     crosspoint2 = alea.Randint(1, _archivoDatos.getTama_Solucion() - 2);
                 }
 
                 Iterator<Integer> iterator = _vcromosomasPadre.get(i).getCromosoma().iterator();
-                Iterator<Integer> iterator1 = _vcromosomasPadre.get(i+1).getCromosoma().iterator();
+                Iterator<Integer> iterator1 = _vcromosomasPadre.get(i + 1).getCromosoma().iterator();
 
                 int length = _archivoDatos.getTama_Solucion();
                 for (int j = 0; j < length; j++) {
@@ -324,25 +326,25 @@ public final class Genetico {
                     }
                 }
 
-                _vcromosomasHijo.add(new Cromosomas(hijo1,0.0f,true));
-                _vcromosomasHijo.add(new Cromosomas(hijo2,0.0f,true));
+                _vcromosomasHijo.add(new Cromosomas(hijo1, 0.0f, true));
+                _vcromosomasHijo.add(new Cromosomas(hijo2, 0.0f, true));
 
             } else {
 
                 Cromosomas hijo1 = _vcromosomasPadre.get(i);
-                Cromosomas hijo2 = _vcromosomasPadre.get(i+1);
+                Cromosomas hijo2 = _vcromosomasPadre.get(i + 1);
 
-                _vcromosomasHijo.add(new Cromosomas(hijo1.getCromosoma(),hijo1.getContribucion()));
-                _vcromosomasHijo.add(new Cromosomas(hijo2.getCromosoma(),hijo2.getContribucion()));
+                _vcromosomasHijo.add(new Cromosomas(hijo1.getCromosoma(), hijo1.getContribucion()));
+                _vcromosomasHijo.add(new Cromosomas(hijo2.getCromosoma(), hijo2.getContribucion()));
 
             }
         }
     }
-    
-    private void operadorCruceMPX(Random_p alea){       
 
-        for (int i = 0; i <= _numeroCromosomas && _vcromosomasHijo.size() < _numeroCromosomas ; i += 2) {
-    
+    private void operadorCruceMPX(Random_p alea) {
+
+        for (int i = 0; i <= _numeroCromosomas && _vcromosomasHijo.size() < _numeroCromosomas; i += 2) {
+
             float probRepro = (float) alea.Randfloat(0, 1);
 
             int padre1 = i;
@@ -363,17 +365,19 @@ public final class Genetico {
                     cromosoma.add(gen);
                 }
 
-                _vcromosomasHijo.add(new Cromosomas(cromosoma, 0.0f,true));
+                _vcromosomasHijo.add(new Cromosomas(cromosoma, 0.0f, true));
 
             } else {
-                _vcromosomasHijo.add(new Cromosomas(_vcromosomasPadre.get(padre1).getCromosoma(),0.0f));
+                _vcromosomasHijo.add(new Cromosomas(_vcromosomasPadre.get(padre1).getCromosoma(), 0.0f));
 
                 if (_vcromosomasHijo.size() < _numeroCromosomas) {
-                    _vcromosomasHijo.add(new Cromosomas(_vcromosomasPadre.get(padre2).getCromosoma(),0.0f));
+                    _vcromosomasHijo.add(new Cromosomas(_vcromosomasPadre.get(padre2).getCromosoma(), 0.0f));
                 }
             }
-            
-            if (i == _numeroCromosomas-2)  i =0;
+
+            if (i == _numeroCromosomas - 2) {
+                i = 0;
+            }
         }
     }
 
@@ -384,7 +388,7 @@ public final class Genetico {
         for (Cromosomas Cromosoma : _vcromosomasHijo) {
 
             Set<Integer> cromosoma = Cromosoma.getCromosoma();
-            
+
             if (cromosoma.size() != numeroGenes) {
 
                 if (cromosoma.size() < numeroGenes) {
@@ -406,39 +410,36 @@ public final class Genetico {
             }
         }
     }
-    
-    private void repararConcurrente(){
-        
+
+    private void repararConcurrente() {
+
         Future<ArrayList<Cromosomas>> future = null;
         Future<ArrayList<Cromosomas>> future2 = null;
 
-        int tam = (_numeroCromosomas)/2-1;
-        future = exec.submit(new CostTask(_vcromosomasHijo,0,tam));
-        future2 = exec.submit(new CostTask(_vcromosomasHijo,tam+1,_numeroCromosomas-1));
-        
+        int tam = ((_numeroCromosomas) / 2) - 1;
+        future = exec.submit(new CostTask(_vcromosomasHijo, 0, tam));
+        future2 = exec.submit(new CostTask(_vcromosomasHijo, tam + 1, _numeroCromosomas - 1));
+
         try {
-            
+
             _vcromosomasHijo.clear();
-            for(Cromosomas cromo : future.get()){
+            for (Cromosomas cromo : future.get()) {
                 _vcromosomasHijo.add(cromo);
             }
-            for(Cromosomas cromo : future2.get()){
+            for (Cromosomas cromo : future2.get()) {
                 _vcromosomasHijo.add(cromo);
             }
-            
+
         } catch (InterruptedException ex) {
             Logger.getLogger(Genetico.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ExecutionException ex) {
             Logger.getLogger(Genetico.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-       
-        
-        
+
     }
-    
-    private int CalcularMayorAporte(Set<Integer> cromosoma){
-        
+
+    private int CalcularMayorAporte(Set<Integer> cromosoma) {
+
         float mejor = 0.0f;
         int elemento = 0;
 
@@ -448,7 +449,7 @@ public final class Genetico {
         for (int i = 0; i < tamMatrix; i++) {
 
             if (!cromosomaReparado.contains(i)) {
-  
+
                 float costeMas = 0.0f;
                 float coste;
                 Iterator<Integer> iterator = cromosomaReparado.iterator();
@@ -460,17 +461,17 @@ public final class Genetico {
 
                 coste = costeMas;
 
-                if(coste > mejor){
+                if (coste > mejor) {
                     mejor = coste;
                     elemento = i;
                 }
-                
+
             }
         }
-      
+
         return elemento;
     }
-    
+
     private int CalcularMenorAporte(Set<Integer> cromosoma) {
 
         float aporte = 0.0f;
@@ -507,7 +508,7 @@ public final class Genetico {
 
             ArrayList<Integer> alelosMutados = new ArrayList<>();
             ArrayList<Integer> alelosNuevos = new ArrayList<>();
-            
+
             Set<Integer> cromosoma = Cromosoma.getCromosoma();
 
             for (Integer gen : cromosoma) {
@@ -537,57 +538,57 @@ public final class Genetico {
                 cromosoma.remove(alelosMutados.remove(0));
                 cromosoma.add(alelosNuevos.remove(0));
             }
-            
+
             Cromosoma.setCromosoma(cromosoma);
         }
     }
-    
-    private void registroConfiguración(){
+
+    private void registroConfiguración() {
         _gestor.escribirArchivo("Cromosomas Iniciales: ");
-        for(Cromosomas cromosoma : _vcromosomas){
+        for (Cromosomas cromosoma : _vcromosomas) {
             _gestor.escribirArchivo(cromosoma.getCromosoma().toString());
         }
     }
-    
-    private void registroElites(){
+
+    private void registroElites() {
         _gestor.escribirArchivo("");
-        _gestor.escribirArchivo("Generación: " + generacion + ", "+ _elitismo + " mejores individuos de la población");
-        for(Cromosomas cromosoma : cromosomasElite){
+        _gestor.escribirArchivo("Generación: " + generacion + ", " + _elitismo + " mejores individuos de la población");
+        for (Cromosomas cromosoma : cromosomasElite) {
             _gestor.escribirArchivo(cromosoma.getCromosoma().toString());
         }
     }
 
     private void operadorElitismo() {
-        
-        if(_generacional == false){
-            for(Cromosomas Mejores : cromosomasElite){
+
+        if (_generacional == false) {
+            for (Cromosomas Mejores : cromosomasElite) {
                 _vcromosomasHijo.add(new Cromosomas(Mejores));
             }
         }
-        
+
         Collections.sort(_vcromosomasHijo);
-        
-        while(_vcromosomasHijo.size()>_numeroCromosomas){
+
+        while (_vcromosomasHijo.size() > _numeroCromosomas) {
             _vcromosomasHijo.remove(0);
         }
-        
+
         int i = 1;
-        for(Cromosomas elite : cromosomasElite){
-            elite.setCromosoma(_vcromosomasHijo.get(_numeroCromosomas-i).getCromosoma());
-            elite.setContribucion(_vcromosomasHijo.get(_numeroCromosomas-i).getContribucion());
+        for (Cromosomas elite : cromosomasElite) {
+            elite.setCromosoma(_vcromosomasHijo.get(_numeroCromosomas - i).getCromosoma());
+            elite.setContribucion(_vcromosomasHijo.get(_numeroCromosomas - i).getContribucion());
             i++;
         }
-        
+
         _vcromosomas.clear();
         _vcromosomas = new ArrayList<>(_vcromosomasHijo);
 
         _vcromosomasHijo.clear();
         _vcromosomasPadre.clear();
-        
-        if(cromosomasElite.get(0).getContribucion() > _mejorCromosoma.getContribucion()){
+
+        if (cromosomasElite.get(0).getContribucion() > _mejorCromosoma.getContribucion()) {
             _mejorCromosoma = new Cromosomas(cromosomasElite.get(0));
-        }    
-        
+        }
+
         registroElites();
     }
 
@@ -595,15 +596,15 @@ public final class Genetico {
 
         _gestor.escribirArchivo("");
         _gestor.escribirArchivo("Resultados");
-        
+
         float coste = calcularCoste(_mejorCromosoma.getCromosoma());
         _gestor.escribirArchivo("");
-        _gestor.escribirArchivo("Mejor coste: " + coste );
+        _gestor.escribirArchivo("Mejor coste: " + coste);
         _gestor.escribirArchivo("Mejor cromosoma: " + _mejorCromosoma.getCromosoma());
         _gestor.escribirArchivo("Tamaño: " + coste);
-        
-        Main.console.presentarSalida("Mejor Coste:  " + _mejorCromosoma.getContribucion() );
+
+        Main.console.presentarSalida("Mejor Coste:  " + _mejorCromosoma.getContribucion());
         Main.console.presentarSalida("");
-        
+
     }
 }
