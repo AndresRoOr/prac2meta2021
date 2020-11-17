@@ -185,12 +185,61 @@
 	\paragraph{}Para finalizar, comparamos el coste de los dos individuos seleccionados y devolvemos como resultado aquel que posea un mejor coste.
 
 	\begin{algorithm}[H]
-		\caption{RealizarCruceMPX(poblacionHijos)}
+		\caption{RealizarCruceMPX(poblacionPadres)}
 		\begin{algorithmic}
-			\STATE
+			\FOR{i=0; i$<$numIndividuosPoblacion \& poblacionHijos.tamaño $<$ numIndividuosPoblacion; i+=2}
+			\STATE $probRepro \leftarrow GeneraFloatAleatorio(semilla)$
+			\STATE $padre1 \leftarrow poblacionPadres[i]$
+			\STATE $padre2 \leftarrow poblacionPadres[i+1]$
+			\IF{probRepro $<$ probabilidadCruce }
+			\STATE $hijo \leftarrow \emptyset $
+			\FOR{$gen\in padre1$}
 			
+			\STATE $prob \leftarrow GeneraFloatAleatorio(semilla)$
+			\IF{prob $<$ probabilidadMPX}
+			\STATE $hijo \leftarrow hijo\cup \{gen\}$
+			\STATE $padre2 \leftarrow padre2-\{gen\}$
+			\ENDIF
+			\ENDFOR
+			\FOR{$gen \in padre2$}
+			\STATE $hijo \leftarrow hijo\cup gen$
+			\ENDFOR
+			\STATE $poblacionHijos \leftarrow poblacionHijos\cup\{hijo\}$
+			\ELSE
+			\STATE $poblacionHijos \leftarrow poblacionHijos\cup\{padre1\}$
+			\IF{poblacionHijos.tamaño $<$ numIndividuosPoblacion }
+			\STATE $poblacionHijos \leftarrow poblacionHijos\cup\{padre2\}$
+			\ENDIF
+			\ENDIF
+			\IF{i $==$ numIndividuosPoblacion -2}
+			\STATE i $\leftarrow$ 0
+			\ENDIF
+			\ENDFOR
+			\RETURN poblacionHijos
 		\end{algorithmic}
 	\end{algorithm}
+
+	\paragraph{}Iniciamos un bucle for. Este bucle for se ejecutará hasta que "poblacionHijos" tenga un tamaño "numIndividuosPoblacion" (parámetro del programa).
+	
+	\paragraph{}Almacenamos el primer par de padres, obtenido de la variable "poblacionPadres", en las variables "padre1" y "padre2". Además, generamos un número float aleatorio con "GeneraFloatAleatorio(semilla)" y lo almacenamos en la variable "probRepro".
+	
+	\paragraph{}Comprobamos si la pareja de padres debe reproducirse. Esto lo conseguimos comparando "probRepro" con la variable "probabilidadCruce" (parámetro del programa).
+	
+	\paragraph{}En el caso de que se deban reproducir, inicializamos una variable llamada "hijo" al valor conjunto vacío. En esta variable almacenaremos el material genético del hijo resultado de cruzar "padre1" y "padre2".
+	
+	\paragraph{}Recorremos todos los genes de "padre1" y comprobamos para cada gen si se debe incluir en el material genético de "hijo" o no. Esto lo comprobamos generando un número float aleatorio con "GeneraFloatAleatorio(semilla)" y comparando el resultado (almacenado en "prob") con "probabilidadMPX".
+	
+	\paragraph{}En el caso de que un gen de "padre1" se incluya en "hijo", eliminamos el gen de "padre2" (en el caso de que este exista en "padre2").
+	
+	\paragraph{}Cuando hayamos terminado de incluir material genético de "padre1" en "hijo", procedemos a añadir todos los genes de "padre2" en "hijo".
+	
+	\paragraph{}Para finalizar, añadimos el hijo generado a "poblacionHijos" y pasamos al siguiente par de padres.
+	
+	\paragraph{}En el caso de que el par de padres no se deba reproducir, añadimos directamente cada padre a "poblacionHijos" siempre que el tamaño de "poblacionHijos" no haya llegado a "numIndividuosPoblacion".
+	
+	\paragraph{}Antes de iniciar una nueva iteración del bucle for, comprobamos que "i" no haya rebasado "numIndividuosPoblacion". Si este es el caso, reiniciamos el valor de "i" a 0. Realizamos esto para no sobrepasar el tamaño de "poblacionPadres".
+	
+	\paragraph{}Una vez terminamos de ejecutar el bucle for principal, devolvemos "poblacionHijos" como resultado de la ejecución de la función.
 
 	\begin{algorithm}[H]
 		\caption{RealizarCruce2p(poblacionHijos)}
