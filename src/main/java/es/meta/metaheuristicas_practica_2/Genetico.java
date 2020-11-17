@@ -307,6 +307,54 @@ public class Genetico {
             }
         }
     }
+    
+    /**
+     * @brief Realiza el cruce de la población utilizando el operador de cruce
+     * MPX
+     * @author David Díaz Jiménez
+     * @author Andrés Rojas Ortega
+     * @date 17/11/2020
+     * @param alea Random_p Semilla aleatoria utilizada para generar números
+     */
+    private void operadorCruceMPX(Random_p alea) {
+
+        for (int i = 0; i <= _numeroCromosomas && _cromosomasHijo.size() < _numeroCromosomas; i += 2) {
+
+            float probRepro = (float) alea.Randfloat(0, 1);
+
+            int padre1 = i;
+            int padre2 = i + 1;
+
+            if (probRepro < _probReproduccion) {
+
+                HashSet<Integer> cromosoma = new HashSet<>();
+
+                for (Integer gen : _cromosomasPadre.get(padre1).getCromosoma()) {
+                    float prob = (float) alea.Randfloat(0, 1);
+                    if (prob > 0.5) {
+                        cromosoma.add(gen);
+                    }
+                }
+
+                for (Integer gen : _cromosomasPadre.get(padre2).getCromosoma()) {
+                    cromosoma.add(gen);
+                }
+
+                _cromosomasHijo.add(new Cromosomas(cromosoma, 0.0f, true));
+
+            } else {
+                _cromosomasHijo.add(new Cromosomas(_cromosomasPadre.get(padre1).getCromosoma(), 0.0f));
+
+                if (_cromosomasHijo.size() < _numeroCromosomas) {
+                    _cromosomasHijo.add(new Cromosomas(_cromosomasPadre.get(padre2).getCromosoma(), 0.0f));
+                }
+            }
+
+            if (i == _numeroCromosomas - 2) {
+                i = 0;
+            }
+        }
+    }
 
     /**
      * @brief Repara los cromosomas que no son una solución válida haciendo uso
