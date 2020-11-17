@@ -558,6 +558,45 @@ public class Genetico {
 
         registroElites();
     }
+    
+    /**
+     * @brief Calcula el coste de todos los individuos de la poblacion
+     * @author David Díaz Jiménez
+     * @author Andrés Rojas Ortega
+     * @date 17/11/2020
+     * @param cromosomas ArrayList<Cromosomas> La población de individuos
+     * @param ObtenerElite boolena Indica si la función debe calcular el élite 
+     * de la población
+     */
+    private void obtenerCostes(ArrayList<Cromosomas> cromosomas, boolean ObtenerElite) {
+
+        float mejorCoste = 0.0f;
+
+        for (Cromosomas cromosoma : cromosomas) {
+
+            if (cromosoma.isRecalcular() == true || cromosoma.getContribucion() == 0.0f) {
+                float coste = calcularCoste(cromosoma.getCromosoma());
+                cromosoma.setContribucion(coste);
+                _evaluaciones++;
+
+                if (coste > mejorCoste) {
+
+                    mejorCoste = coste;
+
+                    if (ObtenerElite == true) {
+
+                        if (mejorCoste > cromosomasElite.get(0).getContribucion()) {
+                            cromosomasElite.add(new Cromosomas(new HashSet<>(cromosoma.getCromosoma()), mejorCoste));
+                            Collections.sort(cromosomasElite);
+                            if (cromosomasElite.size() > _elitismo) {
+                                cromosomasElite.remove(0);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     void PresentarResultados() {
 
