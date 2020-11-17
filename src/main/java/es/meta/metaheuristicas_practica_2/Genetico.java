@@ -597,6 +597,30 @@ public class Genetico {
             }
         }
     }
+    
+    /**
+     * @brief Calcula el coste de una solución
+     * @author David Díaz Jiménez
+     * @author Andrés Rojas Ortega
+     * @date 17/11/2020
+     * @param cromosoma Set<Integer> Material genético de un individuo
+     * @return coste float Coste calculado del individuo solución
+     */
+    private float calcularCoste(Set<Integer> cromosoma) {
+
+        float coste = 0.0f;
+        Object[] sol = cromosoma.toArray();
+        int length = sol.length;
+
+        for (int i = 0; i < length - 1; i++) {
+            int a = (int) sol[i];
+            for (int j = i + 1; j < length; j++) {
+                int b = (int) sol[j];
+                coste += _archivoDatos.getMatriz()[a][b];
+            }
+        }
+        return coste;
+    }
 
     void PresentarResultados() {
 
