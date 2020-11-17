@@ -241,6 +241,7 @@ public final class Genetico {
         _vcromosomasPadre.clear();
         _vcromosomas.clear();
         cromosomasElite.clear();
+        exec.shutdown();
 
     }
 
