@@ -42,7 +42,7 @@
 \contentsline {paragraph}{}{6}{section*.29}%
 \contentsline {paragraph}{}{6}{section*.30}%
 \contentsline {paragraph}{}{6}{section*.31}%
-\contentsline {paragraph}{}{7}{section*.32}%
+\contentsline {paragraph}{}{6}{section*.32}%
 \contentsline {paragraph}{}{7}{section*.33}%
 \contentsline {paragraph}{}{7}{section*.34}%
 \contentsline {paragraph}{}{7}{section*.35}%
@@ -54,51 +54,56 @@
 \contentsline {paragraph}{}{8}{section*.41}%
 \contentsline {paragraph}{}{8}{section*.42}%
 \contentsline {paragraph}{}{8}{section*.43}%
-\contentsline {paragraph}{}{9}{section*.44}%
-\contentsline {paragraph}{}{9}{section*.45}%
-\contentsline {paragraph}{}{9}{section*.46}%
-\contentsline {paragraph}{}{10}{section*.47}%
-\contentsline {paragraph}{}{10}{section*.48}%
-\contentsline {paragraph}{}{10}{section*.49}%
-\contentsline {paragraph}{}{10}{section*.50}%
+\contentsline {paragraph}{}{8}{section*.44}%
+\contentsline {paragraph}{}{8}{section*.45}%
+\contentsline {paragraph}{}{8}{section*.46}%
+\contentsline {paragraph}{}{9}{section*.47}%
+\contentsline {paragraph}{}{9}{section*.48}%
+\contentsline {paragraph}{}{9}{section*.49}%
+\contentsline {paragraph}{}{9}{section*.50}%
 \contentsline {paragraph}{}{10}{section*.51}%
 \contentsline {paragraph}{}{10}{section*.52}%
-\contentsline {paragraph}{}{11}{section*.53}%
-\contentsline {paragraph}{}{11}{section*.54}%
-\contentsline {paragraph}{}{11}{section*.55}%
+\contentsline {paragraph}{}{10}{section*.53}%
+\contentsline {paragraph}{}{10}{section*.54}%
+\contentsline {paragraph}{}{10}{section*.55}%
 \contentsline {paragraph}{}{11}{section*.56}%
 \contentsline {paragraph}{}{11}{section*.57}%
 \contentsline {paragraph}{}{11}{section*.58}%
-\contentsline {paragraph}{}{12}{section*.59}%
-\contentsline {paragraph}{}{12}{section*.60}%
-\contentsline {paragraph}{}{12}{section*.61}%
+\contentsline {paragraph}{}{11}{section*.59}%
+\contentsline {paragraph}{}{11}{section*.60}%
+\contentsline {paragraph}{}{11}{section*.61}%
 \contentsline {paragraph}{}{12}{section*.62}%
 \contentsline {paragraph}{}{12}{section*.63}%
 \contentsline {paragraph}{}{12}{section*.64}%
 \contentsline {paragraph}{}{12}{section*.65}%
-\contentsline {paragraph}{}{13}{section*.66}%
-\contentsline {paragraph}{}{13}{section*.67}%
-\contentsline {paragraph}{}{13}{section*.68}%
-\contentsline {paragraph}{}{13}{section*.69}%
+\contentsline {paragraph}{}{12}{section*.66}%
+\contentsline {paragraph}{}{12}{section*.67}%
+\contentsline {paragraph}{}{12}{section*.68}%
+\contentsline {paragraph}{}{12}{section*.69}%
 \contentsline {paragraph}{}{13}{section*.70}%
-\contentsline {paragraph}{}{14}{section*.71}%
-\contentsline {paragraph}{}{14}{section*.72}%
-\contentsline {paragraph}{}{14}{section*.73}%
-\contentsline {paragraph}{}{14}{section*.74}%
-\contentsline {paragraph}{}{14}{section*.75}%
+\contentsline {paragraph}{}{13}{section*.71}%
+\contentsline {paragraph}{}{13}{section*.72}%
+\contentsline {paragraph}{}{13}{section*.73}%
+\contentsline {paragraph}{}{13}{section*.74}%
+\contentsline {paragraph}{}{13}{section*.75}%
 \contentsline {paragraph}{}{14}{section*.76}%
 \contentsline {paragraph}{}{14}{section*.77}%
+\contentsline {paragraph}{}{14}{section*.78}%
+\contentsline {paragraph}{}{14}{section*.79}%
+\contentsline {paragraph}{}{14}{section*.80}%
+\contentsline {paragraph}{}{14}{section*.81}%
+\contentsline {paragraph}{}{14}{section*.82}%
 \contentsline {section}{\numberline {4}Experimentos y análisis de resultados}{15}{section.4}%
 \contentsline {subsection}{\numberline {4.1}Procedimiento de desarrollo de la práctica}{15}{subsection.4.1}%
-\contentsline {paragraph}{}{15}{section*.78}%
+\contentsline {paragraph}{}{15}{section*.83}%
 \contentsline {subsubsection}{\numberline {4.1.1}Equipo de pruebas}{15}{subsubsection.4.1.1}%
-\contentsline {paragraph}{}{15}{section*.79}%
+\contentsline {paragraph}{}{15}{section*.84}%
 \contentsline {subsubsection}{\numberline {4.1.2}Manual de usuario}{15}{subsubsection.4.1.2}%
-\contentsline {paragraph}{}{15}{section*.80}%
-\contentsline {paragraph}{}{15}{section*.81}%
+\contentsline {paragraph}{}{15}{section*.85}%
+\contentsline {paragraph}{}{15}{section*.86}%
 \contentsline {subsection}{\numberline {4.2}Parámetros de los algoritmos}{16}{subsection.4.2}%
 \contentsline {subsubsection}{\numberline {4.2.1}Genetico}{16}{subsubsection.4.2.1}%
 \contentsline {subsubsection}{\numberline {4.2.2}Semillas}{16}{subsubsection.4.2.2}%
-\contentsline {paragraph}{}{16}{section*.82}%
-\contentsline {paragraph}{}{16}{section*.83}%
+\contentsline {paragraph}{}{16}{section*.87}%
+\contentsline {paragraph}{}{16}{section*.88}%
 \contentsline {subsection}{\numberline {4.3}Análisis de los resultados}{16}{subsection.4.3}%

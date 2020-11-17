@@ -64,11 +64,32 @@
 	\paragraph{}Una vez tengamos hayamos completado "poblacion", la devolvemos como resultado de la ejecución de la función.
 
 	\begin{algorithm}[H]
-		\caption{Evaluacion(poblacion)}
+		\caption{Evaluacion(poblacion,obtenerElite)}
 		\begin{algorithmic}
-			\STATE
+			\STATE $mejorCoste \leftarrow 0$
+			\FOR {$cromosoma \in poblacion$}
+			\IF{$cromosoma.recalcular != true$}
+			\STATE $ coste \leftarrow EvaluarSolucion(cromosoma)$
+			\STATE $ cromosoma.coste \leftarrow coste$
+			\IF{$coste > mejorCoste$}
+			\STATE $ mejorCoste \leftarrow coste $
+			\ENDIF 
+			\ENDIF
+			\ENDFOR
 		\end{algorithmic}
 	\end{algorithm}
+
+	\paragraph{}Antes que nada, inicializamos el valor de "mejorCoste" a 0. Esta variable local almacenará el mejor coste calculado de entre todos los individuos de la población.
+	
+	\paragraph{}Para cada cromosoma perteneciente a "poblacion" comprobamos si se tiene que calcular su coste. Esta información la contiene el atributo "recalcular" de "cromosoma".
+	
+	\paragraph{}En el caso de que debamos calcular el coste, llamamos a la función encargada de dicha tarea: "EvaluarSolucion(cromosoma)". El resultado lo almacenamos en la variable local "coste".
+	
+	\paragraph{}Cuando tengamos el coste calculado, actualizamos el parámetro "coste" de "cromosoma"  con este valor.
+	
+	\paragraph{}Para finalizar, comprobamos si "coste" es mejor que "mejorCoste". Si se da esta condición, actualizamos el valor de "mejorCoste" con el de "coste".
+	
+	
 
 	\begin{algorithm}[H]
 		\caption{SeleccionElites(poblacion)}
