@@ -7,9 +7,7 @@
  */
 package es.meta.metaheuristicas_practica_2;
 
-import com.sun.codemodel.internal.JExpr;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -17,10 +15,10 @@ import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import static jdk.internal.org.jline.utils.ExecHelper.exec;
 
 /**
  * @brief Clase que implementa toda la funcionalidad del algoritmo genético
@@ -149,30 +147,45 @@ public class Genetico {
      * @param Elitismo int
      * @param OperadorMPX boolean
      * @param probReini float
-     * @apram probMutacion float
+     * @param probMutacion float
+     * @param probMpx float
+     * @param numeroCromosomas int
      *
      */
     public Genetico(Archivo _archivoDatos, GestorLog gestor, int evaluaciones, int Elitismo, boolean OperadorMPX, float probReini,
-            float probMutacion) {
+            float probMutacion, float probMpx, int numeroCromosomas) {
+
+        this.exec = Executors.newFixedThreadPool(2);
         this._archivoDatos = _archivoDatos;
         this._gestor = gestor;
-        this._elitismo = Elitismo;
-        this._operadorMPX = OperadorMPX;
 
+        this._operadorMPX = OperadorMPX;
         this._probMutacion = probMutacion;
         this._probReproduccion = probReini;
+        this._probMPX = probMpx;
 
-        _evaluaciones = 0;
-        _evaluacionesObjetivo = evaluaciones;
+        this._evaluaciones = 0;
+        this._evaluacionesObjetivo = evaluaciones;
 
-        _numeroCromosomas = 50;
+        this._numeroCromosomas = numeroCromosomas;
 
-        _cromosomas = new ArrayList<>();
-        _cromosomasPadre = new ArrayList<>();
-        _cromosomasHijo = new ArrayList<>();
-        _costes = new ArrayList<>();
+        this._cromosomas = new ArrayList<>();
+        this._cromosomasPadre = new ArrayList<>();
+        this._cromosomasHijo = new ArrayList<>();
 
-        cromosomasElite = new ArrayList<>();
+        this.cromosomasElite = new ArrayList<>();
+
+        this._mejorCromosoma = new Cromosomas(new HashSet<Integer>(), 0.0f);
+
+        if (Elitismo == 0) {
+            _elitismo = 1;
+            _generacional = true;
+        } else {
+            this._elitismo = Elitismo;
+            this._generacional = false;
+        }
+
+        generacion = 1;
 
     }
 
@@ -314,7 +327,7 @@ public class Genetico {
             }
         }
     }
-    
+
     /**
      * @brief Realiza el cruce de la población utilizando el operador de cruce
      * MPX
@@ -439,7 +452,7 @@ public class Genetico {
 
         return elemento;
     }
-    
+
     /**
      * @brief Calcula el gen del individuo que menos coste aporta.
      * @author David Díaz Jiménez
@@ -477,7 +490,7 @@ public class Genetico {
 
         return elemenor;
     }
-    
+
     /**
      * @brief Operador de mutación.
      * @author David Díaz Jiménez
@@ -525,7 +538,7 @@ public class Genetico {
             Cromosoma.setCromosoma(cromosoma);
         }
     }
-    
+
     /**
      * @brief Operador de elitismo
      * @author David Díaz Jiménez
@@ -565,14 +578,14 @@ public class Genetico {
 
         registroElites();
     }
-    
+
     /**
      * @brief Calcula el coste de todos los individuos de la poblacion
      * @author David Díaz Jiménez
      * @author Andrés Rojas Ortega
      * @date 17/11/2020
      * @param cromosomas ArrayList<Cromosomas> La población de individuos
-     * @param ObtenerElite boolena Indica si la función debe calcular el élite 
+     * @param ObtenerElite boolena Indica si la función debe calcular el élite
      * de la población
      */
     private void obtenerCostes(ArrayList<Cromosomas> cromosomas, boolean ObtenerElite) {
@@ -604,7 +617,7 @@ public class Genetico {
             }
         }
     }
-    
+
     /**
      * @brief Calcula el coste de una solución
      * @author David Díaz Jiménez
