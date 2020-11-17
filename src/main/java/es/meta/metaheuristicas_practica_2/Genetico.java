@@ -16,6 +16,7 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -112,24 +113,30 @@ public class Genetico {
     }
 
     ///Atributos de la clase:
-    Archivo _archivoDatos;///<Contiene los datos del problema
+    private Archivo _archivoDatos;///<Contiene los datos del problema
     private GestorLog _gestor;///<Gestor encargado de la creación del Log
-    int _elitismo;///<Número de cromosomas elites que almacenar
-    boolean _operadorMPX;///<True: el algoritmo de cruce a aplicar es MPX;
+    private int _elitismo;///<Número de cromosomas elites que almacenar
+    private boolean _operadorMPX;///<True: el algoritmo de cruce a aplicar es MPX;
     ///False: el algoritmo de cruce a aplicar es corte en dos puntos
-    int _evaluaciones;///<Evaluaciones que se han realizado hasta el momento
-    int _evaluacionesObjetivo;///<Número de evaluaciones máximo que realizar
-    int _numeroCromosomas;///<Número de cromosomas que contiene cada población
-    float _probMutacion;///<Probabilidad de que se produzca una mutación
-    float _probReproduccion;///<Probabilidad de que dos individuos se 
+    private int _evaluaciones;///<Evaluaciones que se han realizado hasta el momento
+    private final int _evaluacionesObjetivo;///<Número de evaluaciones máximo que realizar
+    private final int _numeroCromosomas;///<Número de cromosomas que contiene cada población
+    private final float _probMutacion;///<Probabilidad de que se produzca una mutación
+    private final float _probReproduccion;///<Probabilidad de que dos individuos se 
     ///reproduzcan
-    ArrayList<Cromosomas> _cromosomas;///<Almacena los cromosomas iniciales
-    ArrayList<Cromosomas> _cromosomasPadre;///<Almacena los cromosomas padre
-    ArrayList<Cromosomas> _cromosomasHijo;///<Almacena los cromosomas hijo
-    ArrayList<Float> _costes;///<Almacena los costes de cada cromosoma
-    ArrayList<Boolean> recalcularCostes;///<Indica si hay que recalcular los 
+    private final float _probMPX;///<Probabilidad de que un gen del padre se 
+    ///incluya en el hijo
+    private final boolean _generacional;///<Generacional o estacionario
+    private int generacion;///<Generación actual
+    private ArrayList<Cromosomas> _cromosomas;///<Almacena los cromosomas iniciales
+    private ArrayList<Cromosomas> _cromosomasPadre;///<Almacena los cromosomas padre
+    private ArrayList<Cromosomas> _cromosomasHijo;///<Almacena los cromosomas hijo
+    private ArrayList<Float> _costes;///<Almacena los costes de cada cromosoma
+    private ArrayList<Boolean> recalcularCostes;///<Indica si hay que recalcular los 
     ///costes del cromosoma de la posicion i.
-    ArrayList<Cromosomas> cromosomasElite;///<Almacena los cromosomas elites.
+    private ArrayList<Cromosomas> cromosomasElite;///<Almacena los cromosomas elites.
+    private ExecutorService exec;
+    private Cromosomas _mejorCromosoma;///<Mejor individuo de la generación
 
     /**
      * @brief Constructor parametrizado de la clase Genetico
