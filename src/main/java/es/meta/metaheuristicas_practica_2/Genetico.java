@@ -119,10 +119,12 @@ public final class Genetico {
 
     private ArrayList<Cromosomas> cromosomasElite;
 
-    ExecutorService exec = Executors.newFixedThreadPool(2);
+    private ExecutorService exec;
 
     public Genetico(Archivo _archivoDatos, GestorLog gestor, int evaluaciones, int Elitismo, boolean OperadorMPX, float probReini,
             float probMutacion, float probMpx, int numeroCromosomas) {
+        
+        this.exec = Executors.newFixedThreadPool(2);
         this._archivoDatos = _archivoDatos;
         this._gestor = gestor;
 
@@ -415,10 +417,12 @@ public final class Genetico {
 
         Future<ArrayList<Cromosomas>> future = null;
         Future<ArrayList<Cromosomas>> future2 = null;
+        
+        ArrayList<Cromosomas> copia = new ArrayList<>(_vcromosomasHijo);
 
         int tam = ((_numeroCromosomas) / 2) - 1;
-        future = exec.submit(new CostTask(_vcromosomasHijo, 0, tam));
-        future2 = exec.submit(new CostTask(_vcromosomasHijo, tam + 1, _numeroCromosomas - 1));
+        future = exec.submit(new CostTask(copia, 0, tam));
+        future2 = exec.submit(new CostTask(copia, tam + 1, _numeroCromosomas - 1));
 
         try {
 

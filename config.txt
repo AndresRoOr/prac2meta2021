@@ -1,9 +1,9 @@
-Datos=archivos/Datos/MDG
+Datos=archivos/Datos/SOM
 Semilla=77356084
 Evaluaciones=50000
 Elitismo=3
 OperadorMPX=true
-Probabilidad de mutacion=0.05
-Probabilidad de reproduccion=0.70
+Probabilidad de mutacion=0.01
+Probabilidad de reproduccion=0.90
 Cromosomas=50
 Probabilidad MPX=0.50

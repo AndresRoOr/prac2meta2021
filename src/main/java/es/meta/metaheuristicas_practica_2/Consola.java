@@ -37,6 +37,7 @@ public final class Consola extends javax.swing.JFrame {
         eleccion = 0;
         this.jButtonGreedy.setEnabled(true);
         this.jProgressBarEstado.setValue(0);
+        this.jButtonReload.setEnabled(true);
     }
     
     
@@ -65,6 +66,7 @@ public final class Consola extends javax.swing.JFrame {
         jButtonExit = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jProgressBarEstado = new javax.swing.JProgressBar();
+        jButtonReload = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Metaheurísticas: Práctica 2");
@@ -124,6 +126,19 @@ public final class Consola extends javax.swing.JFrame {
         jProgressBarEstado.setBorderPainted(false);
         jProgressBarEstado.setFocusable(false);
 
+        jButtonReload.setBackground(new java.awt.Color(153, 153, 153));
+        jButtonReload.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
+        jButtonReload.setText("Recargar config");
+        jButtonReload.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jButtonReload.setBorderPainted(false);
+        jButtonReload.setFocusPainted(false);
+        jButtonReload.setFocusable(false);
+        jButtonReload.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonReloadActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -135,7 +150,9 @@ public final class Consola extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addGap(40, 40, 40)
                         .addComponent(jButtonGreedy, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 344, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 205, Short.MAX_VALUE)
+                        .addComponent(jButtonReload, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33)
                         .addComponent(jButtonExit, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jProgressBarEstado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))
@@ -153,7 +170,9 @@ public final class Consola extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel1)
                         .addComponent(jButtonGreedy, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButtonExit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButtonExit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonReload, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -176,11 +195,20 @@ public final class Consola extends javax.swing.JFrame {
         jTextArea.setText("");
         this.jButtonGreedy.setEnabled(false);
         this.jProgressBarEstado.setVisible(true);
+        this.jButtonReload.setEnabled(false);
     }//GEN-LAST:event_jButtonGreedyActionPerformed
 
     private void jButtonExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExitActionPerformed
         System.exit(0);
     }//GEN-LAST:event_jButtonExitActionPerformed
+
+    private void jButtonReloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReloadActionPerformed
+        // TODO add your handling code here:
+        
+         eleccion = 2;
+         jTextArea.setText("");
+         jTextArea.setText("Archivo de configuración recargado");
+    }//GEN-LAST:event_jButtonReloadActionPerformed
 
     
     
@@ -191,6 +219,7 @@ public final class Consola extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonExit;
     private javax.swing.JButton jButtonGreedy;
+    private javax.swing.JButton jButtonReload;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JProgressBar jProgressBarEstado;

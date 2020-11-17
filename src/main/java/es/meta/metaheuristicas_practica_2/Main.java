@@ -83,6 +83,11 @@ public class Main {
                     
                     M1.genetico();
                     break;
+                    
+                case 2:
+                    
+                    config = new Configurador("./config.txt");
+                    break;
                    
             }
                     
