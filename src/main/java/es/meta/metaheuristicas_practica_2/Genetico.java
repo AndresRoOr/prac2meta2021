@@ -218,7 +218,7 @@ public final class Genetico {
 
         cromosomasElite.add(new Cromosomas(_vcromosomas.get(0).getCromosoma(), _vcromosomas.get(0).getContribucion()));
 
-        obtenerCostes(_vcromosomas, true);
+        obtenerCostesConcurrente(_vcromosomas, true);
 
         Collections.sort(cromosomasElite);
 
@@ -281,7 +281,7 @@ public final class Genetico {
         int tamFin = tam;
 
         for (int i = 0; i < _numHilos; i++) {
-            if ((_numHilos % 2 == 0) && (i == _numHilos)) {
+            if ((_numHilos % 2 != 0) && (i == _numHilos)) {
                 tamIni = tam * (i - 1) + 1;
                 tamFin = _numeroCromosomas - 1;
             }
@@ -524,7 +524,7 @@ public final class Genetico {
         int tamFin = tam;
 
         for (int i = 0; i < _numHilos; i++) {
-            if ((_numHilos % 2 == 0) && (i == _numHilos)) {
+            if ((_numHilos % 2 != 0) && (i == _numHilos)) {
                 tamIni = tam * (i - 1) + 1;
                 tamFin = _numeroCromosomas - 1;
             }
