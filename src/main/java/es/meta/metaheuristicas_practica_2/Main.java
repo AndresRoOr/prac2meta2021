@@ -45,6 +45,7 @@ public class Main {
         }
 
         Configurador config = new Configurador("./config.txt");
+        GestorLog gestor = new GestorLog("");
 
         ArrayList<File> directorios = new ArrayList<>();
         directorios.add(new File("./archivos"));
@@ -80,17 +81,17 @@ public class Main {
             switch (console.getEleccion()) {
 
                 case 1:
-
+                    
                     M1.genetico();
                     break;
-
-                case 4:
-                    System.exit(0);
-
+                    
+                case 2:
+                    
+                    config = new Configurador("./config.txt");
+                    break;
+                   
             }
-
-            
-
+                    
             console.restaurarEleccion();
         }
         System.exit(0);
