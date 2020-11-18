@@ -188,6 +188,55 @@ public class Genetico {
         generacion = 1;
 
     }
+    
+    /**
+     * @brief Algoritmo principal.
+     * @author David Díaz Jiménez
+     * @author Andrés Rojas Ortega
+     * @date 18/11/2020
+     * @param aleatorioSemilla Random_p Semilla aleatoria
+     */
+    void genetico(Random_p aleatorioSemilla) {
+
+        Random_p aleatorio = aleatorioSemilla;
+
+        generarCromosomasIniciales(aleatorio);
+
+        registroConfiguración();
+
+        //Añadimos un elemento para evitar futuros errores.
+        cromosomasElite.add(new Cromosomas(_cromosomas.get(0).getCromosoma(), _cromosomas.get(0).getContribucion()));
+
+        obtenerCostes(_cromosomas, true);
+
+        Collections.sort(cromosomasElite);
+
+        while (_evaluaciones < _evaluacionesObjetivo) {
+
+            operadorSeleccion(aleatorio);
+
+            operadorReproduccion(aleatorio);
+
+            repararConcurrente();
+
+            operadorMutación(aleatorio);
+
+            obtenerCostes(_cromosomasHijo, false);
+
+            operadorElitismo();
+
+            generacion++;
+
+        }
+
+        _cromosomasHijo.clear();
+        _cromosomasPadre.clear();
+        _cromosomas.clear();
+        cromosomasElite.clear();
+        
+        exec.shutdownNow();
+
+    }
 
     /**
      * @brief Genera el conjunto de cromosomas inicial del algoritmo genético.
