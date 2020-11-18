@@ -90,8 +90,6 @@ public class Metaheuristicas {
 
         if (_archivos.size() > 0) {
 
-            GestorLog gestor = new GestorLog("");
-
             int aumento = (1000 / (_archivos.size() * 5));
 
             for (Archivo ar : _archivos) {
@@ -104,8 +102,8 @@ public class Metaheuristicas {
 
                     Timer t = new Timer();
 
-                    gestor.cambiarNombre("genetico/Log_SEM_" + _config.getSemilla() + ar.getNombre());
-                    gestor.abrirArchivo();
+                    Main.gestor.cambiarNombre("genetico/MPX_"+_config.getCruceMpx()+";Elitismo_"+_config.getElitismo()+";SEM_" + _config.getSemilla()+"_" + ar.getNombre());
+                    Main.gestor.abrirArchivo();
 
                     Random_p sem = new Random_p();
                     sem.Set_random(_config.getSemilla());
@@ -125,7 +123,7 @@ public class Metaheuristicas {
 
                     g.PresentarResultados();
 
-                    gestor.cerrarArchivo();
+                    Main.gestor.cerrarArchivo();
 
                     Main.console.setValue(aumento / 2);
 
