@@ -537,9 +537,10 @@ public final class Genetico {
             _vcromosomasHijo.clear();
 
             for (int i = 0; i < _numHilos; i++) {
-                for (Cromosomas cromo : future.get(i).get()) {
+                ArrayList<Cromosomas> c = future.get(i).get();
+                c.forEach(cromo -> {
                     _vcromosomasHijo.add(cromo);
-                }
+                });
             }
         } catch (InterruptedException ex) {
             Logger.getLogger(Genetico.class.getName()).log(Level.SEVERE, null, ex);
