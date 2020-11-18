@@ -29,6 +29,11 @@
 	
 	\paragraph{}Una vez tenemos nuestra variable "poblacionHijos" con todos los individuos cruzados, debemos revisar que todos ellos cumplan con las restricciones del problema. En el caso de que algún individuo no cumpla con alguna de estas, debemos repararlo para que sea válido. Esta tarea se la asignaremos a la función "Reparar(poblacionHijos)".
 	
+	\paragraph{}Procedemos a aplicar el operador de mutación sobre "poblacionHijos" aplicando la función "MutarPoblacion(poblacionHijos,semilla)".
+	
+	\paragraph{}Volvemos a ejecutar la función "Evaluacion(poblacionHijos)" para calcular los costes de los individuos mutados.
+	
+	\paragraph{}Para finalizar, ejecutamos la función "ReemplazarElite(poblacionHijos,elite)". Esta función implementa la funcionalidad del operador de elitismo, el resultado de la ejecución la guardamos en la variable "poblacionPadres". Con este último paso estamos listos para iniciar la ejecución de una nueva iteración.
 		
 	\begin{algorithm}[H]
 		\caption{GeneraPoblacionInicial(semilla)}
