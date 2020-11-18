@@ -728,12 +728,16 @@ public class Genetico {
 
         _gestor.escribirArchivo("");
         _gestor.escribirArchivo("Resultados");
-        _gestor.escribirArchivo("");
-        _gestor.escribirArchivo("Mejor coste: " + cromosomasElite.get(cromosomasElite.size() - 1).getContribucion());
 
+        float coste = calcularCoste(_mejorCromosoma.getCromosoma());
+        _gestor.escribirArchivo("");
+        _gestor.escribirArchivo("Mejor coste: " + coste);
+        _gestor.escribirArchivo("Mejor cromosoma: " + _mejorCromosoma.getCromosoma());
+        _gestor.escribirArchivo("Tamaño: " + coste);
+
+        Main.console.presentarSalida("Mejor Coste:  " + _mejorCromosoma.getContribucion());
         Main.console.presentarSalida("");
 
-        System.out.println("");
     }
 
 }
