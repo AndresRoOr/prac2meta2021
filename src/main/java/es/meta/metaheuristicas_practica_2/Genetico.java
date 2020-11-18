@@ -641,7 +641,40 @@ public class Genetico {
         }
         return coste;
     }
+    
+    /**
+     * @brief Registra los cromosomas inciales en un archivo
+     * @author David Díaz Jiménez
+     * @author Andrés Rojas Ortega
+     * @date 18/11/2020
+     */
+    private void registroConfiguración() {
+        _gestor.escribirArchivo("Cromosomas Iniciales: ");
+        for (Cromosomas cromosoma : _cromosomas) {
+            _gestor.escribirArchivo(cromosoma.getCromosoma().toString());
+        }
+    }
 
+    /**
+     * @brief Registra la información de los individuos élites en un archivo
+     * @author David Díaz Jiménez
+     * @author Andrés Rojas Ortega
+     * @date 18/11/2020
+     */
+    private void registroElites() {
+        _gestor.escribirArchivo("");
+        _gestor.escribirArchivo("Generación: " + generacion + ", " + _elitismo + " mejores individuos de la población");
+        for (Cromosomas cromosoma : cromosomasElite) {
+            _gestor.escribirArchivo(cromosoma.getCromosoma().toString());
+        }
+    }
+
+    /**
+     * @brief Resgistra los resultados del algoritmo en un archivo.
+     * @author David Díaz Jiménez
+     * @author Andrés Rojas Ortega
+     * @date 18/11/2020
+     */
     void PresentarResultados() {
 
         _gestor.escribirArchivo("");
