@@ -218,7 +218,7 @@ public final class Genetico {
 
         cromosomasElite.add(new Cromosomas(_vcromosomas.get(0).getCromosoma(), _vcromosomas.get(0).getContribucion()));
 
-        obtenerCostesConcurrente(_vcromosomas, true);
+        obtenerCostes(_vcromosomas, true);
 
         Collections.sort(cromosomasElite);
 
@@ -281,8 +281,8 @@ public final class Genetico {
         int tamFin = tam;
 
         for (int i = 0; i < _numHilos; i++) {
-            if ((_numHilos % 2 != 0) && (i == _numHilos)) {
-                tamIni = tam * (i - 1) + 1;
+            if (i == _numHilos-1) {
+                tamIni = (tam * (i - 1)) + 1;
                 tamFin = _numeroCromosomas - 1;
             }
             future.set(i, exec.submit(new CalcCostTask(cromosomas, ObtenerElite, tamIni, tamFin)));
@@ -524,8 +524,8 @@ public final class Genetico {
         int tamFin = tam;
 
         for (int i = 0; i < _numHilos; i++) {
-            if ((_numHilos % 2 != 0) && (i == _numHilos)) {
-                tamIni = tam * (i - 1) + 1;
+            if (i == _numHilos-1) {
+                tamIni = (tam * (i - 1)) + 1;
                 tamFin = _numeroCromosomas - 1;
             }
             future.set(i, exec.submit(new CostTask(_vcromosomasHijo, tamIni, tamFin)));
