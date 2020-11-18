@@ -24,15 +24,15 @@ public class Configurador {
     ///Atributos de la clase:
     ArrayList<String> directoriosDatos;///<Almacena los directorios donde se 
     ///encuentran los archivos con la información del problema
-    Long semilla;///<Semilla utilizada para generar número aleatorios
-    Integer evaluaciones;///<Número de iteraciones
-    Long recuperarSemilla;///<Almacena el valor inicial de la semilla
-    Integer elitismo;
-    Boolean cruceMpx;
-    Float probReproduccion;
-    Float probMutacion;
-    Integer numeroCromosomas;
-
+    private Long semilla;///<Semilla utilizada para generar número aleatorios
+    private Integer evaluaciones;///<Número de iteraciones
+    private Long recuperarSemilla;///<Almacena el valor inicial de la semilla
+    private Integer elitismo;
+    private Boolean cruceMpx;
+    private Float probReproduccion;
+    private Float probMutacion;
+    private Float probMpx;
+    private Integer numeroCromosomas;
 
     /**
      * @brief Constructor parametrizado de la clase Configurador
@@ -68,24 +68,27 @@ public class Configurador {
                     case "Evaluaciones":
                         evaluaciones = Integer.parseInt(split[1]);
                         break;
-                      
+
                     case "Elitismo":
                         elitismo = Integer.parseInt(split[1]);
                         break;
-                            
+
                     case "OperadorMPX":
                         cruceMpx = Boolean.parseBoolean(split[1]);
                         break;
-                        
+
                     case "Probabilidad de mutacion":
                         probMutacion = Float.parseFloat(split[1]);
                         break;
-                        
+
                     case "Probabilidad de reproduccion":
                         probReproduccion = Float.parseFloat(split[1]);
-                        break;  
-                        
-                        
+                        break;
+
+                    case "Probabilidad MPX":
+                        probMpx = Float.parseFloat(split[1]);
+                        break;
+
                     case "Cromosomas":
                         numeroCromosomas = Integer.parseInt(split[1]);
                         break;
@@ -138,9 +141,8 @@ public class Configurador {
     public Integer getEvaluaciones() {
         return evaluaciones;
     }
-    
-    
-     public Integer getElitismo() {
+
+    public Integer getElitismo() {
         return elitismo;
     }
 
@@ -155,7 +157,11 @@ public class Configurador {
     public Float getProbMutacion() {
         return probMutacion;
     }
-    
+
+    public Float getProbMpx() {
+        return probMpx;
+    }
+
     public Integer getNumeroCromosomas() {
         return numeroCromosomas;
     }
@@ -173,9 +179,9 @@ public class Configurador {
 
         cadenaRotada[cadenaSemilla.length - 1] = cadenaSemilla[0];
 
-            for (int i = 0; i < cadenaSemilla.length - 1; i++) {
-                cadenaRotada[i] = cadenaSemilla[i + 1];
-            }
+        for (int i = 0; i < cadenaSemilla.length - 1; i++) {
+            cadenaRotada[i] = cadenaSemilla[i + 1];
+        }
 
         while (cadenaRotada[0] == '0') {
             char[] cadenaAux = cadenaRotada;
@@ -189,7 +195,6 @@ public class Configurador {
 
         semilla = Long.parseLong(String.valueOf(cadenaRotada));
     }
-
 
     /**
      * @brief Restaura la semilla a su estado original

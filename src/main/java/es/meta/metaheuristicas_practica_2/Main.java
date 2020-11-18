@@ -24,6 +24,10 @@ import javax.swing.UIManager;
  */
 public class Main {
 
+    public static Consola console = new Consola();
+    public static int narchivos;
+    public static GestorLog gestor = new GestorLog("");
+    
     /**
      * @brief Función principal del programa
      * @author Andrés Rojas Ortega
@@ -32,9 +36,6 @@ public class Main {
      * @param args
      * @throws IOException
      */
-    public static Consola console = new Consola();
-    public static int narchivos;
-
     public static void main(String[] args) throws IOException {
 
         try {

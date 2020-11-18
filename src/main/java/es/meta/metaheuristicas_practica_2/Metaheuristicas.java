@@ -110,9 +110,9 @@ public class Metaheuristicas {
                     Random_p sem = new Random_p();
                     sem.Set_random(_config.getSemilla());
 
-                    Genetico g = new Genetico(ar, gestor, _config.getEvaluaciones(),_config.getElitismo(),
+                    Genetico g = new Genetico(ar, Main.gestor, _config.getEvaluaciones(),_config.getElitismo(),
                             _config.getCruceMpx(), _config.getProbReproduccion(),
-                            _config.getProbMutacion());
+                            _config.getProbMutacion(), _config.getProbMpx(),_config.getNumeroCromosomas());
 
                     t.startTimer();
 
