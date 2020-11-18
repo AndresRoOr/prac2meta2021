@@ -23,7 +23,7 @@ import org.apache.commons.lang3.StringUtils;
 public class Configurador {
 
     ///Atributos de la clase:
-     ArrayList<String> directoriosDatos;///<Almacena los directorios donde se 
+    ArrayList<String> directoriosDatos;///<Almacena los directorios donde se 
     ///encuentran los archivos con la información del problema
     private Long semilla;///<Semilla utilizada para generar número aleatorios
     private Integer evaluaciones;///<Número de iteraciones
@@ -34,7 +34,7 @@ public class Configurador {
     private Float probMutacion;
     private Float probMpx;
     private Integer numeroCromosomas;
-
+    private Integer numHilos;
 
     /**
      * @brief Constructor parametrizado de la clase Configurador
@@ -55,7 +55,7 @@ public class Configurador {
             BufferedReader b = new BufferedReader(f);
 
             while ((linea = b.readLine()) != null) {
-                String[] split = StringUtils.split(linea,"=");
+                String[] split = StringUtils.split(linea, "=");
                 switch (split[0]) {
                     case "Datos":
                         String[] v = split[1].split(" ");
@@ -63,7 +63,7 @@ public class Configurador {
                             directoriosDatos.add(v[i]);
                         }
                         break;
-                        
+
                     case "Semilla":
                         semilla = Long.parseLong(split[1]);
                         recuperarSemilla = semilla;
@@ -71,29 +71,33 @@ public class Configurador {
                     case "Evaluaciones":
                         evaluaciones = Integer.parseInt(split[1]);
                         break;
-                      
+
                     case "Elitismo":
                         elitismo = Integer.parseInt(split[1]);
                         break;
-                            
+
                     case "OperadorMPX":
                         cruceMpx = Boolean.parseBoolean(split[1]);
                         break;
-                        
+
                     case "Probabilidad de mutacion":
                         probMutacion = Float.parseFloat(split[1]);
                         break;
-                        
+
                     case "Probabilidad de reproduccion":
                         probReproduccion = Float.parseFloat(split[1]);
-                        break;  
-                        
+                        break;
+
                     case "Cromosomas":
                         numeroCromosomas = Integer.parseInt(split[1]);
                         break;
-                                
+
                     case "Probabilidad MPX":
                         probMpx = Float.parseFloat(split[1]);
+                        break;
+
+                    case "Número de hilos":
+                        numHilos = Integer.parseInt(split[1]);
                         break;
                 }
             }
@@ -144,8 +148,8 @@ public class Configurador {
     public Integer getEvaluaciones() {
         return evaluaciones;
     }
-      
-     public Integer getElitismo() {
+
+    public Integer getElitismo() {
         return elitismo;
     }
 
@@ -160,13 +164,17 @@ public class Configurador {
     public Float getProbMutacion() {
         return probMutacion;
     }
-    
+
     public Integer getNumeroCromosomas() {
         return numeroCromosomas;
     }
-    
+
     public Float getProbMpx() {
         return probMpx;
+    }
+
+    public Integer getNumHilos() {
+        return numHilos;
     }
 
     /**
@@ -182,9 +190,9 @@ public class Configurador {
 
         cadenaRotada[cadenaSemilla.length - 1] = cadenaSemilla[0];
 
-            for (int i = 0; i < cadenaSemilla.length - 1; i++) {
-                cadenaRotada[i] = cadenaSemilla[i + 1];
-            }
+        for (int i = 0; i < cadenaSemilla.length - 1; i++) {
+            cadenaRotada[i] = cadenaSemilla[i + 1];
+        }
 
         while (cadenaRotada[0] == '0') {
             char[] cadenaAux = cadenaRotada;
@@ -198,7 +206,6 @@ public class Configurador {
 
         semilla = Long.parseLong(String.valueOf(cadenaRotada));
     }
-
 
     /**
      * @brief Restaura la semilla a su estado original

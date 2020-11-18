@@ -110,7 +110,7 @@ public final class Metaheuristicas {
 
                     Genetico g = new Genetico(ar, Main.gestor, _config.getEvaluaciones(),_config.getElitismo(),
                             _config.getCruceMpx(), _config.getProbReproduccion(),
-                            _config.getProbMutacion(), _config.getProbMpx(),_config.getNumeroCromosomas());
+                            _config.getProbMutacion(), _config.getProbMpx(),_config.getNumeroCromosomas(), _config.getNumHilos());
 
                     t.startTimer();
 

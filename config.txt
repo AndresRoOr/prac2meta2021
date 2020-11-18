@@ -7,3 +7,4 @@ Probabilidad de mutacion=0.01
 Probabilidad de reproduccion=0.90
 Cromosomas=50
 Probabilidad MPX=0.50
+Número de hilos=4
