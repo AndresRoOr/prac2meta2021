@@ -8,7 +8,6 @@
 package es.meta.metaheuristicas_practica_2;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -85,6 +84,7 @@ public final class Genetico {
                                     lock.writeLock().unlock();
                                 }
                             }
+                            lock.readLock().unlock();
 
                             lock.writeLock().lock();
                             try {
@@ -95,6 +95,7 @@ public final class Genetico {
                             }
 
                         } else {
+                            lock.readLock().unlock();
 
                             lock.readLock().lock();
                             while (cromosoma.size() != numeroGenes) {
@@ -109,7 +110,9 @@ public final class Genetico {
                                 } finally {
                                     lock.writeLock().unlock();
                                 }
+                                lock.readLock().lock();
                             }
+                            lock.readLock().unlock();
 
                             lock.writeLock().lock();
                             try {
@@ -122,11 +125,15 @@ public final class Genetico {
                             cromosomaReparado.add(new Cromosomas(Cromosoma));
                             lock.readLock().unlock();
                         }
+                        lock.readLock().unlock();
                     } else {
+                        lock.readLock().unlock();
+                        
                         lock.readLock().lock();
                         cromosomaReparado.add(new Cromosomas(Cromosoma));
                         lock.readLock().unlock();
                     }
+                    lock.readLock().unlock();
                     i++;
                 } else {
                     i++;
@@ -199,10 +206,13 @@ public final class Genetico {
                                         lock.writeLock().unlock();
                                     }
                                 }
+                                lock.readLock().unlock();
                             }
+                            lock.readLock().unlock();
                         }
                     }
                 }
+                lock.readLock().unlock();
             }
             return mejorCoste;
         }
@@ -658,19 +668,27 @@ public final class Genetico {
     private int CalcularMenorAporte(Set<Integer> cromosoma) {
 
         float aporte = 0.0f;
+        
+        lock.readLock().lock();
         Iterator<Integer> iterator = cromosoma.iterator();
+        lock.readLock().unlock();
+        
         float menorAporte = Float.MAX_VALUE;
         int elemenor = -1;
 
         while (iterator.hasNext()) {
 
+            lock.readLock().lock();
             Iterator<Integer> iterator2 = cromosoma.iterator();
             int i = iterator.next();
+            lock.readLock().unlock();
 
             while (iterator2.hasNext()) {
 
+                lock.readLock().lock();
                 int j = iterator2.next();
                 aporte += _archivoDatos.getMatriz()[i][j];
+                lock.readLock().unlock();
 
             }
 
