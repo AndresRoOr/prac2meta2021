@@ -50,4 +50,21 @@
 	
 	\subsection{Análisis de los resultados}
 	
+	\subsubsection{Efectos de la mutación}
+	
+	\paragraph{} La mutación en los algoritmos genéticos es una técnica de diversificación, la cual puede ayudar a salir de óptimos locales, no obstante, su porcentaje de aplicación debe ser reducido.Esto es debido a que una alta probabilidad de mutación puede alterar considerablemente las soluciones obtenidas, resultando en una calidad inferior de las mismas.
+	
+	 Para reflejar este comportamiento de la mutación, se ha seleccionado el conjunto de datos SOM, y se ha establecido 3 valores distintos de probabilidad de mutación: 0,01, 0,05 y 0,09. Cada Probabilidad de mutación se ha aplicado en 5 iteraciones, con distinta semilla para cada archivo. Posteriormente se ha obtenido la media de las 5 iteraciones para cada archivo y probabilidad de mutación, de dichos resultados se ha obtenido la siguiente gráfica:
+	 
+		 \begin{figure}[H]
+		 	
+		 	\centering
+		 	\includegraphics[scale=0.6]{img/Mutación}
+		 	\caption{Diferencias en porcentajes respecto a los óptimos globales}
+		 	
+		 \end{figure}
+	 
+	 \paragraph{}Como se puede observar, un mayor porcentaje de mutación, empeora los resultados obtenidos mediante algoritmos genéticos.
+	
+	\paragraph{} 
 	
