@@ -39,7 +39,12 @@ public final class Genetico {
         private final int termina;
 
         public CostTask(ArrayList<Cromosomas> cromosomas, int empie, int termi) {
-            Cromosomas = new ArrayList<>(cromosomas);
+            Cromosomas = new ArrayList<>();
+            for(int i=empie;i<=termi;i++){
+                lock.readLock().lock();
+                Cromosomas.add(new Cromosomas(cromosomas.get(i)));
+                lock.readLock().unlock();
+            }
             empieza = empie;
             termina = termi;
 
@@ -48,9 +53,9 @@ public final class Genetico {
         @Override
         public ArrayList<Cromosomas> call() throws Exception {
 
-            lock.readLock().lock();
+            //lock.readLock().lock();
             int numeroGenes = _archivoDatos.getTama_Solucion();
-            lock.readLock().unlock();
+            //lock.readLock().unlock();
 
             ArrayList<Cromosomas> cromosomaReparado = new ArrayList<>();
             int i = 0;
@@ -59,69 +64,69 @@ public final class Genetico {
 
                 if (i >= empieza && i <= termina) {
 
-                    lock.readLock().lock();
+                    //lock.readLock().lock();
                     Set<Integer> cromosoma = Cromosoma.getCromosoma();
-                    lock.readLock().unlock();
+                    //lock.readLock().unlock();
 
-                    lock.readLock().lock();
+                    //lock.readLock().lock();
                     if (cromosoma.size() != numeroGenes) {
-                        lock.readLock().unlock();
+                        //lock.readLock().unlock();
 
-                        lock.readLock().lock();
+                        //lock.readLock().lock();
                         if (cromosoma.size() < numeroGenes) {
-                            lock.readLock().unlock();
+                            //lock.readLock().unlock();
 
-                            lock.readLock().lock();
+                            //lock.readLock().lock();
                             while (cromosoma.size() != numeroGenes) {
-                                lock.readLock().unlock();
+                                //lock.readLock().unlock();
                                 //Calcular mejor coste como en Greedy      
                                 int gen = CalcularMayorAporte(cromosoma);
 
-                                lock.writeLock().lock();
+                                //lock.writeLock().lock();
                                     cromosoma.add(gen);
-                                    lock.writeLock().unlock();
+                                    //lock.writeLock().unlock();
                             }
-                            lock.readLock().unlock();
+                            //lock.readLock().unlock();
 
-                            lock.writeLock().lock();
+                            //lock.writeLock().lock();
                                 Cromosoma.setCromosoma(cromosoma);
                                 cromosomaReparado.add(new Cromosomas(Cromosoma));
-                                lock.writeLock().unlock();
+                                //lock.writeLock().unlock();
 
                         } else {
-                            lock.readLock().unlock();
+                            //lock.readLock().unlock();
 
-                            lock.readLock().lock();
+                            //lock.readLock().lock();
                             while (cromosoma.size() != numeroGenes) {
-                                lock.readLock().unlock();
+                                //lock.readLock().unlock();
                                 //Quitar los que menos aportan
 
                                 int elemento = CalcularMenorAporte(cromosoma);
 
-                                lock.writeLock().lock();
+                                //lock.writeLock().lock();
                                     cromosoma.remove(elemento);
-                                    lock.writeLock().unlock();
-                                lock.readLock().lock();
+                                    //lock.writeLock().unlock();
+                                //lock.readLock().lock();
                             }
-                            lock.readLock().unlock();
+                            //lock.readLock().unlock();
 
-                            lock.writeLock().lock();
+                            //lock.writeLock().lock();
                                 Cromosoma.setCromosoma(cromosoma);
-                                lock.writeLock().unlock();
+                                //lock.writeLock().unlock();
 
-                            lock.readLock().lock();
+                            //lock.readLock().lock();
                             cromosomaReparado.add(new Cromosomas(Cromosoma));
-                            lock.readLock().unlock();
+                            //lock.readLock().unlock();
                         }
-                        lock.readLock().unlock();
+                        //lock.readLock().unlock();
                     } else {
-                        lock.readLock().unlock();
+                        //lock.readLock().unlock();
                         
-                        lock.readLock().lock();
+                        //lock.readLock().lock();
                         cromosomaReparado.add(new Cromosomas(Cromosoma));
-                        lock.readLock().unlock();
+                        //lock.readLock().unlock();
                     }
-                    lock.readLock().unlock();
+                    //lock.readLock().unlock();
                     i++;
                 } else {
                     i++;
@@ -140,7 +145,12 @@ public final class Genetico {
         private final boolean obtenerElite;
 
         public CalcCostTask(ArrayList<Cromosomas> cromosomas, boolean obtenerElite, int empie, int termi) {
-            Cromosomas = new ArrayList<>(cromosomas);
+            Cromosomas = new ArrayList<>();
+            for(Cromosomas cromo: cromosomas){
+                lock.readLock().lock();
+                Cromosomas.add(new Cromosomas(cromo));
+                lock.readLock().unlock();
+            }
             this.obtenerElite = obtenerElite;
             empieza = empie;
             termina = termi;
@@ -151,16 +161,19 @@ public final class Genetico {
         public Float call() throws Exception {
             float mejorCoste = 0.0f;
             for (int i = empieza; i <= termina; i++) {
+                if(i==_numeroCromosomas){
+                    break;
+                }
 
-                lock.readLock().lock();
+                //lock.readLock().lock();
                 if (Cromosomas.get(i).isRecalcular() == true || Cromosomas.get(i).getContribucion() == 0.0f) {
                     float coste = calcularCoste(Cromosomas.get(i).getCromosoma());
-                    lock.readLock().unlock();
+                    //lock.readLock().unlock();
 
-                    lock.writeLock().lock();
+                    //lock.writeLock().lock();
                         Cromosomas.get(i).setContribucion(coste);
                         _evaluaciones++;
-                        lock.writeLock().unlock();
+                        //lock.writeLock().unlock();
 
                     if (coste > mejorCoste) {
 
@@ -168,30 +181,30 @@ public final class Genetico {
 
                         if (obtenerElite == true) {
 
-                            lock.readLock().lock();
+                            //lock.readLock().lock();
                             if (mejorCoste > cromosomasElite.get(0).getContribucion()) {
-                                lock.readLock().unlock();
+                                //lock.readLock().unlock();
 
-                                lock.writeLock().lock();
+                                //lock.writeLock().lock();
                                     cromosomasElite.add(new Cromosomas(new HashSet<>(Cromosomas.get(i).getCromosoma()), mejorCoste));
                                     Collections.sort(cromosomasElite);
-                                    lock.writeLock().unlock();
+                                    //lock.writeLock().unlock();
 
-                                lock.readLock().lock();
+                                //lock.readLock().lock();
                                 if (cromosomasElite.size() > _elitismo) {
-                                    lock.readLock().unlock();
+                                    //lock.readLock().unlock();
 
-                                    lock.writeLock().lock();
+                                    //lock.writeLock().lock();
                                         cromosomasElite.remove(0);
-                                        lock.writeLock().unlock();
+                                        //lock.writeLock().unlock();
                                 }
-                                lock.readLock().unlock();
+                                //lock.readLock().unlock();
                             }
-                            lock.readLock().unlock();
+                            //lock.readLock().unlock();
                         }
                     }
                 }
-                lock.readLock().unlock();
+                //lock.readLock().unlock();
             }
             return mejorCoste;
         }
@@ -648,26 +661,26 @@ public final class Genetico {
 
         float aporte = 0.0f;
         
-        lock.readLock().lock();
+        //lock.readLock().lock();
         Iterator<Integer> iterator = cromosoma.iterator();
-        lock.readLock().unlock();
+        //lock.readLock().unlock();
         
         float menorAporte = Float.MAX_VALUE;
         int elemenor = -1;
 
         while (iterator.hasNext()) {
 
-            lock.readLock().lock();
+            //lock.readLock().lock();
             Iterator<Integer> iterator2 = cromosoma.iterator();
             int i = iterator.next();
-            lock.readLock().unlock();
+            //lock.readLock().unlock();
 
             while (iterator2.hasNext()) {
 
-                lock.readLock().lock();
+                //lock.readLock().lock();
                 int j = iterator2.next();
                 aporte += _archivoDatos.getMatriz()[i][j];
-                lock.readLock().unlock();
+                //lock.readLock().unlock();
 
             }
 
