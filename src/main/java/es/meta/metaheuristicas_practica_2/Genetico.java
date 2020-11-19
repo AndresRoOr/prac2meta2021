@@ -12,12 +12,15 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -45,44 +48,84 @@ public final class Genetico {
 
         @Override
         public ArrayList<Cromosomas> call() throws Exception {
+
+            lock.readLock().lock();
             int numeroGenes = _archivoDatos.getTama_Solucion();
+            lock.readLock().unlock();
 
             ArrayList<Cromosomas> cromosomaReparado = new ArrayList<>();
             int i = 0;
+
             for (Cromosomas Cromosoma : Cromosomas) {
 
                 if (i >= empieza && i <= termina) {
 
+                    lock.readLock().lock();
                     Set<Integer> cromosoma = Cromosoma.getCromosoma();
+                    lock.readLock().unlock();
 
+                    lock.readLock().lock();
                     if (cromosoma.size() != numeroGenes) {
+                        lock.readLock().unlock();
 
+                        lock.readLock().lock();
                         if (cromosoma.size() < numeroGenes) {
+                            lock.readLock().unlock();
 
+                            lock.readLock().lock();
                             while (cromosoma.size() != numeroGenes) {
+                                lock.readLock().unlock();
                                 //Calcular mejor coste como en Greedy      
                                 int gen = CalcularMayorAporte(cromosoma);
-                                cromosoma.add(gen);
+
+                                lock.writeLock().lock();
+                                try {
+                                    cromosoma.add(gen);
+                                } finally {
+                                    lock.writeLock().unlock();
+                                }
                             }
 
-                            Cromosoma.setCromosoma(cromosoma);
-
-                            cromosomaReparado.add(new Cromosomas(Cromosoma));
+                            lock.writeLock().lock();
+                            try {
+                                Cromosoma.setCromosoma(cromosoma);
+                                cromosomaReparado.add(new Cromosomas(Cromosoma));
+                            } finally {
+                                lock.writeLock().unlock();
+                            }
 
                         } else {
 
+                            lock.readLock().lock();
                             while (cromosoma.size() != numeroGenes) {
+                                lock.readLock().unlock();
                                 //Quitar los que menos aportan
+
                                 int elemento = CalcularMenorAporte(cromosoma);
-                                cromosoma.remove(elemento);
+
+                                lock.writeLock().lock();
+                                try {
+                                    cromosoma.remove(elemento);
+                                } finally {
+                                    lock.writeLock().unlock();
+                                }
                             }
 
-                            Cromosoma.setCromosoma(cromosoma);
+                            lock.writeLock().lock();
+                            try {
+                                Cromosoma.setCromosoma(cromosoma);
+                            } finally {
+                                lock.writeLock().unlock();
+                            }
 
+                            lock.readLock().lock();
                             cromosomaReparado.add(new Cromosomas(Cromosoma));
+                            lock.readLock().unlock();
                         }
                     } else {
+                        lock.readLock().lock();
                         cromosomaReparado.add(new Cromosomas(Cromosoma));
+                        lock.readLock().unlock();
                     }
                     i++;
                 } else {
@@ -114,10 +157,18 @@ public final class Genetico {
             float mejorCoste = 0.0f;
             for (int i = empieza; i <= termina; i++) {
 
+                lock.readLock().lock();
                 if (Cromosomas.get(i).isRecalcular() == true || Cromosomas.get(i).getContribucion() == 0.0f) {
                     float coste = calcularCoste(Cromosomas.get(i).getCromosoma());
-                    Cromosomas.get(i).setContribucion(coste);
-                    _evaluaciones++;
+                    lock.readLock().unlock();
+
+                    lock.writeLock().lock();
+                    try {
+                        Cromosomas.get(i).setContribucion(coste);
+                        _evaluaciones++;
+                    } finally {
+                        lock.writeLock().unlock();
+                    }
 
                     if (coste > mejorCoste) {
 
@@ -125,11 +176,28 @@ public final class Genetico {
 
                         if (obtenerElite == true) {
 
+                            lock.readLock().lock();
                             if (mejorCoste > cromosomasElite.get(0).getContribucion()) {
-                                cromosomasElite.add(new Cromosomas(new HashSet<>(Cromosomas.get(i).getCromosoma()), mejorCoste));
-                                Collections.sort(cromosomasElite);
+                                lock.readLock().unlock();
+
+                                lock.writeLock().lock();
+                                try {
+                                    cromosomasElite.add(new Cromosomas(new HashSet<>(Cromosomas.get(i).getCromosoma()), mejorCoste));
+                                    Collections.sort(cromosomasElite);
+                                } finally {
+                                    lock.writeLock().unlock();
+                                }
+
+                                lock.readLock().lock();
                                 if (cromosomasElite.size() > _elitismo) {
-                                    cromosomasElite.remove(0);
+                                    lock.readLock().unlock();
+
+                                    lock.writeLock().lock();
+                                    try {
+                                        cromosomasElite.remove(0);
+                                    } finally {
+                                        lock.writeLock().unlock();
+                                    }
                                 }
                             }
                         }
@@ -168,6 +236,7 @@ public final class Genetico {
 
     private ExecutorService exec;
     private int _numHilos;
+    private ReadWriteLock lock;
 
     public Genetico(Archivo _archivoDatos, GestorLog gestor, int evaluaciones, int Elitismo, boolean OperadorMPX, float probReini,
             float probMutacion, float probMpx, int numeroCromosomas, int numHilos) {
@@ -205,6 +274,7 @@ public final class Genetico {
         generacion = 1;
 
         _numHilos = numHilos;
+        this.lock = new ReentrantReadWriteLock();
 
     }
 
@@ -268,7 +338,8 @@ public final class Genetico {
     private void obtenerCostesConcurrente(ArrayList<Cromosomas> cromosomas, boolean ObtenerElite) {
         float mejorCoste = 0.0f;
 
-        ArrayList<Future<Float>> future = new ArrayList<>();
+        List<Future<Float>> future = new ArrayList<>();
+        List<CalcCostTask> tareas = new ArrayList<>();
 
         for (int i = 0; i < _numHilos; i++) {
             future.add(null);
@@ -281,31 +352,31 @@ public final class Genetico {
         int tamFin = tam;
 
         for (int i = 0; i < _numHilos; i++) {
-            if (i == _numHilos-1) {
+            if (i == _numHilos - 1) {
                 tamIni = (tam * (i - 1)) + 1;
                 tamFin = _numeroCromosomas - 1;
             }
-            future.set(i, exec.submit(new CalcCostTask(cromosomas, ObtenerElite, tamIni, tamFin)));
+            tareas.add(new CalcCostTask(cromosomas, ObtenerElite, tamIni, tamFin));
             tamIni = tamFin + 1;
             tamFin += tam;
         }
 
         try {
+            future = exec.invokeAll(tareas);
+
             ArrayList<Float> mejor = new ArrayList<>();
-            
-            for(int i=0; i<_numHilos;i++){
+
+            for (int i = 0; i < _numHilos; i++) {
                 mejor.add(future.get(i).get());
             }
 
-            for(int i=0; i<_numHilos;i++){
-                if(mejor.get(i)>mejorCoste){
-                    mejorCoste=mejor.get(i);
+            for (int i = 0; i < _numHilos; i++) {
+                if (mejor.get(i) > mejorCoste) {
+                    mejorCoste = mejor.get(i);
                 }
             }
 
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Genetico.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ExecutionException ex) {
+        } catch (InterruptedException | ExecutionException ex) {
             Logger.getLogger(Genetico.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -512,7 +583,8 @@ public final class Genetico {
 
     private void repararConcurrente() {
 
-        ArrayList<Future<ArrayList<Cromosomas>>> future = new ArrayList<>();
+        List<Future<ArrayList<Cromosomas>>> future = new ArrayList<>();
+        List<CostTask> tareas = new ArrayList<>();
 
         for (int i = 0; i < _numHilos; i++) {
             Future<ArrayList<Cromosomas>> f = null;
@@ -524,16 +596,17 @@ public final class Genetico {
         int tamFin = tam;
 
         for (int i = 0; i < _numHilos; i++) {
-            if (i == _numHilos-1) {
+            if (i == _numHilos - 1) {
                 tamIni = (tam * (i - 1)) + 1;
                 tamFin = _numeroCromosomas - 1;
             }
-            future.set(i, exec.submit(new CostTask(_vcromosomasHijo, tamIni, tamFin)));
+            tareas.add(new CostTask(_vcromosomasHijo, tamIni, tamFin));
             tamIni = tamFin + 1;
             tamFin += tam;
         }
 
         try {
+            future = exec.invokeAll(tareas);
             _vcromosomasHijo.clear();
 
             for (int i = 0; i < _numHilos; i++) {
@@ -542,9 +615,7 @@ public final class Genetico {
                     _vcromosomasHijo.add(cromo);
                 });
             }
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Genetico.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ExecutionException ex) {
+        } catch (InterruptedException | ExecutionException ex) {
             Logger.getLogger(Genetico.class.getName()).log(Level.SEVERE, null, ex);
         }
 
