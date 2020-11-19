@@ -78,21 +78,15 @@ public final class Genetico {
                                 int gen = CalcularMayorAporte(cromosoma);
 
                                 lock.writeLock().lock();
-                                try {
                                     cromosoma.add(gen);
-                                } finally {
                                     lock.writeLock().unlock();
-                                }
                             }
                             lock.readLock().unlock();
 
                             lock.writeLock().lock();
-                            try {
                                 Cromosoma.setCromosoma(cromosoma);
                                 cromosomaReparado.add(new Cromosomas(Cromosoma));
-                            } finally {
                                 lock.writeLock().unlock();
-                            }
 
                         } else {
                             lock.readLock().unlock();
@@ -105,21 +99,15 @@ public final class Genetico {
                                 int elemento = CalcularMenorAporte(cromosoma);
 
                                 lock.writeLock().lock();
-                                try {
                                     cromosoma.remove(elemento);
-                                } finally {
                                     lock.writeLock().unlock();
-                                }
                                 lock.readLock().lock();
                             }
                             lock.readLock().unlock();
 
                             lock.writeLock().lock();
-                            try {
                                 Cromosoma.setCromosoma(cromosoma);
-                            } finally {
                                 lock.writeLock().unlock();
-                            }
 
                             lock.readLock().lock();
                             cromosomaReparado.add(new Cromosomas(Cromosoma));
@@ -170,12 +158,9 @@ public final class Genetico {
                     lock.readLock().unlock();
 
                     lock.writeLock().lock();
-                    try {
                         Cromosomas.get(i).setContribucion(coste);
                         _evaluaciones++;
-                    } finally {
                         lock.writeLock().unlock();
-                    }
 
                     if (coste > mejorCoste) {
 
@@ -188,23 +173,17 @@ public final class Genetico {
                                 lock.readLock().unlock();
 
                                 lock.writeLock().lock();
-                                try {
                                     cromosomasElite.add(new Cromosomas(new HashSet<>(Cromosomas.get(i).getCromosoma()), mejorCoste));
                                     Collections.sort(cromosomasElite);
-                                } finally {
                                     lock.writeLock().unlock();
-                                }
 
                                 lock.readLock().lock();
                                 if (cromosomasElite.size() > _elitismo) {
                                     lock.readLock().unlock();
 
                                     lock.writeLock().lock();
-                                    try {
                                         cromosomasElite.remove(0);
-                                    } finally {
                                         lock.writeLock().unlock();
-                                    }
                                 }
                                 lock.readLock().unlock();
                             }
