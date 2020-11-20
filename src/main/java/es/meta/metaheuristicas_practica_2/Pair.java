@@ -6,6 +6,8 @@
  */
 package es.meta.metaheuristicas_practica_2;
 
+import java.util.ArrayList;
+
 /**
  * @brief Representa un par formado por un candidato y un coste asociado a este.
  * @class Pair
@@ -16,8 +18,8 @@ package es.meta.metaheuristicas_practica_2;
 public class Pair {
 
     ///Atributos de la clase:
-    Integer candidato;
-    float coste;
+    private Float mejorCoste;
+    private ArrayList<Cromosomas> resultados;
 
     /**
      * @brief Constructor parametrizado de la clase Pair
@@ -27,9 +29,9 @@ public class Pair {
      * @param candidato Integer
      * @param coste double
      */
-    public Pair(Integer candidato, float coste) {
-        this.candidato = candidato;
-        this.coste = coste;
+    public Pair(Float mejorCoste, ArrayList<Cromosomas> resultados) {
+        this.mejorCoste = mejorCoste;
+        this.resultados = resultados;
     }
 
     /**
@@ -39,8 +41,8 @@ public class Pair {
      * @date 30/09/2020
      * @return candidato Integer
      */
-    public Integer getCandidato() {
-        return candidato;
+    public Float getMejorCoste() {
+        return mejorCoste;
     }
 
     /**
@@ -50,8 +52,8 @@ public class Pair {
      * @date 30/09/2020
      * @return coste double
      */
-    public float getCoste() {
-        return coste;
+    public ArrayList<Cromosomas> getResultados() {
+        return resultados;
     }
 
     /**
@@ -61,8 +63,8 @@ public class Pair {
      * @date 30/09/2020
      * @param candidato Integer
      */
-    public void setCandidato(Integer candidato) {
-        this.candidato = candidato;
+    public void setMejorCoste(Float mejorCoste) {
+        this.mejorCoste = mejorCoste;
     }
 
     /**
@@ -72,8 +74,8 @@ public class Pair {
      * @date 30/09/2020
      * @param coste double
      */
-    public void setCoste(float coste) {
-        this.coste += coste;
+    public void setResultados(ArrayList<Cromosomas> resultados) {
+        this.resultados = resultados;
     }
 
 }
