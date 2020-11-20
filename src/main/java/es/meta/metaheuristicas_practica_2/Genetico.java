@@ -241,7 +241,8 @@ public final class Genetico {
         _vcromosomasPadre.clear();
         _vcromosomas.clear();
         cromosomasElite.clear();
-
+        exec.shutdownNow();
+        
     }
 
     private void generarCromosomasIniciales(Random_p alea) {
