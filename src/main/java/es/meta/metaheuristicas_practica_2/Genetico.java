@@ -662,6 +662,7 @@ public final class Genetico {
         for (Cromosomas cromosoma : cromosomasElite) {
             _gestor.escribirArchivo(cromosoma.getCromosoma().toString());
         }
+        _gestor.escribirArchivo("Mejor coste hasta el momento: " + _mejorCromosoma.getContribucion());
     }
 
     private void operadorElitismo() {
