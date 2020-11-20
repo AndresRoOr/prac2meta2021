@@ -8,7 +8,6 @@
 package es.meta.metaheuristicas_practica_2;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -18,6 +17,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -32,7 +32,7 @@ public final class Genetico {
 
     private class CostTask implements Callable<ArrayList<Cromosomas>> {
 
-        private ArrayList<Cromosomas> Cromosomas;
+        private final ArrayList<Cromosomas> Cromosomas;
         private final int empieza;
         private final int termina;
 
@@ -96,7 +96,7 @@ public final class Genetico {
     
     private class CalcCostTask implements Callable<Float> {
 
-        private ArrayList<Cromosomas> Cromosomas;
+        private final ArrayList<Cromosomas> Cromosomas;
         private final int empieza;
         private final int termina;
         private final boolean obtenerElite;
@@ -114,38 +114,21 @@ public final class Genetico {
             float mejorCoste=0.0f;
             for (int i=empieza;i<=termina;i++) {
 
-            if (Cromosomas.get(i).isRecalcular() == true || Cromosomas.get(i).getContribucion() == 0.0f) {
-                float coste = calcularCoste(Cromosomas.get(i).getCromosoma());
-                Cromosomas.get(i).setContribucion(coste);
-                _evaluaciones++;
-
-                if (coste > mejorCoste) {
-
-                    mejorCoste = coste;
-
-                    if (obtenerElite == true) {
-
-                        if (mejorCoste > cromosomasElite.get(0).getContribucion()) {
-                            cromosomasElite.add(new Cromosomas(new HashSet<>(Cromosomas.get(i).getCromosoma()), mejorCoste));
-                            Collections.sort(cromosomasElite);
-                            if (cromosomasElite.size() > _elitismo) {
-                                cromosomasElite.remove(0);
-                            }
-                        }
-                    }
+                if(Cromosomas.get(i).isRecalcular() || Cromosomas.get(i).getContribucion() == 0.0f){
+                    float coste = calcularCoste(Cromosomas.get(i).getCromosoma());
+                    Cromosomas.get(i).setContribucion(coste);
+                    _evaluaciones.incrementAndGet();
                 }
             }
-        }
             return mejorCoste;
         }
-
     }
 
     private final Archivo _archivoDatos;///<Contiene los datos del problema
     private final GestorLog _gestor;///<Gestor encargado de la creación del Log
     private final int _elitismo;
     private final boolean _operadorMPX;
-    private int _evaluaciones;
+    private final AtomicInteger _evaluaciones;
     private final int _evaluacionesObjetivo;
     private final int _numeroCromosomas;
 
@@ -160,13 +143,13 @@ public final class Genetico {
     //private ArrayList<Float> _costes;
     private ArrayList<Cromosomas> _vcromosomas;
     private ArrayList<Cromosomas> _vcromosomasPadre;
-    private ArrayList<Cromosomas> _vcromosomasHijo;
+    private volatile ArrayList<Cromosomas> _vcromosomasHijo;
 
     private Cromosomas _mejorCromosoma;
 
     private ArrayList<Cromosomas> cromosomasElite;
 
-    private ExecutorService exec;
+    private final ExecutorService exec;
 
     public Genetico(Archivo _archivoDatos, GestorLog gestor, int evaluaciones, int Elitismo, boolean OperadorMPX, float probReini,
             float probMutacion, float probMpx, int numeroCromosomas) {
@@ -180,7 +163,7 @@ public final class Genetico {
         this._probReproduccion = probReini;
         this._probMpx = probMpx;
 
-        this._evaluaciones = 0;
+        this._evaluaciones = new AtomicInteger(0);
         this._evaluacionesObjetivo = evaluaciones;
 
         this._numeroCromosomas = numeroCromosomas;
@@ -219,7 +202,7 @@ public final class Genetico {
 
         Collections.sort(cromosomasElite);
 
-        while (_evaluaciones < _evaluacionesObjetivo) {
+        while (_evaluaciones.getAcquire() < _evaluacionesObjetivo) {
 
             operadorSeleccion(aleatorio);
 
@@ -263,20 +246,19 @@ public final class Genetico {
     }
     
     private void obtenerCostesConcurrente(ArrayList<Cromosomas> cromosomas, boolean ObtenerElite) {
-        float mejorCoste=0.0f;
         
-        Future<Float> future = null;
-        Future<Float> future2 = null;
-        Future<Float> future3 = null;
-        Future<Float> future4 = null;
+        Future<Float> future;
+        Future<Float> future2;
+        Future<Float> future3;
+        Future<Float> future4;
         
-        ArrayList<Cromosomas> copia = new ArrayList<>(_vcromosomasHijo);
+        ArrayList<Cromosomas> copia = new ArrayList<>(cromosomas);
 
         int tam = ((_numeroCromosomas) / 4) - 1;
-        future = exec.submit(new CalcCostTask(cromosomas,ObtenerElite, 0, tam));
-        future2 = exec.submit(new CalcCostTask(cromosomas,ObtenerElite, tam + 1, tam * 2));
-        future3 = exec.submit(new CalcCostTask(cromosomas,ObtenerElite, tam * 2 + 1, tam * 3));
-        future4 = exec.submit(new CalcCostTask(cromosomas,ObtenerElite, tam * 3 + 1, _numeroCromosomas - 1));
+        future = exec.submit(new CalcCostTask(copia,ObtenerElite, 0, tam));
+        future2 = exec.submit(new CalcCostTask(copia,ObtenerElite, tam + 1, tam * 2));
+        future3 = exec.submit(new CalcCostTask(copia,ObtenerElite, tam * 2 + 1, tam * 3));
+        future4 = exec.submit(new CalcCostTask(copia,ObtenerElite, tam * 3 + 1, _numeroCromosomas - 1));
 
         try {
 
@@ -285,22 +267,8 @@ public final class Genetico {
             float mejor3=future3.get();
             float mejor4=future4.get();
             
-            if(mejor1>mejorCoste){
-                mejorCoste=mejor1;
-            }
-            if(mejor2>mejorCoste){
-                mejorCoste=mejor2;
-            }
-            if(mejor3>mejorCoste){
-                mejorCoste=mejor3;
-            }
-            if(mejor4>mejorCoste){
-                mejorCoste=mejor4;
-            }
 
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Genetico.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ExecutionException ex) {
+        } catch (InterruptedException | ExecutionException ex) {
             Logger.getLogger(Genetico.class.getName()).log(Level.SEVERE, null, ex);
         }
         
@@ -315,7 +283,7 @@ public final class Genetico {
             if (cromosoma.isRecalcular() == true || cromosoma.getContribucion() == 0.0f) {
                 float coste = calcularCoste(cromosoma.getCromosoma());
                 cromosoma.setContribucion(coste);
-                _evaluaciones++;
+                _evaluaciones.incrementAndGet();
 
                 if (coste > mejorCoste) {
 
@@ -366,7 +334,7 @@ public final class Genetico {
             if (_vcromosomas.get(candidato1).getContribucion() > _vcromosomas.get(candidato2).getContribucion()) {
                 _vcromosomasPadre.add(new Cromosomas(_vcromosomas.get(candidato1)));
             } else {
-                _vcromosomasPadre.add(new Cromosomas(_vcromosomas.get(candidato2)));;
+                _vcromosomasPadre.add(new Cromosomas(_vcromosomas.get(candidato2)));
             }
         }
 
@@ -521,7 +489,6 @@ public final class Genetico {
         future4 = exec.submit(new CostTask(copia, tam * 3 + 1, _numeroCromosomas - 1));
 
         try {
-
             _vcromosomasHijo.clear();
             for (Cromosomas cromo : future.get()) {
                 _vcromosomasHijo.add(cromo);
@@ -558,10 +525,8 @@ public final class Genetico {
 
                 float costeMas = 0.0f;
                 float coste;
-                Iterator<Integer> iterator = cromosomaReparado.iterator();
 
-                while (iterator.hasNext()) {
-                    int k = iterator.next();
+                for(Integer k : cromosomaReparado) {
                     costeMas += _archivoDatos.getMatriz()[k][i];
                 }
 
@@ -571,40 +536,30 @@ public final class Genetico {
                     mejor = coste;
                     elemento = i;
                 }
-
             }
         }
-
         return elemento;
     }
 
     private int CalcularMenorAporte(Set<Integer> cromosoma) {
 
         float aporte = 0.0f;
-        Iterator<Integer> iterator = cromosoma.iterator();
+        
         float menorAporte = Float.MAX_VALUE;
-        int elemenor = -1;
+        Integer elemenor = -1;
 
-        while (iterator.hasNext()) {
+        for(Integer gen : cromosoma){
 
-            Iterator<Integer> iterator2 = cromosoma.iterator();
-            int i = iterator.next();
-
-            while (iterator2.hasNext()) {
-
-                int j = iterator2.next();
-                aporte += _archivoDatos.getMatriz()[i][j];
-
+            for(Integer gen2 : cromosoma){
+                aporte += _archivoDatos.getMatriz()[gen][gen2];
             }
 
             if (aporte < menorAporte) {
                 menorAporte = aporte;
-                elemenor = i;
+                elemenor = gen;
             }
-
             aporte = 0.0f;
         }
-
         return elemenor;
     }
 
