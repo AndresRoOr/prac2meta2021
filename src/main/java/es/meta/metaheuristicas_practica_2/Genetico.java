@@ -150,6 +150,8 @@ public final class Genetico {
     private ArrayList<Cromosomas> cromosomasElite;
 
     private final ExecutorService exec;
+    private int _genSinMejora;
+    private float costeSinMejora;
 
     public Genetico(Archivo _archivoDatos, GestorLog gestor, int evaluaciones, int Elitismo, boolean OperadorMPX, float probReini,
             float probMutacion, float probMpx, int numeroCromosomas) {
@@ -175,16 +177,19 @@ public final class Genetico {
         this.cromosomasElite = new ArrayList<>();
 
         this._mejorCromosoma = new Cromosomas(new HashSet<>(), 0.0f);
+        
+        this._genSinMejora = 0;
 
         if (Elitismo == 0) {
-            _elitismo = 1;
-            _generacional = true;
+            this._elitismo= 1;
+            this._generacional = false;
         } else {
             this._elitismo = Elitismo;
-            this._generacional = false;
+            this._generacional = true;
         }
 
-        generacion = 1;
+        this.generacion = 1;
+        this.costeSinMejora = 0.0f;
 
     }
 
@@ -195,8 +200,6 @@ public final class Genetico {
         generarCromosomasIniciales(aleatorio);
 
         registroConfiguración();
-
-        cromosomasElite.add(new Cromosomas(_vcromosomas.get(0).getCromosoma(), _vcromosomas.get(0).getContribucion()));
 
         obtenerCostes(_vcromosomas, true);
 
@@ -217,7 +220,7 @@ public final class Genetico {
             operadorElitismo();
 
             generacion++;
-
+            
         }
 
         _vcromosomasHijo.clear();
@@ -242,6 +245,10 @@ public final class Genetico {
                 }
             }
             _vcromosomas.add(new Cromosomas(cromosoma, 0.0f, true));
+        }
+        
+        while(cromosomasElite.size()< _elitismo){
+            cromosomasElite.add(new Cromosomas(_vcromosomas.get(0).getCromosoma(), _vcromosomas.get(0).getContribucion()));
         }
     }
     
@@ -418,7 +425,7 @@ public final class Genetico {
 
                 for (Integer gen : _vcromosomasPadre.get(padre1).getCromosoma()) {
                     float prob = (float) alea.Randfloat(0, 1);
-                    if (prob > 0.5) {
+                    if (prob > 1-_probMpx) {
                         cromosoma.add(gen);
                     }
                 }
@@ -620,7 +627,7 @@ public final class Genetico {
 
     private void operadorElitismo() {
 
-        if (_generacional == false) {
+        if (_generacional == true) {
             for (Cromosomas Mejores : cromosomasElite) {
                 _vcromosomasHijo.add(new Cromosomas(Mejores));
             }

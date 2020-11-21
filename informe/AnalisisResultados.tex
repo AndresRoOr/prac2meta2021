@@ -36,8 +36,21 @@
 	
 	\subsection{Parámetros de los algoritmos}
 	
-		\subsubsection{Genetico}
-
+		\subsubsection{Genético}
+		\paragraph{}Para regular el comportamiento de los algoritmos genéticos, se han definido los siguientes parámetros en el archivo de configuración:ç
+		
+		\begin{itemize}
+			
+			\item Semilla: Número utilizado para la generación de números pseudoaleatorios, valor por defecto : 77356084
+			\item Evaluaciones:  Número máximo de evaluaciones, valor por defecto: 50000
+			\item Elitismo: Número máximo de los mejores individuos de la generación anterior que pasan a la siguiente.
+			\item OperadorMPX: Booleano que indica si se debe usar el operador de cruce MPX (true), o el cruce en dos puntos (false).
+			\item Probabilidad de mutacion: Probabilidad de mutación que se aplica a cada gen, valor por defecto: 0,01.
+			\item Probabilidad de reproduccion: Probabilidad de que dos individuos de la población se crucen, valor por defecto: 0,90.
+			\item Cromosomas: Tamaño de la población, valor por defecto: 50.
+			\item Probabilidad MPX: Determina la cantidad de genes que se heredan del primer padre, para el operador de cruce MPX, valor por defecto: 0,50.
+			
+		\end{itemize}
 
 	
 	\subsubsection{Semillas}
@@ -54,30 +67,30 @@
 	
 	\paragraph{} El operador de cruce MPX aplicado a la serie de datos GKD, con una élite de 2 o 3 individuos, ofrece unos resultados muy similares respecto a coste.
 	
-	\paragraph{} Para el archivo {}GKD-c1 \ref{gkd-c1_coste}, los resultados obtenidos en las diferentes iteraciones, son similares, ofreciendo un ligero mayor agrupamiento de los resultados a favor de la élite de 3 individuos.
+	\paragraph{} Para el archivo GKD-c1  (\ref{gkd-c1_coste}), los resultados obtenidos en las diferentes iteraciones, son similares, ofreciendo un ligero mayor agrupamiento de los resultados a favor de la élite de 3 individuos.
 	
-	\paragraph{} Para el archivo {}GKD-c2 \ref{gkd-c2_coste},los resultados son ligeramente superiores con una élite de 3 individuos.
+	\paragraph{} Para el archivo GKD-c2  (\ref{gkd-c2_coste}),los resultados son ligeramente superiores con una élite de 3 individuos.
 	
-	\paragraph{} Para el archivo {}GKD-c3 \ref{gkd-c3_coste}, los resultados revelan un comportamiento similar.
+	\paragraph{} Para el archivo GKD-c3  (\ref{gkd-c3_coste}), los resultados revelan un comportamiento similar.
 	
 	
 	\begin{figure}[H]
 		
 		\centering
-		\includegraphics[scale=0.5]{img/MPX_2vs3/GKD-c_1_Costes}
+		\includegraphics[scale=0.7]{img/MPX_2vs3/GKD-c_1_Costes}
 		\caption{Costes obtenidos para el archivo GKD-c1, con una élite de 2 y 3}
 		\label{gkd-c1_coste}
 	\end{figure}
 	\begin{figure}[H]
 		\centering
-		\includegraphics[scale=0.5]{img/MPX_2vs3/GKD-c_2_Costes}
+		\includegraphics[scale=0.7]{img/MPX_2vs3/GKD-c_2_Costes}
 		\caption{Costes obtenidos para el archivo GKD-c2, con una élite de 2 y 3}
 		\label{gkd-c2_coste}
 		
 	\end{figure}
 	\begin{figure}[H]
 		\centering
-		\includegraphics[scale=0.5]{img/MPX_2vs3/GKD-c_3_Costes}
+		\includegraphics[scale=0.7]{img/MPX_2vs3/GKD-c_3_Costes}
 		\caption{Costes obtenidos para el archivo GKD-c3, con una élite de 2 y 3}
 		\label{gkd-c3_coste}
 		
@@ -89,21 +102,21 @@
 	\begin{figure}[H]
 		
 		\centering
-		\includegraphics[scale=0.5]{img/MPX_2vs3/SOM-b_11_Costes}
+		\includegraphics[scale=0.7]{img/MPX_2vs3/SOM-b_11_Costes}
 		\caption{Costes obtenidos para el archivo SOM-b11, con una élite de 2 y 3}
 		\label{som-b11_coste}
 		
 	\end{figure}
 	\begin{figure}[H]
 		\centering
-		\includegraphics[scale=0.5]{img/MPX_2vs3/SOM-b_12_Costes}
+		\includegraphics[scale=0.7]{img/MPX_2vs3/SOM-b_12_Costes}
 		\caption{Costes obtenidos para el archivo SOM-b12, con una élite de 2 y 3}
 		\label{som-b12_coste}
 		
 	\end{figure}
 	\begin{figure}[H]
 		\centering
-		\includegraphics[scale=0.5]{img/MPX_2vs3/SOM-b_13_Costes}
+		\includegraphics[scale=0.7]{img/MPX_2vs3/SOM-b_13_Costes}
 		\caption{Costes obtenidos para el archivo SOM-b13, con una élite de 2 y 3}
 		\label{som-b13_coste}
 		
@@ -130,9 +143,9 @@
 	\begin{figure}[H]
 		
 		\centering
-		\includegraphics[scale=0.5]{img/BigotesMutacionSOM_11}
-		\includegraphics[scale=0.5]{img/BigotesMutacionSOM_12}
-		\includegraphics[scale=0.5]{img/BigotesMutacionSOM_13}
+		\includegraphics[scale=0.7]{img/BigotesMutacionSOM_11}
+		\includegraphics[scale=0.7]{img/BigotesMutacionSOM_12}
+		\includegraphics[scale=0.7]{img/BigotesMutacionSOM_13}
 		
 	\end{figure}
 	
