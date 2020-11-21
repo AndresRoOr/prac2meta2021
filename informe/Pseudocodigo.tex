@@ -19,6 +19,22 @@
 	
 	\paragraph{}La primera acción que se realiza en la función principal es la generación de un conjunto de individuos aleatorios que se almacenará en la variable global "poblacion". La función encargada de realizar esta labor es "GeneraPoblacionInicial(semilla)"
 	
+	\paragraph{}Damos paso a la ejecución de un bucle while hasta que alcancemos el número de evaluaciones objetivo. Este número de evaluaciones lo indica la variable "evaluacionesLimite", parámetro del programa.
+	
+	\paragraph{}Lo primero que realizamos dentro del bucle while es calcular los costes de todos y cada uno de los individuos pertenecientes a "poblacionPadres". Esta tarea sera encomendada a la función "Evaluacion(poblacionPadre)".
+	
+	\paragraph{} Cuando ya dispongamos de los costes calculados de todos los individuos de "poblacionPadres", lo siguiente que debemos hacer es guardar en "elites" los individuos élites que nos indique "numElites" (parámetro del programa). La función "SeleccionElites(poblacionPadres)" será la encargada de realizar esta tarea.
+
+	\paragraph{}Procedemos ahora a cruzar "poblacionPadres". "CruzarPoblacion(poblacionPadres,semilla)" es la función que realiza dicha tarea, y la población resultante se guarda en la variable "poblacionHijos".
+	
+	\paragraph{}Una vez tenemos nuestra variable "poblacionHijos" con todos los individuos cruzados, debemos revisar que todos ellos cumplan con las restricciones del problema. En el caso de que algún individuo no cumpla con alguna de estas, debemos repararlo para que sea válido. Esta tarea se la asignaremos a la función "Reparar(poblacionHijos)".
+	
+	\paragraph{}Procedemos a aplicar el operador de mutación sobre "poblacionHijos" aplicando la función "MutarPoblacion(poblacionHijos,semilla)".
+	
+	\paragraph{}Volvemos a ejecutar la función "Evaluacion(poblacionHijos)" para calcular los costes de los individuos mutados.
+	
+	\paragraph{}Para finalizar, ejecutamos la función "ReemplazarElite(poblacionHijos,elite)". Esta función implementa la funcionalidad del operador de elitismo, el resultado de la ejecución la guardamos en la variable "poblacionPadres". Con este último paso estamos listos para iniciar la ejecución de una nueva iteración.
+		
 	\begin{algorithm}[H]
 		\caption{GeneraPoblacionInicial(semilla)}
 		\begin{algorithmic}
@@ -73,6 +89,18 @@
 		\end{algorithmic}
 	\end{algorithm}
 
+	\paragraph{}Antes que nada, inicializamos el valor de "mejorCoste" a 0. Esta variable local almacenará el mejor coste calculado de entre todos los individuos de la población.
+	
+	\paragraph{}Para cada cromosoma perteneciente a "poblacion" comprobamos si se tiene que calcular su coste. Esta información la contiene el atributo "recalcular" de "cromosoma".
+	
+	\paragraph{}En el caso de que debamos calcular el coste, llamamos a la función encargada de dicha tarea: "EvaluarSolucion(cromosoma)". El resultado lo almacenamos en la variable local "coste".
+	
+	\paragraph{}Cuando tengamos el coste calculado, actualizamos el parámetro "coste" de "cromosoma"  con este valor.
+	
+	\paragraph{}Para finalizar, comprobamos si "coste" es mejor que "mejorCoste". Si se da esta condición, actualizamos el valor de "mejorCoste" con el de "coste".
+	
+	
+
 	\begin{algorithm}[H]
 		\caption{SeleccionElites(poblacion)}
 		\begin{algorithmic}
@@ -92,9 +120,18 @@
 		\end{algorithmic}
 	\end{algorithm}
 
+	\paragraph{}El primer paso de todos es inicializar las variables locales "individuosElites", "mejor" y "costeMejor". "individuosElites" es un vector encargado de ir almacenando los mejores individuos de "población" que se encuentren, se inicializa como un conjunto vacío. "mejor" se utiliza para ir almacenan uno a uno los individuos de "poblacion" que presenten un mejor coste para guardarlos posteriormente en "individuosElites", su valor se inicia como vacío. "costeMejor" guarda el coste del mejor individuo encontrado hasta el momento para poder comparar con el resto de individuos de "poblacion", su valor se inicia a cero.
+	
+	\paragraph{}El algoritmo de la función realiza un bucle for hasta que el tamaño de "individuosElites" se corresponda con "numElites", es decir, el número de individuos elites que se guardan. El valor de "numElites" se deberá pasar como parámetro del programa.
+	
+	\paragraph{}El bucle for consiste en recorrer todos los individuos de "poblacion" y, si el coste de "individuo" mejora a "mejorCoste" y no ha sido introducido aún en "individuosElites", se actualizan los valores de "mejor" y "mejorCoste" con los datos del individuo. Cuando se termina el bucle for se introduce el mejor individuo encontrado en esa iteración del bucle while en "individuosElites".
+	
+	\paragraph{}Una vez que hayamos completado "individuosElites", lo devolvemos como resultado de la ejecución de la función.
+
 	\begin{algorithm}[H]
 		\caption{CruzarPoblacion(poblacion,semilla)}
 		\begin{algorithmic}
+			\STATE $poblacionHijos \leftarrow \emptyset$
 			\STATE $poblacionHijos \leftarrow SeleccionaPoblacion(poblacion,semilla)$
 			\IF{tipoCruceMPX}
 			\STATE $poblacionHijos \leftarrow RealizaCruceMPX(poblacionHijos)$
@@ -102,13 +139,23 @@
 			\STATE $poblacionHijos \leftarrow RelizaCruce2p(poblacionHijos)$
 			\ENDIF
 			\RETURN poblacionHijos
-			
 		\end{algorithmic}
 	\end{algorithm}
+
+	\paragraph{}Se inicializa el valor de "poblacionHijos" a un conjunto vacío para evitar errores.
+	
+	\paragraph{}A continuación, rellenamos el vector a partir de "poblacion" con la función "SeleccionaPoblacion(poblacion, semilla)".
+	
+	\paragraph{}Una vez tenemos "poblacionHijos" relleno con todos los individuos necesarios, damos paso a ejecutar el cruce. El tipo de cruce viene determinado por la variable "tipoCruceMPX", un booleano.
+	
+	\paragraph{}Si el valor de "tipoCruceMPX" resulta positivo, se lanza la ejecución de "RealizaCruceMPX(poblacionHijos)". En caso contrario, se lanza "RealizaCruce2p(poblacionHijos)".
+	
+	\paragraph{} Una vez se haya realizado la ejecución del cruce, se devuelve "poblacionHijos" como resultado de ejecutar la función.
 
 	\begin{algorithm}[H]
 		\caption{SeleccionaPoblacion(poblacion,semilla)}
 		\begin{algorithmic}
+			\STATE $poblacionHijos \leftarrow \emptyset$
 			\WHILE{tamañoPoblacionHijos$<$numHijos}
 			\STATE $individuoSeleccionado \leftarrow SeleccionaIndividuo(poblacion,semilla)$
 			\STATE $poblacionHijos \leftarrow poblacionHijos\cup\{individuoSeleccionado\}$
@@ -116,6 +163,14 @@
 			\RETURN poblacionHijos
 		\end{algorithmic}
 	\end{algorithm}
+
+	\paragraph{}Mientras que el tamaño de "poblacionHijos" sea inferior a "numHijos" (el número de hijos de cada generación) se realizará lo siguiente:
+	
+	\paragraph{} Se selecciona por torneo binario un individuo perteneciente a "poblacion" haciendo uso de la función "SeleccionaIndividuo(poblacion,semilla)". El individuo que resulte ganador se almacena en la variable "individuoSeleccionado".
+	
+	\paragraph{}"individuoSeleccionado" se añade a "poblacionHijos" y se repite el proceso.
+	
+	\paragraph{}Una vez "poblacionHijos" alcanza el tamaño deseado, finaliza la ejecución de la función y se devuelve como resultado.
 
 	\begin{algorithm}[H]
 		\caption{SeleccionaIndividuo(poblacion,semilla)}
@@ -132,6 +187,12 @@
 			\ENDIF
 		\end{algorithmic}
 	\end{algorithm}
+
+	\paragraph{}Para realizar el torneo binario lo primero que necesitamos es generar dos números aleatorios que se corresponderan con los índices en los que se encuentran los individuos seleecionados. Realizaremos tal generación de números aleatorios con la función "GeneraEnteroAleatorio(semilla)", y almacenaremos los valores resultantes en las variables "seleccionado1" y "seleccionado2".
+	
+	\paragraph{}Comprobamos que no se repitan los valores de "seleccionado1" y "seleccionado2". Si ocurre esto, generamos otro nuevo valor para "seleccionado2" hasta que obtengamos uno válido.
+	
+	\paragraph{}Para finalizar, comparamos el coste de los dos individuos seleccionados y devolvemos como resultado aquel que posea un mejor coste.
 
 	\begin{algorithm}[H]
 		\caption{RealizarCruceMPX(poblacionPadres)}
@@ -164,9 +225,30 @@
 				\ENDIF
 			\ENDFOR
 			\RETURN poblacionHijos
-			
 		\end{algorithmic}
 	\end{algorithm}
+
+	\paragraph{}Iniciamos un bucle for. Este bucle for se ejecutará hasta que "poblacionHijos" tenga un tamaño "numIndividuosPoblacion" (parámetro del programa).
+	
+	\paragraph{}Almacenamos el primer par de padres, obtenido de la variable "poblacionPadres", en las variables "padre1" y "padre2". Además, generamos un número float aleatorio con "GeneraFloatAleatorio(semilla)" y lo almacenamos en la variable "probRepro".
+	
+	\paragraph{}Comprobamos si la pareja de padres debe reproducirse. Esto lo conseguimos comparando "probRepro" con la variable "probabilidadCruce" (parámetro del programa).
+	
+	\paragraph{}En el caso de que se deban reproducir, inicializamos una variable llamada "hijo" al valor conjunto vacío. En esta variable almacenaremos el material genético del hijo resultado de cruzar "padre1" y "padre2".
+	
+	\paragraph{}Recorremos todos los genes de "padre1" y comprobamos para cada gen si se debe incluir en el material genético de "hijo" o no. Esto lo comprobamos generando un número float aleatorio con "GeneraFloatAleatorio(semilla)" y comparando el resultado (almacenado en "prob") con "probabilidadMPX".
+	
+	\paragraph{}En el caso de que un gen de "padre1" se incluya en "hijo", eliminamos el gen de "padre2" (en el caso de que este exista en "padre2").
+	
+	\paragraph{}Cuando hayamos terminado de incluir material genético de "padre1" en "hijo", procedemos a añadir todos los genes de "padre2" en "hijo".
+	
+	\paragraph{}Para finalizar, añadimos el hijo generado a "poblacionHijos" y pasamos al siguiente par de padres.
+	
+	\paragraph{}En el caso de que el par de padres no se deba reproducir, añadimos directamente cada padre a "poblacionHijos" siempre que el tamaño de "poblacionHijos" no haya llegado a "numIndividuosPoblacion".
+	
+	\paragraph{}Antes de iniciar una nueva iteración del bucle for, comprobamos que "i" no haya rebasado "numIndividuosPoblacion". Si este es el caso, reiniciamos el valor de "i" a 0. Realizamos esto para no sobrepasar el tamaño de "poblacionPadres".
+	
+	\paragraph{}Una vez terminamos de ejecutar el bucle for principal, devolvemos "poblacionHijos" como resultado de la ejecución de la función.
 
 	\begin{algorithm}[H]
 		\caption{RealizarCruce2p(poblacionPadres)}
@@ -202,9 +284,22 @@
 				\ENDIF
 			\ENDFOR
 			\RETURN poblacionHijos
-			
 		\end{algorithmic}
 	\end{algorithm}
+
+	\paragraph{}Recorremos "poblacion" de dos en dos realizando lo que a continuación se expone.
+	
+	\paragraph{}Lo primero a realizar es comprobar si debemos realizar el cruce entre los dos primeros padres. Esta comprobación se realiza comparando "aleatorioCruce" y "probabilidadCruce". "aleatorioCruce" almacena un float aleatorio generado haciendo uso de la función "GeneraFloatAleatorio(semilla)"."probabilidadCruce" tiene almacenada la probabilidad de que dos individuos se reproduzcan, esta información se pasa al programa como parámetro.
+	
+	\paragraph{}En el caso de que sí se tengan que cruzar, generamos dos puntos de corte aleatorios haciendo uso de "GeneraEnteroAleatorio(semilla)" y los almacenamos en las variables "corte1" y "corte2". Almacenamos en las variables "padre1" y "padre2" los individuos a cruzar.
+	
+	\paragraph{}Comprobamos que los cortes generados no sean los mismos y, si lo son, generamos otro valor aleatorio para "corte2" hasta que los dos cortes dejen de ser iguales.
+	
+	\paragraph{}Rellenamos "hijo1" con lo genotipos de "padre2" e "hijo2" con los genotipos de "padre1" hasta llegar a "corte1". Rellenamos los genotipos a continuación de "corte1" de "hijo1" con los genotipos de "padre1", y los genotipos de "hijo2" con los de "padre2" hasta llegar a "corte2". A partir de "corte2" y hasta llegar al final, rellenamos "hijo1" con los genotipos de "padre2", e "hijo2" con los genotipos de "padre1".
+	
+	\paragraph{}Cuando hayamos completado el cruce, sobreescribimos el valor de la posición de "padre1" y "padre2" con el valor de "hijo1" e "hijo2" dentro de  "poblacionHijos". 
+	
+	\paragraph{}Una vez hayamos terminado el bucle for principal, tendremos almacenados en "poblacionHijos" todos los nuevos individuos resultantes del cruce. Devolvemos "poblacionHijos" como resultado.
 
 	\begin{algorithm}[H]
 		\caption{Reparar(poblacionHijos)}
@@ -215,7 +310,7 @@
 			\IF{tamañoIndividuo$>$tamañoIndividuoProblema}
 			\WHILE{tamañoIndividuo$>$tamañoIndividuoProblema}
 			\STATE $elementoMenor \leftarrow CalcularAportes(individuo)$
-			\STATE $individuo \leftarrow individuo\{elementoMenor\}$
+			\STATE $individuo \leftarrow individuo-\{elementoMenor\}$
 			\ENDWHILE
 			\ELSIF{tamañoIndividuo$<$tamañoIndividuoProblema}
 			\STATE $elementoMayor \leftarrow CalcularMayorAporte(individuo)$
@@ -225,6 +320,19 @@
 			\ENDFOR
 		\end{algorithmic}
 	\end{algorithm}
+
+	\paragraph{}Para cada individuo perteneciente a "poblacionHijos" se comprueba que se cumple con todas las restricciones. Esta labor recae sobre la función "FuncionSolucion(individuo)".Si se cumplen todas las restricciones no se hace nada y se pasa al siguiente individuo.
+	
+	\paragraph{}En el caso de que "FuncionSolucion" nos indique que no se cumple con todas las reestricciones, se comprueba cuál de ellas no se cumple para poder proceder a repararlas.
+	Nuestras reestricciones son: el número de genes debe ser igual a "tamañoIndividuoProblema", no se debe repetir ningún gen en el individuo.
+	
+	\paragraph{}En el caso de que el número de genes del individuo sea inferior a "tamañoIndividuoProblema", vamos seleccionando el gen que mayor coste aporte al individuo con la función "CalcularMayorCoste(individuo)" y lo añadimos a los genes del individuo hasta que alcancemos "tamañoIndividuoProblema".
+	
+	\paragraph{}En el caso de que sobrepasemos "tamañoIndividuoProblema", seleccionamos el gen del individuo que menos coste aporte con la función "CalcularAportes(individuo)" y lo eliminamos. Repetimos este proceso hasta que alcancemos "tamañoIndividuoProblema".
+	
+	\paragraph{}No comprobamos que los genes no se repitan ya que en el algoritmo implementado utilizamos un Set, y esta estructura de datos resuelve este problema. En el caso de que debamos implementarlo, se eliminarían todos los elementos repetidos y, a continuación, se irían rellenando los espacios vacantes con los elementos que devuelva la función "CalcularMayorAporte" hasta que el número de genes del individuo alcance "tamañoIndividuoProblema".
+	
+	\paragraph{}Cuando hayamos realizado todas las reparaciones sobre todos los individuos pertenecientes a "poblacionHijos" ya tendremos el conjunto de individuos reparado y se finaliza la ejecución de la función.
 
 	\begin{algorithm}[H]
 		\caption{FuncionSolucion(individuo)}
@@ -241,9 +349,16 @@
 			\STATE malTamaño $\leftarrow true$
 			\ENDIF
 			\RETURN !(malTamaño $\vee$ seRepite)
-			
 		\end{algorithmic}
 	\end{algorithm}
+
+	\paragraph{}El funcionamiento de esta función resulta trivial; comprueba que no se repitan entre sí los genes del individuo y que la cantidad de estos se corresponda con "tamañoIndividuoProblema".
+	
+	\paragraph{}Comparamos todos los genes de "individuo" y almacenamos en la variable "seRepite" si encontramos algún par que se repita. A la vez que comparamos los genes, vamos registrando el número de genes en la variable "numGenes".
+	
+	\paragraph{}Cuando hayamos terminado de comparar todos los genes, comprobamos que "numGenes" se corresponda con "tamañoIndividuoProblema" y almacenamos el resultado de la comprobación en la variable "malTamaño".
+	
+	\paragraph{}Para finalizar devolvemos si no se cumple alguna de las restricciones como resultado.
 
 	\begin{algorithm}[H]
 		\caption{CalcularAportes(individuo)}
@@ -258,10 +373,19 @@
 			\ENDFOR
 			\STATE Sort(listaAportes)
 			\RETURN listaAportes[0]
-			
 		\end{algorithmic}
 	\end{algorithm}
-
+	
+	\paragraph{}El primer paso consiste en inicializar las variables globales "aporte" y "listaAportes"."aporte" almacena, como su nombre indica, el coste que se aporta a la solución; su valor inicial es cero. "listaAportes" almacena todos los genes con su respectivo aporte, su valor inicial es el conjunto vacío.
+	
+	\paragraph{}Para cada gen de "individuo" vamos recorriendo el resto de genes y sumando sus distancias a la variable "aporte".
+	
+	\paragraph{}Cuando hayamos terminado de calcular el aporte para un gen, añadimos a "listaAportes" el gen con su aporte haciendo uso de la función "AñadirAporte".
+	
+	\paragraph{}Cuando hayamos calculado todos los aportes, ordenamos "listaAportes" con la función "Sort".
+	
+	\paragraph{}Para finalizar, devolvemos el elemento que se encuentra en primera posición, que se corresponderá con el gen que menos aporta en "individuo".
+	
 	\begin{algorithm}[H]
 		\caption{CalcularMayorAporte(individuo)}
 		\begin{algorithmic}
@@ -274,21 +398,39 @@
 			\STATE AñadirAporte(gen1,aporte)
 			\ENDFOR
 			\STATE Sort(listaAportes)
-			\RETURN listaAportes[numGenesIndividuos-1]
-			
+			\RETURN listaAportes[numGenesIndividuos-1]	
 		\end{algorithmic}
 	\end{algorithm}
+
+	\paragraph{}El funcionamiento de esta función es similar a "CalcularAportes(individuo)", difiriendo en dos puntos:
+	
+	\paragraph{}Los aportes que se calculan es este caso hacen referencia a todos los genes que NO se encuentran en "individuo".
+	
+	\paragraph{}Cuando tengamos almacenados todos los genes con su aporte en "listaAportes", en este caso se devuelve el elemento que se encuentra en la última posición. Esto es debido a que queremos obtener el mejor gen que se puede incluir en "individuo" para maximizar el coste resultante.
 
 	\begin{algorithm}[H]
 		\caption{Mutar(poblacionHijos,semilla)}
 		\begin{algorithmic}
 			\FOR{$individuo \in poblacionHijos$}
+			\STATE $elatorioMutacion\leftarrow GeneraFloatAleatorio(semilla)$
+			\IF{aleatorioMutacion$<$=probabilidadMutacion}
 			\STATE $posMuta \leftarrow GeneraEnteroAleatorio(semilla)$
 			\STATE $eleMutado \leftarrow GeneraEnteroAleatorio(semilla)$
 			\STATE Intercambia(individuo,posMuta,eleMutado)
+			\ENDIF
 			\ENDFOR
 		\end{algorithmic}
 	\end{algorithm}
+
+	\paragraph{}Para cada individuo perteneciente a "poblacionHijos" realizamos lo que a continuación se expone.
+	
+	\paragraph{}Se comprueba si debemos realizar la mutación comparando "aleatorioMutacion" con "probabilidadMutacion"."aleatorioMutacion" es generado aleatoriamente con la función "GeneraFloatAleatorio(semilla)". "probabilidadMutacion" contiene el parámetro del problema que indica qué probabilidad existe de que un individuo mute.
+	
+	\paragraph{}En el caso de que "individuo" deba mutar, se genera aleatoriamente tanto la posición del gen que muta como el valor por el que se va a cambiar dicho gen. La generación aleatoria se realiza haciendo uso de la función "GeneraEnteroAleatorio(semilla)".
+	
+	\paragraph{}Una vez tenemos los datos necesarios para realizar la mutación, hacemos la modificación del cromosoma con la función "Intercambia(individuo,posMuta,eleMutado)".
+	
+	\paragraph{}Cuando terminemos el bucle for principal tendremos nuestra "poblacionHijos" mutada.
 
 	\begin{algorithm}[H]
 		\caption{ReemplazarElite(poblacionHijos,elites)}
@@ -302,4 +444,14 @@
 			\RETURN poblacionHijos
 		\end{algorithmic}
 	\end{algorithm}
+
+	\paragraph{}Antes que nada, ordenamos "poblacionHijos" de menor a mayor haciendo uso de la función "Sort".
+	
+	\paragraph{}Inicializamos el valor de la variable local "indice" a cero. Esta variable representa un apuntador a los elementos de la variable "poblacionHijos".
+	
+	\paragraph{}A continuación vamos almacenando cada uno de los individuo élites almacenados en la variable "elites" en posiciones inciales de "poblacionHijos", apuntadas por "indice". De este modo conseguimos eliminar los individuos con peor coste y sustituirlos por los individuos élites de la población de los padres.
+	
+	\paragraph{}Para finalizar, se devuelve "poblacionHijos" como resultado de la ejecución.
+	
+	\newpage
 	

@@ -35,7 +35,6 @@ public class Configurador {
     private Float probMpx;
     private Integer numeroCromosomas;
 
-
     /**
      * @brief Constructor parametrizado de la clase Configurador
      * @author Andrés Rojas Ortega
@@ -71,19 +70,19 @@ public class Configurador {
                     case "Evaluaciones":
                         evaluaciones = Integer.parseInt(split[1]);
                         break;
-                      
+
                     case "Elitismo":
                         elitismo = Integer.parseInt(split[1]);
                         break;
-                            
+
                     case "OperadorMPX":
                         cruceMpx = Boolean.parseBoolean(split[1]);
                         break;
-                        
+
                     case "Probabilidad de mutacion":
                         probMutacion = Float.parseFloat(split[1]);
                         break;
-                        
+
                     case "Probabilidad de reproduccion":
                         probReproduccion = Float.parseFloat(split[1]);
                         break;  
@@ -159,14 +158,15 @@ public class Configurador {
     public Float getProbMutacion() {
         return probMutacion;
     }
-    
+
+    public Float getProbMpx() {
+        return probMpx;
+    }
+
     public Integer getNumeroCromosomas() {
         return numeroCromosomas;
     }
     
-    public Float getProbMpx() {
-        return probMpx;
-    }
 
     /**
      * @brief Rota las posiciones de la semilla una posición a la derecha
@@ -181,9 +181,9 @@ public class Configurador {
 
         cadenaRotada[cadenaSemilla.length - 1] = cadenaSemilla[0];
 
-            for (int i = 0; i < cadenaSemilla.length - 1; i++) {
-                cadenaRotada[i] = cadenaSemilla[i + 1];
-            }
+        for (int i = 0; i < cadenaSemilla.length - 1; i++) {
+            cadenaRotada[i] = cadenaSemilla[i + 1];
+        }
 
         while (cadenaRotada[0] == '0') {
             char[] cadenaAux = cadenaRotada;
@@ -197,7 +197,6 @@ public class Configurador {
 
         semilla = Long.parseLong(String.valueOf(cadenaRotada));
     }
-
 
     /**
      * @brief Restaura la semilla a su estado original
