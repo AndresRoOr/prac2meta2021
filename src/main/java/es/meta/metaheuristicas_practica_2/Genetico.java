@@ -30,13 +30,13 @@ import java.util.logging.Logger;
  */
 public final class Genetico {
 
-    private class CostTask implements Callable<ArrayList<Cromosomas>> {
+    private class RepairTask implements Callable<ArrayList<Cromosomas>> {
 
         private final ArrayList<Cromosomas> Cromosomas;
         private final int empieza;
         private final int termina;
 
-        public CostTask(ArrayList<Cromosomas> cromosomas, int empie, int termi) {
+        public RepairTask(ArrayList<Cromosomas> cromosomas, int empie, int termi) {
             Cromosomas = new ArrayList<>(cromosomas);
             empieza = empie;
             termina = termi;
@@ -174,7 +174,7 @@ public final class Genetico {
 
         this.cromosomasElite = new ArrayList<>();
 
-        this._mejorCromosoma = new Cromosomas(new HashSet<Integer>(), 0.0f);
+        this._mejorCromosoma = new Cromosomas(new HashSet<>(), 0.0f);
 
         if (Elitismo == 0) {
             _elitismo = 1;
@@ -475,18 +475,18 @@ public final class Genetico {
 
     private void repararConcurrente() {
 
-        Future<ArrayList<Cromosomas>> future = null;
-        Future<ArrayList<Cromosomas>> future2 = null;
-        Future<ArrayList<Cromosomas>> future3 = null;
-        Future<ArrayList<Cromosomas>> future4 = null;
+        Future<ArrayList<Cromosomas>> future;
+        Future<ArrayList<Cromosomas>> future2;
+        Future<ArrayList<Cromosomas>> future3;
+        Future<ArrayList<Cromosomas>> future4;
 
         ArrayList<Cromosomas> copia = new ArrayList<>(_vcromosomasHijo);
 
         int tam = ((_numeroCromosomas) / 4) - 1;
-        future = exec.submit(new CostTask(copia, 0, tam));
-        future2 = exec.submit(new CostTask(copia, tam + 1, tam * 2));
-        future3 = exec.submit(new CostTask(copia, tam * 2 + 1, tam * 3));
-        future4 = exec.submit(new CostTask(copia, tam * 3 + 1, _numeroCromosomas - 1));
+        future = exec.submit(new RepairTask(copia, 0, tam));
+        future2 = exec.submit(new RepairTask(copia, tam + 1, tam * 2));
+        future3 = exec.submit(new RepairTask(copia, tam * 2 + 1, tam * 3));
+        future4 = exec.submit(new RepairTask(copia, tam * 3 + 1, _numeroCromosomas - 1));
 
         try {
             _vcromosomasHijo.clear();
@@ -503,9 +503,7 @@ public final class Genetico {
                 _vcromosomasHijo.add(cromo);
             }
 
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Genetico.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ExecutionException ex) {
+        } catch (InterruptedException | ExecutionException ex) {
             Logger.getLogger(Genetico.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -663,8 +661,7 @@ public final class Genetico {
         _gestor.escribirArchivo("");
         _gestor.escribirArchivo("Mejor coste: " + coste);
         _gestor.escribirArchivo("Mejor cromosoma: " + _mejorCromosoma.getCromosoma());
-        _gestor.escribirArchivo("Tamaño: " + coste);
-
+        
         Main.console.presentarSalida("Mejor Coste:  " + _mejorCromosoma.getContribucion());
         Main.console.presentarSalida("");
 

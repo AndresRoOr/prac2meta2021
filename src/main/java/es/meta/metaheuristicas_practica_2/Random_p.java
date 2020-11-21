@@ -16,7 +16,7 @@ public final class Random_p {
     long Seed = 0L;
     private static final int MASK = 2147483647;
     private static final int PRIME = 65539;
-    private static double SCALE = 0.4656612875e-9;
+    private static final double SCALE = 0.4656612875e-9;
 
     void Set_random(long x) {
         /* Inicializa la semilla al valor x.

@@ -86,6 +86,7 @@ public final class Consola extends javax.swing.JFrame {
         jTextArea.setFont(new java.awt.Font("Segoe UI Semibold", 0, 13)); // NOI18N
         jTextArea.setForeground(new java.awt.Color(255, 255, 255));
         jTextArea.setRows(5);
+        jTextArea.setAutoscrolls(false);
         jTextArea.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jScrollPane1.setViewportView(jTextArea);
 
@@ -208,6 +209,8 @@ public final class Consola extends javax.swing.JFrame {
          eleccion = 2;
          jTextArea.setText("");
          jTextArea.setText("Archivo de configuración recargado");
+         this.jButtonGreedy.setEnabled(false);
+         this.jButtonReload.setEnabled(false);
     }//GEN-LAST:event_jButtonReloadActionPerformed
 
     

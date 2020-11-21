@@ -106,8 +106,7 @@ public class Configurador {
                 if (null != f) {
                     f.close();
                 }
-            } catch (Exception e2) {
-                e2.printStackTrace();
+            } catch (IOException e2) {
             }
         }
     }

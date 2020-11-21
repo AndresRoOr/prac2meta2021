@@ -8,6 +8,7 @@
 package es.meta.metaheuristicas_practica_2;
 
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
@@ -58,8 +59,7 @@ public final class GestorLog {
             fichero = new FileWriter("./archivos/Log/" + _archiveName);
             pw = new PrintWriter(fichero);
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IOException e) {
         }
     }
 
@@ -87,8 +87,7 @@ public final class GestorLog {
             if (null != fichero) {
                 fichero.close();
             }
-        } catch (Exception e2) {
-            e2.printStackTrace();
+        } catch (IOException e2) {
         }
     }
 }

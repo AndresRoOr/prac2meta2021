@@ -23,8 +23,8 @@ import java.util.ArrayList;
 public final class Metaheuristicas {
 
     ///Atributos de la clase:
-    private Configurador _config;///<Contiene los parámetros principales del programa
-    private String _nombre;///<Nombre del objeto Metaheuristicas
+    private final Configurador _config;///<Contiene los parámetros principales del programa
+    private final String _nombre;///<Nombre del objeto Metaheuristicas
     private ArrayList<Archivo> _archivos;///<Contiene el nombre de los archivos que 
     ///contienen los datos sobre los que hacer los cálculos
     private String _ruta_Carpeta_Archivos;///<Directorio que contiene los archivos

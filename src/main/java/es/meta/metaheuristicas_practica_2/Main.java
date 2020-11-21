@@ -29,7 +29,6 @@ public class Main {
      * @author Andrés Rojas Ortega
      * @author David Díaz Jiménez
      * @date 27/09/2020
-     * @param args
      * @throws IOException
      */
     public static Consola console = new Consola();
@@ -87,6 +86,7 @@ public class Main {
                 case 2:
                     
                     config = new Configurador("./config.txt");
+                    console.restaurarEleccion();
                     break;
                    
             }
