@@ -29,7 +29,7 @@ import java.util.logging.Logger;
  * @date 13/11/2020
  */
 public final class Genetico {
-
+    
     private class RepairTask implements Callable<ArrayList<Cromosomas>> {
 
         private final ArrayList<Cromosomas> Cromosomas;
@@ -126,30 +126,29 @@ public final class Genetico {
 
     private final Archivo _archivoDatos;///<Contiene los datos del problema
     private final GestorLog _gestor;///<Gestor encargado de la creación del Log
-    private final int _elitismo;
-    private final boolean _operadorMPX;
-    private final AtomicInteger _evaluaciones;
-    private final int _evaluacionesObjetivo;
-    private final int _numeroCromosomas;
+    private final int _elitismo;///<Número de los mejores individuos de la generación anterior que pueden pasar a la siguiente generación
+    private final boolean _operadorMPX;///<Indica si se usa el cruce MPX o el 2 puntos 
+    private final AtomicInteger _evaluaciones;///<Almacena las evaluaciones que se van realizando
+    private final int _evaluacionesObjetivo;///<Número máximo de evaluaciones a realizar
+    private final int _numeroCromosomas;///<Tamaño de la población
 
-    private final float _probMutacion;
-    private final float _probReproduccion;
-    private final float _probMpx;
+    private final float _probMutacion;///<Probavilidad de mutación para cada gen
+    private final float _probReproduccion;///<Probabilidad de que dos individuos se crucen
+    private final float _probMpx;///<Porcentaje de genes del primer padre heredados por su hijo
 
     private final boolean _generacional;
 
-    private int generacion;
+    private int generacion;///<Indica la generación actual
 
-    //private ArrayList<Float> _costes;
-    private ArrayList<Cromosomas> _vcromosomas;
-    private ArrayList<Cromosomas> _vcromosomasPadre;
-    private volatile ArrayList<Cromosomas> _vcromosomasHijo;
+    private ArrayList<Cromosomas> _vcromosomas;///<Población inicial
+    private ArrayList<Cromosomas> _vcromosomasPadre;///<Población resultante del torneo binario
+    private volatile ArrayList<Cromosomas> _vcromosomasHijo;///<Población resultante del cruce
 
-    private Cromosomas _mejorCromosoma;
+    private Cromosomas _mejorCromosoma;///<Almacena el mejor individuo hasta el momento
 
-    private ArrayList<Cromosomas> cromosomasElite;
+    private ArrayList<Cromosomas> cromosomasElite;///<Alamacena a los elites de la generación
 
-    private final ExecutorService exec;
+    private final ExecutorService exec;///<Gestiona los thread, número máximo 4
     private int _genSinMejora;
     private float costeSinMejora;
 
