@@ -37,7 +37,7 @@ public final class Genetico {
         private final int termina;
 
         public RepairTask(ArrayList<Cromosomas> cromosomas, int empie, int termi) {
-            Cromosomas = new ArrayList<>(cromosomas);
+            Cromosomas = cromosomas;
             empieza = empie;
             termina = termi;
 
@@ -48,46 +48,40 @@ public final class Genetico {
             int numeroGenes = _archivoDatos.getTama_Solucion();
 
             ArrayList<Cromosomas> cromosomaReparado = new ArrayList<>();
-            int i = 0;
-            for (Cromosomas Cromosoma : Cromosomas) {
+            for (int i=empieza;i<=termina;i++) {
 
-                if (i >= empieza && i <= termina) {
+                Set<Integer> cromosoma = Cromosomas.get(i).getCromosoma();
 
-                    Set<Integer> cromosoma = Cromosoma.getCromosoma();
+                if (cromosoma.size() != numeroGenes) {
 
-                    if (cromosoma.size() != numeroGenes) {
+                    if (cromosoma.size() < numeroGenes) {
 
-                        if (cromosoma.size() < numeroGenes) {
-
-                            while (cromosoma.size() != numeroGenes) {
-                                //Calcular mejor coste como en Greedy      
-                                int gen = CalcularMayorAporte(cromosoma);
-                                cromosoma.add(gen);
-                            }
-
-                            Cromosoma.setCromosoma(cromosoma);
-
-                            cromosomaReparado.add(new Cromosomas(Cromosoma));
-
-                        } else {
-
-                            while (cromosoma.size() != numeroGenes) {
-                                //Quitar los que menos aportan
-                                int elemento = CalcularMenorAporte(cromosoma);
-                                cromosoma.remove(elemento);
-                            }
-
-                            Cromosoma.setCromosoma(cromosoma);
-
-                            cromosomaReparado.add(new Cromosomas(Cromosoma));
+                        while (cromosoma.size() != numeroGenes) {
+                            //Calcular mejor coste como en Greedy      
+                            int gen = CalcularMayorAporte(cromosoma);
+                            cromosoma.add(gen);
                         }
+
+                        Cromosomas.get(i).setCromosoma(cromosoma);
+
+                        cromosomaReparado.add(new Cromosomas(Cromosomas.get(i)));
+
                     } else {
-                        cromosomaReparado.add(new Cromosomas(Cromosoma));
+
+                        while (cromosoma.size() != numeroGenes) {
+                            //Quitar los que menos aportan
+                            int elemento = CalcularMenorAporte(cromosoma);
+                            cromosoma.remove(elemento);
+                        }
+
+                        Cromosomas.get(i).setCromosoma(cromosoma);
+
+                        cromosomaReparado.add(new Cromosomas(Cromosomas.get(i)));
                     }
-                    i++;
                 } else {
-                    i++;
+                    cromosomaReparado.add(new Cromosomas(Cromosomas.get(i)));
                 }
+
             }
             return cromosomaReparado;
         }
@@ -102,7 +96,7 @@ public final class Genetico {
         private final boolean obtenerElite;
 
         public CalcCostTask(ArrayList<Cromosomas> cromosomas,boolean obtenerElite, int empie, int termi) {
-            Cromosomas = new ArrayList<>(cromosomas);
+            Cromosomas =cromosomas;
             this.obtenerElite=obtenerElite;
             empieza = empie;
             termina = termi;
@@ -142,20 +136,18 @@ public final class Genetico {
 
     private ArrayList<Cromosomas> _vcromosomas;///<Población inicial
     private ArrayList<Cromosomas> _vcromosomasPadre;///<Población resultante del torneo binario
-    private volatile ArrayList<Cromosomas> _vcromosomasHijo;///<Población resultante del cruce
+    private ArrayList<Cromosomas> _vcromosomasHijo;///<Población resultante del cruce
 
     private Cromosomas _mejorCromosoma;///<Almacena el mejor individuo hasta el momento
 
     private ArrayList<Cromosomas> cromosomasElite;///<Alamacena a los elites de la generación
 
-    private final ExecutorService exec;///<Gestiona los thread, número máximo 4
     private int _genSinMejora;
     private float costeSinMejora;
 
     public Genetico(Archivo _archivoDatos, GestorLog gestor, int evaluaciones, int Elitismo, boolean OperadorMPX, float probReini,
             float probMutacion, float probMpx, int numeroCromosomas) {
 
-        this.exec = Executors.newFixedThreadPool(4);
         this._archivoDatos = _archivoDatos;
         this._gestor = gestor;
 
@@ -226,7 +218,6 @@ public final class Genetico {
         _vcromosomasPadre.clear();
         _vcromosomas.clear();
         cromosomasElite.clear();
-        exec.shutdownNow();
         
     }
 
@@ -261,10 +252,10 @@ public final class Genetico {
         ArrayList<Cromosomas> copia = new ArrayList<>(cromosomas);
 
         int tam = ((_numeroCromosomas) / 4) - 1;
-        future = exec.submit(new CalcCostTask(copia,ObtenerElite, 0, tam));
-        future2 = exec.submit(new CalcCostTask(copia,ObtenerElite, tam + 1, tam * 2));
-        future3 = exec.submit(new CalcCostTask(copia,ObtenerElite, tam * 2 + 1, tam * 3));
-        future4 = exec.submit(new CalcCostTask(copia,ObtenerElite, tam * 3 + 1, _numeroCromosomas - 1));
+        future = Main.exec.submit(new CalcCostTask(copia,ObtenerElite, 0, tam));
+        future2 = Main.exec.submit(new CalcCostTask(copia,ObtenerElite, tam + 1, tam * 2));
+        future3 = Main.exec.submit(new CalcCostTask(copia,ObtenerElite, tam * 2 + 1, tam * 3));
+        future4 = Main.exec.submit(new CalcCostTask(copia,ObtenerElite, tam * 3 + 1, _numeroCromosomas - 1));
 
         try {
 
@@ -489,10 +480,10 @@ public final class Genetico {
         ArrayList<Cromosomas> copia = new ArrayList<>(_vcromosomasHijo);
 
         int tam = ((_numeroCromosomas) / 4) - 1;
-        future = exec.submit(new RepairTask(copia, 0, tam));
-        future2 = exec.submit(new RepairTask(copia, tam + 1, tam * 2));
-        future3 = exec.submit(new RepairTask(copia, tam * 2 + 1, tam * 3));
-        future4 = exec.submit(new RepairTask(copia, tam * 3 + 1, _numeroCromosomas - 1));
+        future = Main.exec.submit(new RepairTask(copia, 0, tam));
+        future2 = Main.exec.submit(new RepairTask(copia, tam + 1, tam * 2));
+        future3 = Main.exec.submit(new RepairTask(copia, tam * 2 + 1, tam * 3));
+        future4 = Main.exec.submit(new RepairTask(copia, tam * 3 + 1, _numeroCromosomas - 1));
 
         try {
             _vcromosomasHijo.clear();

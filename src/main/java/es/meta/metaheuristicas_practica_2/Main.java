@@ -11,6 +11,8 @@ import com.formdev.flatlaf.FlatLightLaf;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
@@ -33,6 +35,7 @@ public class Main {
      */
     public static Consola console = new Consola();
     public static GestorLog gestor = new GestorLog("");
+    public static final ExecutorService exec = Executors.newFixedThreadPool(4);
 
     public static void main(String[] args) throws IOException {
 
@@ -43,7 +46,6 @@ public class Main {
         }
 
         Configurador config = new Configurador("./config.txt");
-        GestorLog gestor = new GestorLog("");
 
         ArrayList<File> directorios = new ArrayList<>();
         directorios.add(new File("./archivos"));
