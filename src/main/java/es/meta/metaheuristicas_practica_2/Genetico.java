@@ -118,7 +118,6 @@ public final class Genetico {
         private final ArrayList<Cromosomas> Cromosomas;///<Conjunto de individuos
         private final int empieza;///<Posición del primer individuo
         private final int termina;///<Posición del último individuo
-        ///élites
 
         /**
          * @brief Constructor parametrizado de la clase.
@@ -126,7 +125,6 @@ public final class Genetico {
          * @author Andrés Rojas Ortega
          * @date 22/11/2020
          * @param cromosomas ArrayList<Cromosomas>
-         * @param obtenerElite boolean
          * @param empie int
          * @param termi int
          */
