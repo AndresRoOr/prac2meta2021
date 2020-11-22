@@ -23,17 +23,20 @@ import org.apache.commons.lang3.StringUtils;
 public class Configurador {
 
     ///Atributos de la clase:
-     ArrayList<String> directoriosDatos;///<Almacena los directorios donde se 
+    ArrayList<String> directoriosDatos;///<Almacena los directorios donde se 
     ///encuentran los archivos con la información del problema
     private Long semilla;///<Semilla utilizada para generar número aleatorios
     private Integer evaluaciones;///<Número de iteraciones
     private Long recuperarSemilla;///<Almacena el valor inicial de la semilla
-    private Integer elitismo;
-    private Boolean cruceMpx;
-    private Float probReproduccion;
-    private Float probMutacion;
-    private Float probMpx;
-    private Integer numeroCromosomas;
+    private Integer elitismo;///Número de élites que se guardan de una población
+    private Boolean cruceMpx;///Indica si se aplica el operador de cruce MPX o
+    /// en dos puntos
+    private Float probReproduccion;///<Probabilidad de que un par de cromosomas
+    ///se crucen
+    private Float probMutacion;///<Probabilidad de que un gen mute
+    private Float probMpx;///<Probabilidad de que un gen del padre se incluya en
+    ///el hijo
+    private Integer numeroCromosomas;///<Número de cromosomas de una población
 
     /**
      * @brief Constructor parametrizado de la clase Configurador
@@ -54,7 +57,7 @@ public class Configurador {
             BufferedReader b = new BufferedReader(f);
 
             while ((linea = b.readLine()) != null) {
-                String[] split = StringUtils.split(linea,"=");
+                String[] split = StringUtils.split(linea, "=");
                 switch (split[0]) {
                     case "Datos":
                         String[] v = split[1].split(" ");
@@ -62,7 +65,7 @@ public class Configurador {
                             directoriosDatos.add(v[i]);
                         }
                         break;
-                        
+
                     case "Semilla":
                         semilla = Long.parseLong(split[1]);
                         recuperarSemilla = semilla;
@@ -85,12 +88,12 @@ public class Configurador {
 
                     case "Probabilidad de reproduccion":
                         probReproduccion = Float.parseFloat(split[1]);
-                        break;  
-                        
+                        break;
+
                     case "Cromosomas":
                         numeroCromosomas = Integer.parseInt(split[1]);
                         break;
-                                
+
                     case "Probabilidad MPX":
                         probMpx = Float.parseFloat(split[1]);
                         break;
@@ -142,31 +145,72 @@ public class Configurador {
     public Integer getEvaluaciones() {
         return evaluaciones;
     }
-      
-     public Integer getElitismo() {
+
+    /**
+     * @brief Función getter del atributo elitismo
+     * @author David Díaz Jiménez
+     * @author Andrés Rojas Ortega
+     * @date 22/11/2020
+     * @return elitimos Integer
+     */
+    public Integer getElitismo() {
         return elitismo;
     }
 
+    /**
+     * @brief Función getter del atributo cruceMpx
+     * @author David Díaz Jiménez
+     * @author Andrés Rojas Ortega
+     * @date 22/11/2020
+     * @return cruceMpx Boolean
+     */
     public Boolean getCruceMpx() {
         return cruceMpx;
     }
 
+    /**
+     * @brief Función getter del atributo probReproduccion
+     * @author David Díaz Jiménez
+     * @author Andrés Rojas Ortega
+     * @date 22/11/2020
+     * @return probReproduccion Float
+     */
     public Float getProbReproduccion() {
         return probReproduccion;
     }
 
+    /**
+     * @brief Función getter del atributo probMutacion
+     * @author David Díaz Jiménez
+     * @author Andrés Rojas Ortega
+     * @date 22/11/2020
+     * @return probMutacion Float
+     */
     public Float getProbMutacion() {
         return probMutacion;
     }
 
+    /**
+     * @brief Función getter del atributo pobMpx
+     * @author David Díaz Jiménez
+     * @author Andrés Rojas Ortega
+     * @date 22/11/2020
+     * @return probMpx Float
+     */
     public Float getProbMpx() {
         return probMpx;
     }
 
+    /**
+     * @brief Función getter del atributo numeroCromosomas
+     * @author David Díaz Jiménez
+     * @author Andrés Rojas Ortega
+     * @date 22/11/2020
+     * @return numeroCromosomas Integer
+     */
     public Integer getNumeroCromosomas() {
         return numeroCromosomas;
     }
-    
 
     /**
      * @brief Rota las posiciones de la semilla una posición a la derecha

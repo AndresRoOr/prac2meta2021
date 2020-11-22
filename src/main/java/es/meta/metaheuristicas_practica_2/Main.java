@@ -26,6 +26,11 @@ import javax.swing.UIManager;
  */
 public class Main {
 
+    
+    public static Consola console = new Consola();
+    public static GestorLog gestor = new GestorLog("");
+    public static final ExecutorService exec = Executors.newFixedThreadPool(4);
+
     /**
      * @brief Función principal del programa
      * @author Andrés Rojas Ortega
@@ -33,10 +38,6 @@ public class Main {
      * @date 27/09/2020
      * @throws IOException
      */
-    public static Consola console = new Consola();
-    public static GestorLog gestor = new GestorLog("");
-    public static final ExecutorService exec = Executors.newFixedThreadPool(4);
-
     public static void main(String[] args) throws IOException {
 
         try {
@@ -95,6 +96,7 @@ public class Main {
                     
             console.restaurarEleccion();
         }
+        exec.shutdownNow();
         System.exit(0);
     }
 }
