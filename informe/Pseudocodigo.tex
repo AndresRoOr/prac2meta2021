@@ -37,6 +37,14 @@
 	\paragraph{}Para finalizar, ejecutamos la función "ReemplazarElite(poblacionHijos,elite)". Esta función implementa la funcionalidad del operador de elitismo, el resultado de la ejecución la guardamos en la variable "poblacionPadres". Con este último paso estamos listos para iniciar la ejecución de una nueva iteración.
 		
 	\subsection{Generación de la población inicial}
+	
+	\paragraph{Entrada:}
+	
+	\paragraph{}Semilla: Instancia de la clase RandomP utilizada para generar números aleatorios.
+	
+	\paragraph{Salida:}
+	
+	\paragraph{}poblacion: conjunto de individuos generados aleatoriamente.
 	\begin{algorithm}[H]
 		\caption{GeneraPoblacionInicial(semilla)}
 		\begin{algorithmic}
@@ -71,9 +79,13 @@
 	\paragraph{}Una vez tengamos hayamos completado "poblacion", la devolvemos como resultado de la ejecución de la función.
 
 	\subsection{Operador de evaluación}
+	
+	\paragraph{Entrada:}
+	
+	\paragraph{}poblacion: Conjunto de individuos de los que queremos calcular su coste.
 
 	\begin{algorithm}[H]
-		\caption{Evaluacion(poblacion,obtenerElite)}
+		\caption{Evaluacion(poblacion)}
 		\begin{algorithmic}
 			\STATE $mejorCoste \leftarrow 0$
 			\FOR {$cromosoma \in poblacion$}
@@ -83,10 +95,6 @@
 					\STATE $ evalucionesRealizadas \leftarrow evaluacionesRelizadas + 1$
 					\IF{$coste > mejorCoste$}
 						\STATE $ mejorCoste \leftarrow coste $
-						\IF{$obtenerElite == true$}
-							\STATE $individuosElite \leftarrow individuosElite \cup cromosoma $
-							\STATE $individuosElite \leftarrow individuosElite - peorIndivididuoElite$
-						\ENDIF 
 					\ENDIF 
 				\ENDIF
 			\ENDFOR
@@ -104,6 +112,14 @@
 	\paragraph{}Para finalizar, comprobamos si "coste" es mejor que "mejorCoste". Si se da esta condición, actualizamos el valor de "mejorCoste" con el de "coste".
 	
 	\subsection{Selección de los individuos élites}
+	
+	\paragraph{Entrada:}
+	
+	\paragraph{}poblacion: Conjunto de individuos de entre los cuales queremos seleccionar el conjunto de élites.
+	
+	\paragraph{Salidas:}
+	
+	\paragraph{}individuosElites: Conjunto de los individuos élites de poblacion.
 
 	\begin{algorithm}[H]
 		\caption{SeleccionElites(poblacion)}
@@ -133,6 +149,16 @@
 	\paragraph{}Una vez que hayamos completado "individuosElites", lo devolvemos como resultado de la ejecución de la función.
 	
 	\subsection{Operador de cruce}
+	
+	\paragraph{Entradas:}
+	
+	\paragraph{}poblacion: Conjunto de individuos que queremos cruzar.
+	
+	\paragraph{}Semilla: Instancia de la clase RandomP utilizada para generar números aleatorios.
+	
+	\paragraph{Salida:}
+	
+	\paragraph{}poblacionHijos: Conjunto de individuos resultado del cruce de poblacion.
 
 	\begin{algorithm}[H]
 		\caption{CruzarPoblacion(poblacion,semilla)}
@@ -156,6 +182,16 @@
 	\paragraph{} Una vez se haya realizado la ejecución del cruce, se devuelve "poblacionHijos" como resultado de ejecutar la función.
 	
 	\subsection{Operador de selección}
+	
+	\paragraph{Entradas:}
+	
+	\paragraph{}poblacion: Conjunto de individuos del cual queremos generar la selección.
+	
+	\paragraph{}Semilla: Instancia de la clase RandomP utilizada para generar números aleatorios.
+	
+	\paragraph{Salida:}
+	
+	\paragraph{}poblacionHijos: Conjunto que contiene todos los individuos seleccionados.
 
 	\begin{algorithm}[H]
 		\caption{SeleccionaPoblacion(poblacion,semilla)}
@@ -178,7 +214,17 @@
 	\paragraph{}Una vez "poblacionHijos" alcanza el tamaño deseado, finaliza la ejecución de la función y se devuelve como resultado.
 	
 	\subsection{Torneo binario}
+	
+	\paragraph{Entradas:}
+	
+	\paragraph{}poblacion: Conjunto de individuos.
+	
+	\paragraph{}Semilla: Instancia de la clase RandomP utilizada para generar números aleatorios.
+	
+	\paragraph{Salida:}
 
+	\paragraph{}Devuelve el individuo seleccionado de poblacion.
+	
 	\begin{algorithm}[H]
 		\caption{SeleccionaIndividuo(poblacion,semilla)}
 		\begin{algorithmic}
@@ -202,6 +248,14 @@
 	\paragraph{}Para finalizar, comparamos el coste de los dos individuos seleccionados y devolvemos como resultado aquel que posea un mejor coste.
 	
 	\subsection{Cruce MPX}
+	
+	\paragraph{Entrada:}
+	
+	\paragraph{}poblacionPadres: conjunto de individuos sobre la cual se realizará el cruce.
+	
+	\paragraph{Salida:}
+	
+	\paragraph{}poblacionHijos: Conjunto de individuos resultado del cruce de poblacion.
 
 	\begin{algorithm}[H]
 		\caption{RealizarCruceMPX(poblacionPadres)}
@@ -260,6 +314,14 @@
 	\paragraph{}Una vez terminamos de ejecutar el bucle for principal, devolvemos "poblacionHijos" como resultado de la ejecución de la función.
 	
 	\subsection{Cruce en dos puntos}
+	
+	\paragraph{Entrada:}
+	
+	\paragraph{}poblacionPadres: conjunto de individuos sobre la cual se realizará el cruce.
+	
+	\paragraph{Salida:}
+	
+	\paragraph{}poblacionHijos: Conjunto de individuos resultado del cruce de poblacion.
 
 	\begin{algorithm}[H]
 		\caption{RealizarCruce2p(poblacionPadres)}
@@ -313,6 +375,10 @@
 	\paragraph{}Una vez hayamos terminado el bucle for principal, tendremos almacenados en "poblacionHijos" todos los nuevos individuos resultantes del cruce. Devolvemos "poblacionHijos" como resultado.
 	
 	\subsection{Operador de reparación}
+	
+	\paragraph{Entrada:}
+	
+	\paragraph{}poblacionHijos: Conjunto de individuos que queremos reparar.
 
 	\begin{algorithm}[H]
 		\caption{Reparar(poblacionHijos)}
@@ -348,6 +414,14 @@
 	\paragraph{}Cuando hayamos realizado todas las reparaciones sobre todos los individuos pertenecientes a "poblacionHijos" ya tendremos el conjunto de individuos reparado y se finaliza la ejecución de la función.
 	
 	\subsection{Función solución}
+	
+	\paragraph{Entrada:}
+	
+	\paragraph{}individuo: conjunto de genes que queremos comprobar si es solución.
+	
+	\paragraph{Salida:}
+	
+	\paragraph{}Devuelve un booleano indicando si es o no una solución válida.
 
 	\begin{algorithm}[H]
 		\caption{FuncionSolucion(individuo)}
@@ -376,6 +450,14 @@
 	\paragraph{}Para finalizar devolvemos si no se cumple alguna de las restricciones como resultado.
 	
 	\subsection{Calculo de aportes}
+	
+	\paragraph{Entrada:}
+	
+	\paragraph{}individuo: Conjunto de genes de entre los cuales queremos encontrar el de menor aporte.
+	
+	\paragraph{Salida:}
+	
+	\paragraph{}Devuelve el gen que menos aporta a la solución.
 
 	\begin{algorithm}[H]
 		\caption{CalcularAportes(individuo)}
@@ -405,6 +487,14 @@
 	
 	\subsection{Cálculo del individuo con mayor aporte}
 	
+	\paragraph{Entrada:}
+	
+	\paragraph{}individuo: Conjunto de genes para el cual queremos encontrar el de mayor aporte.
+	
+	\paragraph{Salida:}
+	
+	\paragraph{}Devuelve el gen que más aportaría a la solución.
+	
 	\begin{algorithm}[H]
 		\caption{CalcularMayorAporte(individuo)}
 		\begin{algorithmic}
@@ -428,6 +518,12 @@
 	\paragraph{}Cuando tengamos almacenados todos los genes con su aporte en "listaAportes", en este caso se devuelve el elemento que se encuentra en la última posición. Esto es debido a que queremos obtener el mejor gen que se puede incluir en "individuo" para maximizar el coste resultante.
 	
 	\subsection{Operador de mutación}
+	
+	\paragraph{Entradas:}
+	
+	\paragraph{}poblacionHijos: Conjunto de individuos sobre el que queremos aplicar el operador de mutación.
+	
+	\paragraph{}Semilla: Instancia de la clase RandomP utilizada para generar números aleatorios.
 
 	\begin{algorithm}[H]
 		\caption{Mutar(poblacionHijos,semilla)}
@@ -454,6 +550,16 @@
 	\paragraph{}Cuando terminemos el bucle for principal tendremos nuestra "poblacionHijos" mutada.
 	
 	\subsection{Operador de elitismo}
+	
+	\paragraph{Entradas:}
+	
+	\paragraph{}poblacionHijos: Conjunto de individuos sobre el que queremos aplicar el operador de elitismo.
+	
+	\paragraph{}elites: Conjunto que contiene los individuos élites.
+	
+	\paragraph{Salida:}
+	
+	\paragraph{}poblacionHijos: Conjunto de individuos resultado de aplicar el operador de elitismo.
 
 	\begin{algorithm}[H]
 		\caption{ReemplazarElite(poblacionHijos,elites)}

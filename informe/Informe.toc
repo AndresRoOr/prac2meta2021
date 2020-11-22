@@ -36,113 +36,168 @@
 \contentsline {paragraph}{}{6}{section*.22}%
 \contentsline {paragraph}{}{6}{section*.23}%
 \contentsline {subsection}{\numberline {3.2}Generación de la población inicial}{6}{subsection.3.2}%
-\contentsline {paragraph}{}{6}{section*.24}%
+\contentsline {paragraph}{Entrada:}{6}{section*.24}%
 \contentsline {paragraph}{}{6}{section*.25}%
-\contentsline {paragraph}{}{6}{section*.26}%
+\contentsline {paragraph}{Salida:}{6}{section*.26}%
 \contentsline {paragraph}{}{6}{section*.27}%
-\contentsline {paragraph}{}{7}{section*.28}%
-\contentsline {paragraph}{}{7}{section*.29}%
+\contentsline {paragraph}{}{6}{section*.28}%
+\contentsline {paragraph}{}{6}{section*.29}%
 \contentsline {paragraph}{}{7}{section*.30}%
-\contentsline {subsection}{\numberline {3.3}Operador de evaluación}{7}{subsection.3.3}%
 \contentsline {paragraph}{}{7}{section*.31}%
 \contentsline {paragraph}{}{7}{section*.32}%
 \contentsline {paragraph}{}{7}{section*.33}%
-\contentsline {paragraph}{}{8}{section*.34}%
-\contentsline {paragraph}{}{8}{section*.35}%
+\contentsline {paragraph}{}{7}{section*.34}%
+\contentsline {subsection}{\numberline {3.3}Operador de evaluación}{7}{subsection.3.3}%
+\contentsline {paragraph}{Entrada:}{7}{section*.35}%
+\contentsline {paragraph}{}{7}{section*.36}%
+\contentsline {paragraph}{}{7}{section*.37}%
+\contentsline {paragraph}{}{7}{section*.38}%
+\contentsline {paragraph}{}{8}{section*.39}%
+\contentsline {paragraph}{}{8}{section*.40}%
+\contentsline {paragraph}{}{8}{section*.41}%
 \contentsline {subsection}{\numberline {3.4}Selección de los individuos élites}{8}{subsection.3.4}%
-\contentsline {paragraph}{}{8}{section*.36}%
-\contentsline {paragraph}{}{8}{section*.37}%
-\contentsline {paragraph}{}{8}{section*.38}%
-\contentsline {paragraph}{}{9}{section*.39}%
+\contentsline {paragraph}{Entrada:}{8}{section*.42}%
+\contentsline {paragraph}{}{8}{section*.43}%
+\contentsline {paragraph}{Salidas:}{8}{section*.44}%
+\contentsline {paragraph}{}{8}{section*.45}%
+\contentsline {paragraph}{}{8}{section*.46}%
+\contentsline {paragraph}{}{9}{section*.47}%
+\contentsline {paragraph}{}{9}{section*.48}%
+\contentsline {paragraph}{}{9}{section*.49}%
 \contentsline {subsection}{\numberline {3.5}Operador de cruce}{9}{subsection.3.5}%
-\contentsline {paragraph}{}{9}{section*.40}%
-\contentsline {paragraph}{}{9}{section*.41}%
-\contentsline {paragraph}{}{9}{section*.42}%
-\contentsline {paragraph}{}{9}{section*.43}%
-\contentsline {subsection}{\numberline {3.6}Operador de selección}{9}{subsection.3.6}%
-\contentsline {paragraph}{}{9}{section*.44}%
-\contentsline {paragraph}{}{10}{section*.45}%
-\contentsline {paragraph}{}{10}{section*.46}%
-\contentsline {paragraph}{}{10}{section*.47}%
+\contentsline {paragraph}{Entradas:}{9}{section*.50}%
+\contentsline {paragraph}{}{9}{section*.51}%
+\contentsline {paragraph}{}{9}{section*.52}%
+\contentsline {paragraph}{Salida:}{9}{section*.53}%
+\contentsline {paragraph}{}{9}{section*.54}%
+\contentsline {paragraph}{}{9}{section*.55}%
+\contentsline {paragraph}{}{9}{section*.56}%
+\contentsline {paragraph}{}{10}{section*.57}%
+\contentsline {paragraph}{}{10}{section*.58}%
+\contentsline {subsection}{\numberline {3.6}Operador de selección}{10}{subsection.3.6}%
+\contentsline {paragraph}{Entradas:}{10}{section*.59}%
+\contentsline {paragraph}{}{10}{section*.60}%
+\contentsline {paragraph}{}{10}{section*.61}%
+\contentsline {paragraph}{Salida:}{10}{section*.62}%
+\contentsline {paragraph}{}{10}{section*.63}%
+\contentsline {paragraph}{}{10}{section*.64}%
+\contentsline {paragraph}{}{10}{section*.65}%
+\contentsline {paragraph}{}{10}{section*.66}%
+\contentsline {paragraph}{}{10}{section*.67}%
 \contentsline {subsection}{\numberline {3.7}Torneo binario}{10}{subsection.3.7}%
-\contentsline {paragraph}{}{10}{section*.48}%
-\contentsline {paragraph}{}{10}{section*.49}%
-\contentsline {paragraph}{}{10}{section*.50}%
+\contentsline {paragraph}{Entradas:}{10}{section*.68}%
+\contentsline {paragraph}{}{11}{section*.69}%
+\contentsline {paragraph}{}{11}{section*.70}%
+\contentsline {paragraph}{Salida:}{11}{section*.71}%
+\contentsline {paragraph}{}{11}{section*.72}%
+\contentsline {paragraph}{}{11}{section*.73}%
+\contentsline {paragraph}{}{11}{section*.74}%
+\contentsline {paragraph}{}{11}{section*.75}%
 \contentsline {subsection}{\numberline {3.8}Cruce MPX}{11}{subsection.3.8}%
-\contentsline {paragraph}{}{11}{section*.51}%
-\contentsline {paragraph}{}{11}{section*.52}%
-\contentsline {paragraph}{}{11}{section*.53}%
-\contentsline {paragraph}{}{12}{section*.54}%
-\contentsline {paragraph}{}{12}{section*.55}%
-\contentsline {paragraph}{}{12}{section*.56}%
-\contentsline {paragraph}{}{12}{section*.57}%
-\contentsline {paragraph}{}{12}{section*.58}%
-\contentsline {paragraph}{}{12}{section*.59}%
-\contentsline {paragraph}{}{12}{section*.60}%
-\contentsline {paragraph}{}{12}{section*.61}%
+\contentsline {paragraph}{Entrada:}{11}{section*.76}%
+\contentsline {paragraph}{}{11}{section*.77}%
+\contentsline {paragraph}{Salida:}{11}{section*.78}%
+\contentsline {paragraph}{}{12}{section*.79}%
+\contentsline {paragraph}{}{12}{section*.80}%
+\contentsline {paragraph}{}{12}{section*.81}%
+\contentsline {paragraph}{}{12}{section*.82}%
+\contentsline {paragraph}{}{13}{section*.83}%
+\contentsline {paragraph}{}{13}{section*.84}%
+\contentsline {paragraph}{}{13}{section*.85}%
+\contentsline {paragraph}{}{13}{section*.86}%
+\contentsline {paragraph}{}{13}{section*.87}%
+\contentsline {paragraph}{}{13}{section*.88}%
+\contentsline {paragraph}{}{13}{section*.89}%
+\contentsline {paragraph}{}{13}{section*.90}%
 \contentsline {subsection}{\numberline {3.9}Cruce en dos puntos}{13}{subsection.3.9}%
-\contentsline {paragraph}{}{13}{section*.62}%
-\contentsline {paragraph}{}{13}{section*.63}%
-\contentsline {paragraph}{}{14}{section*.64}%
-\contentsline {paragraph}{}{14}{section*.65}%
-\contentsline {paragraph}{}{14}{section*.66}%
-\contentsline {paragraph}{}{14}{section*.67}%
-\contentsline {paragraph}{}{14}{section*.68}%
-\contentsline {subsection}{\numberline {3.10}Operador de reparación}{14}{subsection.3.10}%
-\contentsline {paragraph}{}{15}{section*.69}%
-\contentsline {paragraph}{}{15}{section*.70}%
-\contentsline {paragraph}{}{15}{section*.71}%
-\contentsline {paragraph}{}{15}{section*.72}%
-\contentsline {paragraph}{}{15}{section*.73}%
-\contentsline {paragraph}{}{15}{section*.74}%
+\contentsline {paragraph}{Entrada:}{13}{section*.91}%
+\contentsline {paragraph}{}{13}{section*.92}%
+\contentsline {paragraph}{Salida:}{13}{section*.93}%
+\contentsline {paragraph}{}{13}{section*.94}%
+\contentsline {paragraph}{}{14}{section*.95}%
+\contentsline {paragraph}{}{14}{section*.96}%
+\contentsline {paragraph}{}{14}{section*.97}%
+\contentsline {paragraph}{}{15}{section*.98}%
+\contentsline {paragraph}{}{15}{section*.99}%
+\contentsline {paragraph}{}{15}{section*.100}%
+\contentsline {paragraph}{}{15}{section*.101}%
+\contentsline {subsection}{\numberline {3.10}Operador de reparación}{15}{subsection.3.10}%
+\contentsline {paragraph}{Entrada:}{15}{section*.102}%
+\contentsline {paragraph}{}{15}{section*.103}%
+\contentsline {paragraph}{}{16}{section*.104}%
+\contentsline {paragraph}{}{16}{section*.105}%
+\contentsline {paragraph}{}{16}{section*.106}%
+\contentsline {paragraph}{}{16}{section*.107}%
+\contentsline {paragraph}{}{16}{section*.108}%
+\contentsline {paragraph}{}{16}{section*.109}%
 \contentsline {subsection}{\numberline {3.11}Función solución}{16}{subsection.3.11}%
-\contentsline {paragraph}{}{16}{section*.75}%
-\contentsline {paragraph}{}{16}{section*.76}%
-\contentsline {paragraph}{}{16}{section*.77}%
-\contentsline {paragraph}{}{16}{section*.78}%
+\contentsline {paragraph}{Entrada:}{16}{section*.110}%
+\contentsline {paragraph}{}{16}{section*.111}%
+\contentsline {paragraph}{Salida:}{16}{section*.112}%
+\contentsline {paragraph}{}{16}{section*.113}%
+\contentsline {paragraph}{}{17}{section*.114}%
+\contentsline {paragraph}{}{17}{section*.115}%
+\contentsline {paragraph}{}{17}{section*.116}%
+\contentsline {paragraph}{}{17}{section*.117}%
 \contentsline {subsection}{\numberline {3.12}Calculo de aportes}{17}{subsection.3.12}%
-\contentsline {paragraph}{}{17}{section*.79}%
-\contentsline {paragraph}{}{17}{section*.80}%
-\contentsline {paragraph}{}{17}{section*.81}%
-\contentsline {paragraph}{}{17}{section*.82}%
-\contentsline {paragraph}{}{17}{section*.83}%
+\contentsline {paragraph}{Entrada:}{17}{section*.118}%
+\contentsline {paragraph}{}{17}{section*.119}%
+\contentsline {paragraph}{Salida:}{17}{section*.120}%
+\contentsline {paragraph}{}{17}{section*.121}%
+\contentsline {paragraph}{}{18}{section*.122}%
+\contentsline {paragraph}{}{18}{section*.123}%
+\contentsline {paragraph}{}{18}{section*.124}%
+\contentsline {paragraph}{}{18}{section*.125}%
+\contentsline {paragraph}{}{18}{section*.126}%
 \contentsline {subsection}{\numberline {3.13}Cálculo del individuo con mayor aporte}{18}{subsection.3.13}%
-\contentsline {paragraph}{}{18}{section*.84}%
-\contentsline {paragraph}{}{18}{section*.85}%
-\contentsline {paragraph}{}{18}{section*.86}%
-\contentsline {subsection}{\numberline {3.14}Operador de mutación}{18}{subsection.3.14}%
-\contentsline {paragraph}{}{18}{section*.87}%
-\contentsline {paragraph}{}{19}{section*.88}%
-\contentsline {paragraph}{}{19}{section*.89}%
-\contentsline {paragraph}{}{19}{section*.90}%
-\contentsline {paragraph}{}{19}{section*.91}%
-\contentsline {subsection}{\numberline {3.15}Operador de elitismo}{19}{subsection.3.15}%
-\contentsline {paragraph}{}{19}{section*.92}%
-\contentsline {paragraph}{}{19}{section*.93}%
-\contentsline {paragraph}{}{19}{section*.94}%
-\contentsline {paragraph}{}{19}{section*.95}%
-\contentsline {section}{\numberline {4}Experimentos y análisis de resultados}{20}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Procedimiento de desarrollo de la práctica}{20}{subsection.4.1}%
-\contentsline {paragraph}{}{20}{section*.96}%
-\contentsline {subsubsection}{\numberline {4.1.1}Equipo de pruebas}{20}{subsubsection.4.1.1}%
-\contentsline {paragraph}{}{20}{section*.97}%
-\contentsline {subsubsection}{\numberline {4.1.2}Manual de usuario}{20}{subsubsection.4.1.2}%
-\contentsline {paragraph}{}{20}{section*.98}%
-\contentsline {paragraph}{}{20}{section*.99}%
-\contentsline {subsection}{\numberline {4.2}Parámetros de los algoritmos}{21}{subsection.4.2}%
-\contentsline {subsubsection}{\numberline {4.2.1}Genético}{21}{subsubsection.4.2.1}%
-\contentsline {paragraph}{}{21}{section*.101}%
-\contentsline {subsubsection}{\numberline {4.2.2}Semillas}{21}{subsubsection.4.2.2}%
-\contentsline {paragraph}{}{21}{section*.102}%
-\contentsline {paragraph}{}{21}{section*.103}%
-\contentsline {subsection}{\numberline {4.3}Análisis de los resultados}{21}{subsection.4.3}%
-\contentsline {subsubsection}{\numberline {4.3.1}Operador de cruce MPX con elitismo 2 vs elitismo 3}{21}{subsubsection.4.3.1}%
-\contentsline {paragraph}{}{21}{section*.104}%
-\contentsline {paragraph}{}{21}{section*.105}%
-\contentsline {paragraph}{}{21}{section*.106}%
-\contentsline {paragraph}{}{22}{section*.107}%
-\contentsline {paragraph}{}{23}{section*.111}%
-\contentsline {subsubsection}{\numberline {4.3.2}Efectos de la mutación}{24}{subsubsection.4.3.2}%
-\contentsline {paragraph}{}{24}{section*.115}%
-\contentsline {paragraph}{}{25}{section*.117}%
-\contentsline {paragraph}{}{27}{section*.119}%
+\contentsline {paragraph}{Entrada:}{18}{section*.127}%
+\contentsline {paragraph}{}{18}{section*.128}%
+\contentsline {paragraph}{Salida:}{18}{section*.129}%
+\contentsline {paragraph}{}{18}{section*.130}%
+\contentsline {paragraph}{}{19}{section*.131}%
+\contentsline {paragraph}{}{19}{section*.132}%
+\contentsline {paragraph}{}{19}{section*.133}%
+\contentsline {subsection}{\numberline {3.14}Operador de mutación}{19}{subsection.3.14}%
+\contentsline {paragraph}{Entradas:}{19}{section*.134}%
+\contentsline {paragraph}{}{19}{section*.135}%
+\contentsline {paragraph}{}{19}{section*.136}%
+\contentsline {paragraph}{}{20}{section*.137}%
+\contentsline {paragraph}{}{20}{section*.138}%
+\contentsline {paragraph}{}{20}{section*.139}%
+\contentsline {paragraph}{}{20}{section*.140}%
+\contentsline {paragraph}{}{20}{section*.141}%
+\contentsline {subsection}{\numberline {3.15}Operador de elitismo}{20}{subsection.3.15}%
+\contentsline {paragraph}{Entradas:}{20}{section*.142}%
+\contentsline {paragraph}{}{20}{section*.143}%
+\contentsline {paragraph}{}{20}{section*.144}%
+\contentsline {paragraph}{Salida:}{20}{section*.145}%
+\contentsline {paragraph}{}{20}{section*.146}%
+\contentsline {paragraph}{}{21}{section*.147}%
+\contentsline {paragraph}{}{21}{section*.148}%
+\contentsline {paragraph}{}{21}{section*.149}%
+\contentsline {paragraph}{}{21}{section*.150}%
+\contentsline {section}{\numberline {4}Experimentos y análisis de resultados}{22}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Procedimiento de desarrollo de la práctica}{22}{subsection.4.1}%
+\contentsline {paragraph}{}{22}{section*.151}%
+\contentsline {subsubsection}{\numberline {4.1.1}Equipo de pruebas}{22}{subsubsection.4.1.1}%
+\contentsline {paragraph}{}{22}{section*.152}%
+\contentsline {subsubsection}{\numberline {4.1.2}Manual de usuario}{22}{subsubsection.4.1.2}%
+\contentsline {paragraph}{}{22}{section*.153}%
+\contentsline {paragraph}{}{22}{section*.154}%
+\contentsline {subsection}{\numberline {4.2}Parámetros de los algoritmos}{23}{subsection.4.2}%
+\contentsline {subsubsection}{\numberline {4.2.1}Genético}{23}{subsubsection.4.2.1}%
+\contentsline {paragraph}{}{23}{section*.156}%
+\contentsline {subsubsection}{\numberline {4.2.2}Semillas}{23}{subsubsection.4.2.2}%
+\contentsline {paragraph}{}{23}{section*.157}%
+\contentsline {paragraph}{}{23}{section*.158}%
+\contentsline {subsection}{\numberline {4.3}Análisis de los resultados}{23}{subsection.4.3}%
+\contentsline {subsubsection}{\numberline {4.3.1}Operador de cruce MPX con elitismo 2 vs elitismo 3}{23}{subsubsection.4.3.1}%
+\contentsline {paragraph}{}{23}{section*.159}%
+\contentsline {paragraph}{}{23}{section*.160}%
+\contentsline {paragraph}{}{23}{section*.161}%
+\contentsline {paragraph}{}{24}{section*.162}%
+\contentsline {paragraph}{}{25}{section*.166}%
+\contentsline {subsubsection}{\numberline {4.3.2}Efectos de la mutación}{26}{subsubsection.4.3.2}%
+\contentsline {paragraph}{}{26}{section*.170}%
+\contentsline {paragraph}{}{27}{section*.172}%
+\contentsline {paragraph}{}{29}{section*.174}%
