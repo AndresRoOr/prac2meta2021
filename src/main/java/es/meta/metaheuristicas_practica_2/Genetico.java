@@ -14,8 +14,6 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
@@ -30,12 +28,30 @@ import java.util.logging.Logger;
  */
 public final class Genetico {
     
+    /**
+     * @brief Clase que implementa la funcionalidad de un hilo para poder
+     * reparar una sección de la población
+     * @class RepairTask
+     * @author David Díaz Jiménez
+     * @author Andrés Rojas Ortega
+     * @date 16/11/2020
+     */
     private class RepairTask implements Callable<ArrayList<Cromosomas>> {
 
-        private final ArrayList<Cromosomas> Cromosomas;
-        private final int empieza;
-        private final int termina;
+        ///Atributos de la clase:
+        private final ArrayList<Cromosomas> Cromosomas;///<Conjunto de individuos
+        private final int empieza;///<Posición del primer individuo
+        private final int termina;///<Posición del último individuo
 
+        /**
+         * @brief Constructor parametrizado de la clase.
+         * @author David Díaz Jiménez
+         * @author Andrés Rojas Ortega
+         * @date 16/11/2020
+         * @param cromosomas ArrayList<Cromosomas>
+         * @param empie int
+         * @param termi int
+         */
         public RepairTask(ArrayList<Cromosomas> cromosomas, int empie, int termi) {
             Cromosomas = cromosomas;
             empieza = empie;
@@ -88,13 +104,33 @@ public final class Genetico {
 
     }
     
+    /**
+     * @brief Clase que implementa la funcionalidad de un hilo para poder
+     * aplicar el operador de evaluación a una población
+     * @class CalcCostTask
+     * @author David Díaz Jiménez
+     * @author Andrés Rojas Ortega
+     * @date 22/11/2020
+     */
     private class CalcCostTask implements Callable<Float> {
 
-        private final ArrayList<Cromosomas> Cromosomas;
-        private final int empieza;
-        private final int termina;
-        private final boolean obtenerElite;
+        ///Atributos de la clase:
+        private final ArrayList<Cromosomas> Cromosomas;///<Conjunto de individuos
+        private final int empieza;///<Posición del primer individuo
+        private final int termina;///<Posición del último individuo
+        private final boolean obtenerElite;///<Indica si es necesario obtener
+        ///élites
 
+        /**
+         * @brief Constructor parametrizado de la clase.
+         * @author David Díaz Jiménez
+         * @author Andrés Rojas Ortega
+         * @date 22/11/2020
+         * @param cromosomas ArrayList<Cromosomas>
+         * @param obtenerElite boolean
+         * @param empie int
+         * @param termi int
+         */
         public CalcCostTask(ArrayList<Cromosomas> cromosomas,boolean obtenerElite, int empie, int termi) {
             Cromosomas =cromosomas;
             this.obtenerElite=obtenerElite;
@@ -118,57 +154,62 @@ public final class Genetico {
         }
     }
 
+    ///Atributos de la clase:
     private final Archivo _archivoDatos;///<Contiene los datos del problema
     private final GestorLog _gestor;///<Gestor encargado de la creación del Log
     private final int _elitismo;///<Número de los mejores individuos de la generación anterior que pueden pasar a la siguiente generación
-    private final boolean _operadorMPX;///<Indica si se usa el cruce MPX o el 2 puntos 
-    private final AtomicInteger _evaluaciones;///<Almacena las evaluaciones que se van realizando
+    private final boolean _operadorMPX;///<True: el algoritmo de cruce a aplicar es MPX;
+    ///False: el algoritmo de cruce a aplicar es corte en dos puntos 
+    private final AtomicInteger _evaluaciones;///<Evaluaciones que se han realizado hasta el momento
     private final int _evaluacionesObjetivo;///<Número máximo de evaluaciones a realizar
     private final int _numeroCromosomas;///<Tamaño de la población
-
-    private final float _probMutacion;///<Probavilidad de mutación para cada gen
+    private final float _probMutacion;///<Probabilidad de mutación para cada gen
     private final float _probReproduccion;///<Probabilidad de que dos individuos se crucen
-    private final float _probMpx;///<Porcentaje de genes del primer padre heredados por su hijo
-
-    private final boolean _generacional;
-
+    private final float _probMpx;///<Probabilidad de que un gen del padre se 
+    ///incluya en el hijo
+    private final boolean _generacional;///<Generacional o estacionario
     private int generacion;///<Indica la generación actual
-
     private ArrayList<Cromosomas> _vcromosomas;///<Población inicial
     private ArrayList<Cromosomas> _vcromosomasPadre;///<Población resultante del torneo binario
     private ArrayList<Cromosomas> _vcromosomasHijo;///<Población resultante del cruce
-
     private Cromosomas _mejorCromosoma;///<Almacena el mejor individuo hasta el momento
-
     private ArrayList<Cromosomas> cromosomasElite;///<Alamacena a los elites de la generación
-
     private int _genSinMejora;
     private float costeSinMejora;
 
+    /**
+     * @brief Constructor parametrizado de la clase Genetico
+     * @author Andrés Rojas Ortega
+     * @author David Díaz Jiménez
+     * @date 13/11/2020
+     * @param _archivoDatos Archivo
+     * @param gestor Gestor
+     * @param evaluaciones int
+     * @param Elitismo int
+     * @param OperadorMPX boolean
+     * @param probReini float
+     * @param probMutacion float
+     * @param probMpx float
+     * @param numeroCromosomas int
+     *
+     */
     public Genetico(Archivo _archivoDatos, GestorLog gestor, int evaluaciones, int Elitismo, boolean OperadorMPX, float probReini,
             float probMutacion, float probMpx, int numeroCromosomas) {
 
         this._archivoDatos = _archivoDatos;
         this._gestor = gestor;
-
         this._operadorMPX = OperadorMPX;
         this._probMutacion = probMutacion;
         this._probReproduccion = probReini;
         this._probMpx = probMpx;
-
         this._evaluaciones = new AtomicInteger(0);
         this._evaluacionesObjetivo = evaluaciones;
-
         this._numeroCromosomas = numeroCromosomas;
-
         this._vcromosomas = new ArrayList<>();
         this._vcromosomasPadre = new ArrayList<>();
         this._vcromosomasHijo = new ArrayList<>();
-
         this.cromosomasElite = new ArrayList<>();
-
         this._mejorCromosoma = new Cromosomas(new HashSet<>(), 0.0f);
-        
         this._genSinMejora = 0;
 
         if (Elitismo == 0) {
@@ -184,6 +225,13 @@ public final class Genetico {
 
     }
 
+    /**
+     * @brief Algoritmo principal.
+     * @author David Díaz Jiménez
+     * @author Andrés Rojas Ortega
+     * @date 18/11/2020
+     * @param aleatorioSemilla Random_p Semilla aleatoria
+     */
     void genetico(Random_p aleatorioSemilla) {
 
         Random_p aleatorio = aleatorioSemilla;
@@ -221,6 +269,14 @@ public final class Genetico {
         
     }
 
+    /**
+     * @brief Genera el conjunto de cromosomas inicial del algoritmo genético.
+     * @author David Díaz Jiménez
+     * @author Andrés Rojas Ortega
+     * @date 13/11/2020
+     * @param alea Random_p Semilla utilizada para generar números
+     * pseudoaleatorios
+     */
     private void generarCromosomasIniciales(Random_p alea) {
 
         int tamCromosoma = _archivoDatos.getTama_Solucion();
@@ -242,6 +298,14 @@ public final class Genetico {
         }
     }
     
+    /**
+     * @brief Operador de evaluación haciendo uso de concurrencia.
+     * @author David Díaz Jiménez
+     * @author Andrés Rojas Ortega
+     * @date 22/11/2020
+     * @param cromosomas ArrayList<Cromosomas>
+     * @param ObtenerElite boolean
+     */
     private void obtenerCostesConcurrente(ArrayList<Cromosomas> cromosomas, boolean ObtenerElite) {
         
         Future<Float> future;
@@ -271,6 +335,15 @@ public final class Genetico {
         
     }
 
+    /**
+     * @brief Calcula el coste de todos los individuos de la poblacion
+     * @author David Díaz Jiménez
+     * @author Andrés Rojas Ortega
+     * @date 17/11/2020
+     * @param cromosomas ArrayList<Cromosomas> La población de individuos
+     * @param ObtenerElite boolena Indica si la función debe calcular el élite
+     * de la población
+     */
     private void obtenerCostes(ArrayList<Cromosomas> cromosomas, boolean ObtenerElite) {
 
         float mejorCoste = 0.0f;
@@ -301,6 +374,14 @@ public final class Genetico {
         }
     }
 
+    /**
+     * @brief Calcula el coste de una solución
+     * @author David Díaz Jiménez
+     * @author Andrés Rojas Ortega
+     * @date 17/11/2020
+     * @param cromosoma Set<Integer> Material genético de un individuo
+     * @return coste float Coste calculado del individuo solución
+     */
     private float calcularCoste(Set<Integer> cromosoma) {
 
         float coste = 0.0f;
@@ -317,6 +398,14 @@ public final class Genetico {
         return coste;
     }
 
+    /**
+     * @brief Selecciona el conjunto de individuos que se reproduciran en la
+     * generación actual aplicando torneo binario.
+     * @author David Díaz Jiménez
+     * @author Andrés Rojas Ortega
+     * @date 15/11/2020
+     * @param ale Random_p Utilizado para generar números pseudoaleatoios
+     */
     private void operadorSeleccion(Random_p ale) {
 
         for (int i = 0; i < _numeroCromosomas; i++) {
@@ -338,6 +427,14 @@ public final class Genetico {
         _vcromosomas.clear();
     }
 
+    /**
+     * @brief Función encargada de realizar la reproducción y generación de la
+     * siguiente generación del algoritmo genético.
+     * @author David Díaz Jiménez
+     * @author Andrés Rojas Ortega
+     * @date 15/11/2020
+     * @param alea Random_p Utilizado para generar números pseudoaleatorios
+     */
     private void operadorReproduccion(Random_p alea) {
 
         if (_operadorMPX == true) {
@@ -352,10 +449,20 @@ public final class Genetico {
         _vcromosomasPadre.clear();
     }
 
+    /**
+     * @brief Realiza el cruce de la poblacion utilizando el operador de cruce
+     * en dos puntos.
+     * @author David Díaz Jiménez
+     * @author Andrés Rojas Ortega
+     * @date 15/11/2020
+     * @param alea Random_p Utilizado para generar números pseudoaleatorios
+     */
     private void operadorCruce2puntos(Random_p alea) {
 
+        //Recorremos el vector por parejas de padres
         for (int i = 0; i < _numeroCromosomas; i += 2) {
 
+            //Comprobamos si debemos realizar el cruce para la preja
             float probRepro = (float) alea.Randfloat(0, 1);
 
             if (probRepro < _probReproduccion) {
@@ -363,13 +470,16 @@ public final class Genetico {
                 HashSet<Integer> hijo1 = new HashSet<>();
                 HashSet<Integer> hijo2 = new HashSet<>();
 
+                //Generamos los puntos de corte aleatoriamente
                 int crosspoint1 = alea.Randint(1, _archivoDatos.getTama_Solucion() - 2);
                 int crosspoint2 = alea.Randint(1, _archivoDatos.getTama_Solucion() - 2);
 
+                //Comprobamos que los puntos de corte no coincidan
                 while (crosspoint1 == crosspoint2) {
                     crosspoint2 = alea.Randint(1, _archivoDatos.getTama_Solucion() - 2);
                 }
 
+                //Realizamos el cruce
                 Iterator<Integer> iterator = _vcromosomasPadre.get(i).getCromosoma().iterator();
                 Iterator<Integer> iterator1 = _vcromosomasPadre.get(i + 1).getCromosoma().iterator();
 
@@ -385,11 +495,13 @@ public final class Genetico {
                     }
                 }
 
+                //Almacenamos los hijos generados
                 _vcromosomasHijo.add(new Cromosomas(hijo1, 0.0f, true));
                 _vcromosomasHijo.add(new Cromosomas(hijo2, 0.0f, true));
 
             } else {
 
+                //Guardamos los padres sin cruzar como resultado del cruce
                 Cromosomas hijo1 = _vcromosomasPadre.get(i);
                 Cromosomas hijo2 = _vcromosomasPadre.get(i + 1);
 
@@ -400,6 +512,14 @@ public final class Genetico {
         }
     }
 
+    /**
+     * @brief Realiza el cruce de la población utilizando el operador de cruce
+     * MPX
+     * @author David Díaz Jiménez
+     * @author Andrés Rojas Ortega
+     * @date 17/11/2020
+     * @param alea Random_p Semilla aleatoria utilizada para generar números
+     */
     private void operadorCruceMPX(Random_p alea) {
 
         for (int i = 0; i <= _numeroCromosomas && _vcromosomasHijo.size() < _numeroCromosomas; i += 2) {
@@ -440,35 +560,13 @@ public final class Genetico {
         }
     }
 
-    private void operadorRepararCromosomas() {
-
-        int numeroGenes = _archivoDatos.getTama_Solucion();
-
-        for (Cromosomas Cromosoma : _vcromosomasHijo) {
-
-            Set<Integer> cromosoma = Cromosoma.getCromosoma();
-
-            if (cromosoma.size() != numeroGenes) {
-
-                if (cromosoma.size() < numeroGenes) {
-
-                    while (cromosoma.size() != numeroGenes) {
-                        //Calcular mejor coste como en Greedy      
-                        int gen = CalcularMayorAporte(cromosoma);
-                        cromosoma.add(gen);
-                    }
-
-                } else {
-
-                    while (cromosoma.size() != numeroGenes) {
-                        //Quitar los que menos aportan
-                        int elemento = CalcularMenorAporte(cromosoma);
-                        cromosoma.remove(elemento);
-                    }
-                }
-            }
-        }
-    }
+    /**
+     * @brief Repara los cromosomas que no son una solución válida haciendo uso
+     * de concurrencia.
+     * @author David Díaz Jiménez
+     * @author Andrés Rojas Ortega
+     * @date 16/11/2020
+     */
 
     private void repararConcurrente() {
 
@@ -505,7 +603,16 @@ public final class Genetico {
         }
 
     }
-
+    
+    /**
+     * @brief Calcula el gen que más coste aporta al individuo si lo añadimos
+     * @author David Díaz Jiménez
+     * @author Andrés Rojas Ortega
+     * @date 16/11/2020
+     * @param cromosoma Setz<Integer> Material genético del individuo
+     * @return elemento int El elemento que más aporta si lo añadimos al materal
+     * genético
+     */
     private int CalcularMayorAporte(Set<Integer> cromosoma) {
 
         float mejor = 0.0f;
@@ -536,6 +643,14 @@ public final class Genetico {
         return elemento;
     }
 
+    /**
+     * @brief Calcula el gen del individuo que menos coste aporta.
+     * @author David Díaz Jiménez
+     * @author Andrés Rojas Ortega
+     * @date 16/11/2020
+     * @param cromosoma Set<Integer> Material genético del individuo
+     * @return elemenor int El elemento que menos coste aporta
+     */
     private int CalcularMenorAporte(Set<Integer> cromosoma) {
 
         float aporte = 0.0f;
@@ -558,6 +673,13 @@ public final class Genetico {
         return elemenor;
     }
 
+    /**
+     * @brief Operador de mutación.
+     * @author David Díaz Jiménez
+     * @author Andrés Rojas Ortega
+     * @date 16/11/2020
+     * @param ale Random_p Semilla aleatoria para generar números
+     */
     private void operadorMutación(Random_p ale) {
 
         for (Cromosomas Cromosoma : _vcromosomasHijo) {
@@ -599,6 +721,12 @@ public final class Genetico {
         }
     }
 
+    /**
+     * @brief Registra los cromosomas inciales en un archivo
+     * @author David Díaz Jiménez
+     * @author Andrés Rojas Ortega
+     * @date 18/11/2020
+     */
     private void registroConfiguración() {
         _gestor.escribirArchivo("Cromosomas Iniciales: ");
         for (Cromosomas cromosoma : _vcromosomas) {
@@ -606,6 +734,12 @@ public final class Genetico {
         }
     }
 
+    /**
+     * @brief Registra la información de los individuos élites en un archivo
+     * @author David Díaz Jiménez
+     * @author Andrés Rojas Ortega
+     * @date 18/11/2020
+     */
     private void registroElites() {
         _gestor.escribirArchivo("");
         _gestor.escribirArchivo("Generación: " + generacion + ", " + _elitismo + " mejores individuos de la población");
@@ -615,6 +749,12 @@ public final class Genetico {
         _gestor.escribirArchivo("Mejor coste hasta el momento: " + _mejorCromosoma.getContribucion());
     }
 
+    /**
+     * @brief Operador de elitismo
+     * @author David Díaz Jiménez
+     * @author Andrés Rojas Ortega
+     * @date 16/11/2020
+     */
     private void operadorElitismo() {
 
         if (_generacional == true) {
@@ -649,6 +789,12 @@ public final class Genetico {
         registroElites();
     }
 
+    /**
+     * @brief Resgistra los resultados del algoritmo en un archivo.
+     * @author David Díaz Jiménez
+     * @author Andrés Rojas Ortega
+     * @date 18/11/2020
+     */
     void PresentarResultados() {
 
         _gestor.escribirArchivo("");
