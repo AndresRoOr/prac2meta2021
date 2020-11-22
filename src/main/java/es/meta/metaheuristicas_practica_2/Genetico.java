@@ -249,7 +249,7 @@ public final class Genetico {
         ArrayList<Cromosomas> copia = new ArrayList<>(cromosomas);
 
         int tam = ((_numeroCromosomas) / 4) - 1;
-        future = Main.exec.submit(new CalcCostTask(copia, tam));
+        future = Main.exec.submit(new CalcCostTask(copia,0, tam));
         future2 = Main.exec.submit(new CalcCostTask(copia,tam + 1, tam * 2));
         future3 = Main.exec.submit(new CalcCostTask(copia, tam * 2 + 1, tam * 3));
         future4 = Main.exec.submit(new CalcCostTask(copia, tam * 3 + 1, _numeroCromosomas - 1));
