@@ -73,7 +73,6 @@ public final class Archivo {
                 currentRecord = br.readLine();
             }
             br.close();
-            System.out.println("");
         } catch (IOException e) {
             System.out.println("Error: " + e.getMessage());
         }
