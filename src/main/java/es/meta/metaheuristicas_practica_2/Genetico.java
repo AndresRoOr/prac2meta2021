@@ -93,14 +93,11 @@ public final class Genetico {
         private final ArrayList<Cromosomas> Cromosomas;
         private final int empieza;
         private final int termina;
-        private final boolean obtenerElite;
 
-        public CalcCostTask(ArrayList<Cromosomas> cromosomas,boolean obtenerElite, int empie, int termi) {
+        public CalcCostTask(ArrayList<Cromosomas> cromosomas, int empie, int termi) {
             Cromosomas =cromosomas;
-            this.obtenerElite=obtenerElite;
             empieza = empie;
             termina = termi;
-
         }
 
         @Override
@@ -203,10 +200,10 @@ public final class Genetico {
             operadorReproduccion(aleatorio);
 
             repararConcurrente();
-
+            
             operadorMutación(aleatorio);
 
-            obtenerCostesConcurrente(_vcromosomasHijo, false);
+            obtenerCostesConcurrente(_vcromosomasHijo);
 
             operadorElitismo();
 
@@ -242,7 +239,7 @@ public final class Genetico {
         }
     }
     
-    private void obtenerCostesConcurrente(ArrayList<Cromosomas> cromosomas, boolean ObtenerElite) {
+    private void obtenerCostesConcurrente(ArrayList<Cromosomas> cromosomas) {
         
         Future<Float> future;
         Future<Float> future2;
@@ -252,10 +249,10 @@ public final class Genetico {
         ArrayList<Cromosomas> copia = new ArrayList<>(cromosomas);
 
         int tam = ((_numeroCromosomas) / 4) - 1;
-        future = Main.exec.submit(new CalcCostTask(copia,ObtenerElite, 0, tam));
-        future2 = Main.exec.submit(new CalcCostTask(copia,ObtenerElite, tam + 1, tam * 2));
-        future3 = Main.exec.submit(new CalcCostTask(copia,ObtenerElite, tam * 2 + 1, tam * 3));
-        future4 = Main.exec.submit(new CalcCostTask(copia,ObtenerElite, tam * 3 + 1, _numeroCromosomas - 1));
+        future = Main.exec.submit(new CalcCostTask(copia, tam));
+        future2 = Main.exec.submit(new CalcCostTask(copia,tam + 1, tam * 2));
+        future3 = Main.exec.submit(new CalcCostTask(copia, tam * 2 + 1, tam * 3));
+        future4 = Main.exec.submit(new CalcCostTask(copia, tam * 3 + 1, _numeroCromosomas - 1));
 
         try {
 
