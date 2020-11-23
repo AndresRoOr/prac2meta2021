@@ -5,6 +5,11 @@
  */
 package es.meta.metaheuristicas_practica_2;
 
+import java.awt.Image;
+import java.util.LinkedList;
+import java.util.List;
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author David
@@ -18,7 +23,15 @@ public final class Consola extends javax.swing.JFrame {
      * Creates new form Consola
      */
     public Consola() {
+        List<Image> lista = new LinkedList<>();
+        lista.add(new ImageIcon("src/main/resources/icons/gen_3_16.png").getImage());
+        lista.add(new ImageIcon("src/main/resources/icons/gen_3_20.png").getImage());
+        lista.add(new ImageIcon("src/main/resources/icons/gen_3_40.png").getImage());
+        lista.add(new ImageIcon("src/main/resources/icons/gen_3_64.png").getImage());
+        lista.add(new ImageIcon("src/main/resources/icons/gen_3_128.png").getImage());
+        
         initComponents();
+        this.setIconImages(lista);
         this.eleccion = 0;
         this.jProgressBarEstado.setVisible(true);
         
