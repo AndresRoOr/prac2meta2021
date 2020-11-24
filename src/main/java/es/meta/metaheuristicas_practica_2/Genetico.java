@@ -230,6 +230,8 @@ public final class Genetico {
      * @param aleatorioSemilla Random_p Semilla aleatoria
      */
     void genetico(Random_p aleatorioSemilla) {
+        
+        _gestorCSV.escribirArchivo( "EVALUACION" + ";" + "MEJOR COSTE");
 
         Random_p aleatorio = aleatorioSemilla;
 
@@ -240,7 +242,7 @@ public final class Genetico {
         obtenerCostes(_vcromosomas, true);
 
         Collections.sort(cromosomasElite);
-
+       
         while (_evaluaciones.getAcquire() < _evaluacionesObjetivo) {
 
             operadorSeleccion(aleatorio);
@@ -257,7 +259,7 @@ public final class Genetico {
 
             generacion++;
 
-            _gestorCSV.escribirArchivo(_mejorCromosoma.getContribucion() + ";" + _evaluaciones.toString());
+            _gestorCSV.escribirArchivo( _evaluaciones.toString() + ";" + _mejorCromosoma.getContribucion() );
 
         }
 
