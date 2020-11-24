@@ -473,6 +473,12 @@ public final class Genetico {
                 while (crosspoint1 == crosspoint2) {
                     crosspoint2 = alea.Randint(1, _archivoDatos.getTama_Solucion() - 2);
                 }
+                
+                if(crosspoint1 > crosspoint2){
+                    int aux = crosspoint2;
+                    crosspoint2 = crosspoint1;
+                    crosspoint1 = aux;
+                }
 
                 //Realizamos el cruce
                 Iterator<Integer> iterator = _vcromosomasPadre.get(i).getCromosoma().iterator();
