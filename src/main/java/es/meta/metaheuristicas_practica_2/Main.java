@@ -29,6 +29,7 @@ public class Main {
     
     public static Consola console = new Consola();
     public static GestorLog gestor = new GestorLog("");
+    public static GestorCSV gestorCSV = new GestorCSV("");
     public static final ExecutorService exec = Executors.newFixedThreadPool(4);
 
     /**

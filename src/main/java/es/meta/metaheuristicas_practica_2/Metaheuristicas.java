@@ -104,11 +104,14 @@ public final class Metaheuristicas {
 
                     Main.gestor.cambiarNombre("genetico/MPX_"+_config.getCruceMpx()+";Elitismo_"+_config.getElitismo()+";SEM_" + _config.getSemilla()+"_" + ar.getNombre());
                     Main.gestor.abrirArchivo();
+                    
+                    Main.gestorCSV.cambiarNombre("genetico/MPX_"+_config.getCruceMpx()+";Elitismo_"+_config.getElitismo()+";SEM_" + _config.getSemilla()+"_" + ar.getNombre());
+                    Main.gestorCSV.abrirArchivo();
 
                     Random_p sem = new Random_p();
                     sem.Set_random(_config.getSemilla());
 
-                    Genetico g = new Genetico(ar, Main.gestor, _config.getEvaluaciones(),_config.getElitismo(),
+                    Genetico g = new Genetico(ar, Main.gestor, Main.gestorCSV, _config.getEvaluaciones(),_config.getElitismo(),
                             _config.getCruceMpx(), _config.getProbReproduccion(),
                             _config.getProbMutacion(), _config.getProbMpx(),_config.getNumeroCromosomas());
 
@@ -124,6 +127,7 @@ public final class Metaheuristicas {
                     g.PresentarResultados();
 
                     Main.gestor.cerrarArchivo();
+                    Main.gestorCSV.cerrarArchivo();
 
                     Main.console.setValue(aumento / 2);
 

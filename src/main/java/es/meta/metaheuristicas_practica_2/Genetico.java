@@ -27,7 +27,7 @@ import java.util.logging.Logger;
  * @date 13/11/2020
  */
 public final class Genetico {
-    
+
     /**
      * @brief Clase que implementa la funcionalidad de un hilo para poder
      * reparar una sección de la población
@@ -64,7 +64,7 @@ public final class Genetico {
             int numeroGenes = _archivoDatos.getTama_Solucion();
 
             ArrayList<Cromosomas> cromosomaReparado = new ArrayList<>();
-            for (int i=empieza;i<=termina;i++) {
+            for (int i = empieza; i <= termina; i++) {
 
                 Set<Integer> cromosoma = Cromosomas.get(i).getCromosoma();
 
@@ -103,7 +103,7 @@ public final class Genetico {
         }
 
     }
-    
+
     /**
      * @brief Clase que implementa la funcionalidad de un hilo para poder
      * aplicar el operador de evaluación a una población
@@ -129,17 +129,17 @@ public final class Genetico {
          * @param termi int
          */
         public CalcCostTask(ArrayList<Cromosomas> cromosomas, int empie, int termi) {
-            Cromosomas =cromosomas;
+            Cromosomas = cromosomas;
             empieza = empie;
             termina = termi;
         }
 
         @Override
         public Float call() throws Exception {
-            float mejorCoste=0.0f;
-            for (int i=empieza;i<=termina;i++) {
+            float mejorCoste = 0.0f;
+            for (int i = empieza; i <= termina; i++) {
 
-                if(Cromosomas.get(i).isRecalcular() || Cromosomas.get(i).getContribucion() == 0.0f){
+                if (Cromosomas.get(i).isRecalcular() || Cromosomas.get(i).getContribucion() == 0.0f) {
                     float coste = calcularCoste(Cromosomas.get(i).getCromosoma());
                     Cromosomas.get(i).setContribucion(coste);
                     _evaluaciones.incrementAndGet();
@@ -152,6 +152,7 @@ public final class Genetico {
     ///Atributos de la clase:
     private final Archivo _archivoDatos;///<Contiene los datos del problema
     private final GestorLog _gestor;///<Gestor encargado de la creación del Log
+    private final GestorCSV _gestorCSV;
     private final int _elitismo;///<Número de los mejores individuos de la generación anterior que pueden pasar a la siguiente generación
     private final boolean _operadorMPX;///<True: el algoritmo de cruce a aplicar es MPX;
     ///False: el algoritmo de cruce a aplicar es corte en dos puntos 
@@ -188,11 +189,12 @@ public final class Genetico {
      * @param numeroCromosomas int
      *
      */
-    public Genetico(Archivo _archivoDatos, GestorLog gestor, int evaluaciones, int Elitismo, boolean OperadorMPX, float probReini,
+    public Genetico(Archivo _archivoDatos, GestorLog gestor, GestorCSV gestorCSV, int evaluaciones, int Elitismo, boolean OperadorMPX, float probReini,
             float probMutacion, float probMpx, int numeroCromosomas) {
 
         this._archivoDatos = _archivoDatos;
         this._gestor = gestor;
+        this._gestorCSV = gestorCSV;
         this._operadorMPX = OperadorMPX;
         this._probMutacion = probMutacion;
         this._probReproduccion = probReini;
@@ -208,7 +210,7 @@ public final class Genetico {
         this._genSinMejora = 0;
 
         if (Elitismo == 0) {
-            this._elitismo= 1;
+            this._elitismo = 1;
             this._generacional = false;
         } else {
             this._elitismo = Elitismo;
@@ -246,7 +248,7 @@ public final class Genetico {
             operadorReproduccion(aleatorio);
 
             repararConcurrente();
-            
+
             operadorMutación(aleatorio);
 
             obtenerCostesConcurrente(_vcromosomasHijo);
@@ -254,14 +256,16 @@ public final class Genetico {
             operadorElitismo();
 
             generacion++;
-            
+
+            _gestorCSV.escribirArchivo(_mejorCromosoma.getContribucion() + ";" + _evaluaciones.toString());
+
         }
 
         _vcromosomasHijo.clear();
         _vcromosomasPadre.clear();
         _vcromosomas.clear();
         cromosomasElite.clear();
-        
+
     }
 
     /**
@@ -287,12 +291,12 @@ public final class Genetico {
             }
             _vcromosomas.add(new Cromosomas(cromosoma, 0.0f, true));
         }
-        
-        while(cromosomasElite.size()< _elitismo){
+
+        while (cromosomasElite.size() < _elitismo) {
             cromosomasElite.add(new Cromosomas(_vcromosomas.get(0).getCromosoma(), _vcromosomas.get(0).getContribucion()));
         }
     }
-    
+
     /**
      * @brief Operador de evaluación haciendo uso de concurrencia.
      * @author David Díaz Jiménez
@@ -302,32 +306,31 @@ public final class Genetico {
      * @param ObtenerElite boolean
      */
     private void obtenerCostesConcurrente(ArrayList<Cromosomas> cromosomas) {
-        
+
         Future<Float> future;
         Future<Float> future2;
         Future<Float> future3;
         Future<Float> future4;
-        
+
         ArrayList<Cromosomas> copia = new ArrayList<>(cromosomas);
 
         int tam = ((_numeroCromosomas) / 4) - 1;
-        future = Main.exec.submit(new CalcCostTask(copia,0, tam));
-        future2 = Main.exec.submit(new CalcCostTask(copia,tam + 1, tam * 2));
+        future = Main.exec.submit(new CalcCostTask(copia, 0, tam));
+        future2 = Main.exec.submit(new CalcCostTask(copia, tam + 1, tam * 2));
         future3 = Main.exec.submit(new CalcCostTask(copia, tam * 2 + 1, tam * 3));
         future4 = Main.exec.submit(new CalcCostTask(copia, tam * 3 + 1, _numeroCromosomas - 1));
 
         try {
 
-            float mejor1=future.get();
-            float mejor2=future2.get();
-            float mejor3=future3.get();
-            float mejor4=future4.get();
-            
+            float mejor1 = future.get();
+            float mejor2 = future2.get();
+            float mejor3 = future3.get();
+            float mejor4 = future4.get();
 
         } catch (InterruptedException | ExecutionException ex) {
             Logger.getLogger(Genetico.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
 
     /**
@@ -473,8 +476,8 @@ public final class Genetico {
                 while (crosspoint1 == crosspoint2) {
                     crosspoint2 = alea.Randint(1, _archivoDatos.getTama_Solucion() - 2);
                 }
-                
-                if(crosspoint1 > crosspoint2){
+
+                if (crosspoint1 > crosspoint2) {
                     int aux = crosspoint2;
                     crosspoint2 = crosspoint1;
                     crosspoint1 = aux;
@@ -536,7 +539,7 @@ public final class Genetico {
 
                 for (Integer gen : _vcromosomasPadre.get(padre1).getCromosoma()) {
                     float prob = (float) alea.Randfloat(0, 1);
-                    if (prob > 1-_probMpx) {
+                    if (prob > 1 - _probMpx) {
                         cromosoma.add(gen);
                     }
                 }
@@ -568,7 +571,6 @@ public final class Genetico {
      * @author Andrés Rojas Ortega
      * @date 16/11/2020
      */
-
     private void repararConcurrente() {
 
         Future<ArrayList<Cromosomas>> future;
@@ -604,7 +606,7 @@ public final class Genetico {
         }
 
     }
-    
+
     /**
      * @brief Calcula el gen que más coste aporta al individuo si lo añadimos
      * @author David Díaz Jiménez
@@ -629,7 +631,7 @@ public final class Genetico {
                 float costeMas = 0.0f;
                 float coste;
 
-                for(Integer k : cromosomaReparado) {
+                for (Integer k : cromosomaReparado) {
                     costeMas += _archivoDatos.getMatriz()[k][i];
                 }
 
@@ -655,13 +657,13 @@ public final class Genetico {
     private int CalcularMenorAporte(Set<Integer> cromosoma) {
 
         float aporte = 0.0f;
-        
+
         float menorAporte = Float.MAX_VALUE;
         Integer elemenor = -1;
 
-        for(Integer gen : cromosoma){
+        for (Integer gen : cromosoma) {
 
-            for(Integer gen2 : cromosoma){
+            for (Integer gen2 : cromosoma) {
                 aporte += _archivoDatos.getMatriz()[gen][gen2];
             }
 
@@ -805,7 +807,7 @@ public final class Genetico {
         _gestor.escribirArchivo("");
         _gestor.escribirArchivo("Mejor coste: " + coste);
         _gestor.escribirArchivo("Mejor cromosoma: " + _mejorCromosoma.getCromosoma());
-        
+
         Main.console.presentarSalida("Mejor Coste:  " + _mejorCromosoma.getContribucion());
         Main.console.presentarSalida("");
 
