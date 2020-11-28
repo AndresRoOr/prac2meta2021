@@ -191,13 +191,21 @@
 \contentsline {paragraph}{}{23}{section*.157}%
 \contentsline {paragraph}{}{23}{section*.158}%
 \contentsline {subsection}{\numberline {4.3}Análisis de los resultados}{23}{subsection.4.3}%
-\contentsline {subsubsection}{\numberline {4.3.1}Operador de cruce MPX con elitismo 2 vs elitismo 3}{23}{subsubsection.4.3.1}%
+\contentsline {subsubsection}{\numberline {4.3.1}Efectos de la mutación}{23}{subsubsection.4.3.1}%
 \contentsline {paragraph}{}{23}{section*.159}%
-\contentsline {paragraph}{}{23}{section*.160}%
-\contentsline {paragraph}{}{23}{section*.161}%
-\contentsline {paragraph}{}{24}{section*.162}%
-\contentsline {paragraph}{}{25}{section*.166}%
-\contentsline {subsubsection}{\numberline {4.3.2}Efectos de la mutación}{26}{subsubsection.4.3.2}%
-\contentsline {paragraph}{}{26}{section*.170}%
-\contentsline {paragraph}{}{27}{section*.172}%
-\contentsline {paragraph}{}{29}{section*.174}%
+\contentsline {paragraph}{}{24}{section*.161}%
+\contentsline {paragraph}{}{26}{section*.163}%
+\contentsline {subsubsection}{\numberline {4.3.2}Cruce MPX con elitismo 2 vs elitismo 3}{28}{subsubsection.4.3.2}%
+\contentsline {paragraph}{}{28}{section*.167}%
+\contentsline {paragraph}{}{28}{section*.168}%
+\contentsline {paragraph}{}{28}{section*.169}%
+\contentsline {paragraph}{}{28}{section*.170}%
+\contentsline {paragraph}{}{30}{section*.174}%
+\contentsline {subsubsection}{\numberline {4.3.3}Cruce en dos puntos con elitismo 2 vs elitismo 3}{31}{subsubsection.4.3.3}%
+\contentsline {paragraph}{}{31}{section*.178}%
+\contentsline {subsubsection}{\numberline {4.3.4}Cruce Mpx con elitismo 3 vs dos puntos con elitismo 3}{31}{subsubsection.4.3.4}%
+\contentsline {paragraph}{}{31}{section*.179}%
+\contentsline {paragraph}{}{32}{section*.180}%
+\contentsline {paragraph}{}{32}{section*.181}%
+\contentsline {paragraph}{}{32}{section*.182}%
+\contentsline {paragraph}{}{32}{section*.183}%

@@ -63,7 +63,52 @@
 	
 	\subsection{Análisis de los resultados}
 	
-	\subsubsection{Operador de cruce MPX con elitismo 2 vs elitismo 3}
+	\subsubsection{Efectos de la mutación}
+	
+	\paragraph{} La mutación en los algoritmos genéticos es una técnica de diversificación/exploración, la cual puede ayudar a salir de óptimos locales, no obstante, su porcentaje de aplicación debe ser reducido. Esto es debido a que una alta probabilidad de mutación puede alterar considerablemente las soluciones obtenidas, resultando en una calidad inferior de las mismas.
+	
+	Para reflejar este comportamiento de la mutación, se ha seleccionado el conjunto de datos SOM, y se ha establecido 3 valores distintos de probabilidad de mutación: 0,01, 0,05 y 0,09. Cada Probabilidad de mutación se ha aplicado en 5 iteraciones, con distinta semilla para cada archivo. Posteriormente se ha obtenido la media de las 5 iteraciones para cada archivo y probabilidad de mutación, de dichos resultados se ha obtenido la siguiente gráfica:
+	
+	\begin{figure}[H]
+		
+		\centering
+		\includegraphics[scale=0.8]{img/Mutación}
+		\caption{Diferencias en porcentajes respecto a los óptimos globales}
+		
+	\end{figure}
+	
+	\paragraph{}Como se puede observar, un mayor porcentaje de mutación, empeora los resultados obtenidos mediante algoritmos genéticos.
+	
+	\begin{figure}[H]
+		
+		\centering
+		\includegraphics[scale=0.7]{img/BigotesMutacionSOM_11}
+		\includegraphics[scale=0.7]{img/BigotesMutacionSOM_12}
+		\includegraphics[scale=0.7]{img/BigotesMutacionSOM_13}
+		
+	\end{figure}
+	
+	\paragraph{}A raíz de los resultados obtenidos anteriormente, se reflexionó sobre el impacto que tendría fijar una capacidad de mutación nula. Al realizar las pruebas, se obtuvo que fijar una mutación al 0,00 elimina parte de la capacidad de mejora, siendo sus resultados inferiores a una mutación del 0,01. Esto es debido a que el comportamiento del algoritmo sin la mutación se basa en la explotación.
+	
+	\begin{figure}[H]
+		
+		\centering
+		\includegraphics[scale=0.7]{img/BigotesMutacion0_SOM_1}
+	\end{figure}
+	\begin{figure}[H]
+		
+		\centering
+		\includegraphics[scale=0.7]{img/BigotesMutacion0_SOM_2}
+		
+	\end{figure}
+	\begin{figure}[H]
+		
+		\centering
+		\includegraphics[scale=0.7]{img/BigotesMutacion0SOM_3}
+		
+	\end{figure}	
+	
+	\subsubsection{Cruce MPX con elitismo 2 vs elitismo 3}
 	
 	\paragraph{} El operador de cruce MPX aplicado a la serie de datos GKD, con una élite de 2 o 3 individuos, ofrece unos resultados muy similares respecto a coste.
 	
@@ -122,32 +167,28 @@
 		
 		
 	\end{figure}
-	
-	\subsubsection{Efectos de la mutación}
-	
-	\paragraph{} La mutación en los algoritmos genéticos es una técnica de diversificación, la cual puede ayudar a salir de óptimos locales, no obstante, su porcentaje de aplicación debe ser reducido.Esto es debido a que una alta probabilidad de mutación puede alterar considerablemente las soluciones obtenidas, resultando en una calidad inferior de las mismas.
-	
-	 Para reflejar este comportamiento de la mutación, se ha seleccionado el conjunto de datos SOM, y se ha establecido 3 valores distintos de probabilidad de mutación: 0,01, 0,05 y 0,09. Cada Probabilidad de mutación se ha aplicado en 5 iteraciones, con distinta semilla para cada archivo. Posteriormente se ha obtenido la media de las 5 iteraciones para cada archivo y probabilidad de mutación, de dichos resultados se ha obtenido la siguiente gráfica:
-	 
-		 \begin{figure}[H]
-		 	
-		 	\centering
-		 	\includegraphics[scale=0.8]{img/Mutación}
-		 	\caption{Diferencias en porcentajes respecto a los óptimos globales}
-		 	
-		 \end{figure}
-	 
-	 \paragraph{}Como se puede observar, un mayor porcentaje de mutación, empeora los resultados obtenidos mediante algoritmos genéticos.
+
+
+	\subsubsection{Cruce en dos puntos con elitismo 2 vs elitismo 3}
+	\paragraph{}
 	
 	
-	\begin{figure}[H]
-		
-		\centering
-		\includegraphics[scale=0.7]{img/BigotesMutacionSOM_11}
-		\includegraphics[scale=0.7]{img/BigotesMutacionSOM_12}
-		\includegraphics[scale=0.7]{img/BigotesMutacionSOM_13}
-		
-	\end{figure}
+	
+	\subsubsection{Cruce Mpx con elitismo 3 vs dos puntos con elitismo 3}
+	
+	\paragraph{} Si evaluamos los costes obtenidos, podemos observar que los dos operadores de cruce se comportan de manera similar en las instancias de datos GKD, no obstante, para el resto de datos, el cruce MPX ofrece unos resultados considerablemente mejores respecto al cruce en dos puntos, esto puede deberse a la forma de reparación de los cromosomas, la cuál, difiere entre un tipo de cruce y otro.
+	
+	\paragraph{}El cruce MPX genera más genes de los deseados, y para reparar los cromosomas, se emplea una estrategia de reparación basada en la eliminación de los genes que menos aportan al coste de la solución. Sin embargo, el cruce en dos puntos, genera menos genes de los deseados, y la estrategia empleada es la de incluir los genes que más aportan que no están contenidos en la solución.
+	
+	\paragraph{}Si procedemos a evaluar la cantidad de tiempo empleada en obtener las soluciones, podemos observar que el cruce en dos puntos es hasta un 60\% más lento respecto al cruce mpx. La diferencia de tiempos, viene determinada por la estrategia de reparación de los cromosomas.
+	
+	\paragraph{}Como se ha indicado anteriormente, dicha estrategia difiere según el tipo de cruce. Para el cruce en dos puntos se necesita recorrer todos los elementos no seleccionados, e ir evaluando el coste que aportan, este proceso se repite hasta que los cromosomas tengan los genes necesarios, sin embargo, en el mpx solo necesitamos eliminar elementos del cromosoma que menos aportan. Por tanto, el número de operaciones necesarias es mayor en el caso del cruce en dos puntos.
+	
+	
+	
+	
+	
+
 	
 	\paragraph{} 
 	
