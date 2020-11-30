@@ -206,6 +206,7 @@ public final class Consola extends javax.swing.JFrame {
 
     private void jButtonGreedyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGreedyActionPerformed
         eleccion = 1;
+        jTextArea.removeAll();
         jTextArea.setText("");
         this.jButtonGreedy.setEnabled(false);
         this.jProgressBarEstado.setVisible(true);
@@ -221,7 +222,7 @@ public final class Consola extends javax.swing.JFrame {
         // TODO add your handling code here:
         
          eleccion = 2;
-         jTextArea.setText("");
+         jTextArea.removeAll();
          jTextArea.setText("Archivo de configuración recargado");
          this.jButtonGreedy.setEnabled(false);
          this.jButtonReload.setEnabled(false);
