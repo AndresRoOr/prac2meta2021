@@ -74,7 +74,6 @@ public class Main {
                 System.exit(0);
             }
 
-            
             Metaheuristicas M1 = new Metaheuristicas(config.getDirectoriosDatos().get(0),
             config.getDirectoriosDatos().get(0), config);
             M1.lector_Archivos();
@@ -87,13 +86,13 @@ public class Main {
                     break;
                     
                 case 2:
-                    
+                    config = null;
                     config = new Configurador("./config.txt");
                     console.restaurarEleccion();
                     break;
                    
             }
-                    
+            M1 = null;
             console.restaurarEleccion();
         }
         exec.shutdownNow();
