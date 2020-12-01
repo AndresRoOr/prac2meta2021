@@ -639,13 +639,69 @@
 	
 	\subsubsection{Cruce Mpx con elitismo 3 vs dos puntos con elitismo 3}
 	
-	\paragraph{} Si evaluamos los costes obtenidos, podemos observar que los dos operadores de cruce se comportan de manera similar en las instancias de datos GKD, no obstante, para el resto de datos, el cruce MPX ofrece unos resultados considerablemente mejores respecto al cruce en dos puntos, esto puede deberse a la forma de reparación de los cromosomas, la cuál, difiere entre un tipo de cruce y otro.
+	\begin{table}[H]
+		\begin{center}
+			\begin{tabular}{| c | c | c | c | c | c | c |}
+				\hline
+				\multicolumn{7}{ |c| }{Tabla final} \\ \hline
+				& \multicolumn{2}{ |c| }{GKD-c\_1\_n500\_m50} & \multicolumn{2}{ |c| }{GKD-c\_2\_n500\_m50} & \multicolumn{2}{ |c| }{GKD-c\_3\_n500\_m50} \\ \hline
+				MPX, 2 Elite &-0,01\% & 903,00 & -0,01\% & 1062,20 & 0,00\% & 892,00\\ \hline
+				MPX, 3 Elite &-0,01\% & 878,40 & 0,00\% & 881,00 & 0,00\% & 979,80\\ \hline
+				2 puntos, 2 Elite &0,00\% & 1173,40 & 0,00\% & 1118,60 & 0,00\% & 1126,40\\ \hline
+				2 puntos, 3 Elite & 0,00\% & 1072,20\% & 0,00\% & 1033,00 & 0,00\% & 1336,00\\ \hline
+			\end{tabular}
+			\caption{Resultados GKD}
+			\label{tab:tabvsGKD}
+		\end{center}
+	\end{table}
 	
-	\paragraph{}El cruce MPX genera más genes de los deseados, y para reparar los cromosomas, se emplea una estrategia de reparación basada en la eliminación de los genes que menos aportan al coste de la solución. Sin embargo, el cruce en dos puntos, genera menos genes de los deseados, y la estrategia empleada es la de incluir los genes que más aportan que no están contenidos en la solución.
+	\begin{table}[H]
+		\begin{center}
+			\begin{tabular}{| c | c | c | c | c | c | c |}
+				\hline
+				\multicolumn{7}{ |c| }{Tabla final} \\ \hline
+				& \multicolumn{2}{ |c| }{SOM-b\_11\_n300\_m90} & \multicolumn{2}{ |c| }{SOM-b\_12\_n300\_m120} & \multicolumn{2}{ |c| }{SOM-b\_13\_n400\_m40} \\ \hline
+				MPX, 2 Elite &-0,26\% & 2331,60 & -0,06\% & 4668,80 & -1,68 & 604,40\\ \hline
+				MPX, 3 Elite &-0,35\% & 2217,20 & -0,07\% & 4598,80 & -1,55\% & 730,40\\ \hline
+				2 puntos, 2 Elite &-0,46\% & 1794,00 & -0,12\% & 3719,80 & -1,68\% & 877,00\\ \hline
+				2 puntos, 3 Elite &-0,42\% & 1696,60\% & -0,09\% & 2651,40 & -1,51\% & 602,00\\ \hline
+			\end{tabular}
+			\caption{Resultados SOM}
+			\label{tab:tabvsSOM}
+		\end{center}
+	\end{table}
+	
+	\begin{table}[H]
+		\begin{center}
+			\begin{tabular}{| c | c | c | c | c | c | c |}
+				\hline
+				\multicolumn{7}{ |c| }{Tabla final} \\ \hline
+				& \multicolumn{2}{ |c| }{MDG-a\_21\_n2000\_m200} & \multicolumn{2}{ |c| }{MDG-a\_22\_n2000\_m200} & \multicolumn{2}{ |c| }{MDG-a\_23\_n2000\_m200}\\\hline
+				MPX, 2 Elite &-0,91\% & 28772,60 & -1,18\% & 28872,20 & -0,91 & 29482,00\\ \hline
+				MPX, 3 Elite &-0,92\% & 27880,20 & -0,98\% & 26612,60 & -0,91\% & 26442,80\\ \hline
+				2 puntos, 2 Elite &-1,83\% & 44170,40 & -1,66\% & 44239,60 & -1,71\% & 43789,40\\ \hline
+				2 puntos, 3 Elite &-1,56\% & 42890.60\% & -1,67\% & 43702,60 & -1,55\% & 40618,00\\ \hline
+			\end{tabular}
+			\caption{Resultados MDG}
+			\label{tab:tabvsMDG}
+		\end{center}
+	\end{table}
+	
+	\paragraph{} Si evaluamos los costes obtenidos, podemos observar que los dos operadores de cruce se comportan de manera similar en las instancias de datos GKD, no obstante, para el resto de datos, el cruce MPX ofrece unos resultados considerablemente mejores respecto al cruce en dos puntos, esto puede deberse a la estrategia de reparación de los cromosomas, la cuál, difiere entre un tipo de cruce y otro.
+	
+	\paragraph{}El cruce MPX genera más genes de los deseados, y para reparar los cromosomas, se emplea una estrategia de reparación basada en la eliminación de los genes que menos aportan al coste de la solución. Sin embargo, el cruce en dos puntos, genera menos genes de los deseados, y la estrategia empleada es la de incluir los genes que más aportan a la solución, que no están contenidos en la solución.
 	
 	\paragraph{}Si procedemos a evaluar la cantidad de tiempo empleada en obtener las soluciones, podemos observar que el cruce en dos puntos es hasta un 60\% más lento respecto al cruce mpx. La diferencia de tiempos, viene determinada por la estrategia de reparación de los cromosomas.
 	
-	\paragraph{}Como se ha indicado anteriormente, dicha estrategia difiere según el tipo de cruce. Para el cruce en dos puntos se necesita recorrer todos los elementos no seleccionados, e ir evaluando el coste que aportan, este proceso se repite hasta que los cromosomas tengan los genes necesarios, sin embargo, en el mpx solo necesitamos eliminar elementos del cromosoma que menos aportan. Por tanto, el número de operaciones necesarias es mayor en el caso del cruce en dos puntos.
+	\begin{figure}[H]
+		\centering
+		\includegraphics[scale=0.65]{img/MPXvs2Puntos/Tiempos}
+		\caption{Media de tiempos para los distintos archivos MDG, tiempos expresados en milisegundos}
+		\label{MDG_MPXvs2Puntos_Tiempos}
+		
+	\end{figure}
+	
+	\paragraph{}Como se ha indicado anteriormente, dicha estrategia difiere según el tipo de cruce. Para el cruce en dos puntos se necesita recorrer todos los elementos no seleccionados, e ir evaluando el coste que aportan, este proceso se repite hasta que los cromosomas tengan los genes necesarios, sin embargo, en el mpx solo necesitamos eliminar los genes del cromosoma que menos aportan. Por tanto, el número de operaciones necesarias es mayor en el caso del cruce en dos puntos.
 	
 	
 	
