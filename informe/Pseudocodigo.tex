@@ -6,25 +6,25 @@
 			\caption{Algoritmo Genético}
 			\begin{algorithmic}
 				\STATE $poblacion \leftarrow GeneraPoblacionInicial(semilla)$
-				\STATE Evaluacion(poblacionPadres)
+				\STATE Evaluacion(poblacion)
 				\WHILE{evaluacionesRelizadas$<$evaluacionesLimite}
-					\STATE $poblacionPadres \leftarrow SeleccionaPoblacion(poblacionPadres,semilla)$
+					\STATE $poblacionPadres \leftarrow SeleccionaPoblacion(poblacion,semilla)$
 					\STATE $poblacionHijos \leftarrow CruzarPoblacion(poblacionPadres,semilla)$
 					\STATE Reparar(poblacionHijos)
 					\STATE MutarPoblacion(poblacionHijos,semilla)
 					\STATE Evaluacion(poblacionHijos)
-					\STATE $poblacionPadres \leftarrow ReemplazarElite(poblacionHijos, elite)$
+					\STATE $poblacion \leftarrow ReemplazarElite(poblacionHijos, elite)$
 				\ENDWHILE	
 			\end{algorithmic}
 		\end{algorithm}
 	
 	\paragraph{}La primera acción que se realiza en la función principal es la generación de un conjunto de individuos aleatorios que se almacenará en la variable global "poblacion". La función encargada de realizar esta labor es "GeneraPoblacionInicial(semilla)".
 	
-	\paragraph{}A continuación, calculamos los costes de todos y cada uno de los individuos pertenecientes a "poblacionPadres". Esta tarea sera encomendada a la función "Evaluacion(poblacionPadre)".
+	\paragraph{}A continuación, calculamos los costes de todos y cada uno de los individuos pertenecientes a "poblacion". Esta tarea sera encomendada a la función "Evaluacion(poblacion)".
 	
 	\paragraph{}Damos paso a la ejecución de un bucle while hasta que alcancemos el número de evaluaciones objetivo. Este número de evaluaciones lo indica la variable "evaluacionesLimite", parámetro del programa.
 	
-	\paragraph{}Lo primero que se realiza dentro del bucle es seleccionar el conjunto de individuos necesarios para realizar el cruce. Estos individuos serán almacenados en la variable "poblacionPadres", y la función encargada de realizar dicha tarea será "SeleccionaPoblacion(poblacionPadres,semilla)".
+	\paragraph{}Lo primero que se realiza dentro del bucle es seleccionar el conjunto de individuos necesarios para realizar el cruce. Estos individuos serán almacenados en la variable "poblacionPadres", y la función encargada de realizar dicha tarea será "SeleccionaPoblacion(poblacion,semilla)".
 
 	\paragraph{}Procedemos ahora a cruzar "poblacionPadres". "CruzarPoblacion(poblacionPadres,semilla)" es la función que realiza dicha tarea, y la población resultante se guarda en la variable "poblacionHijos".
 	
@@ -34,7 +34,7 @@
 	
 	\paragraph{}Volvemos a ejecutar la función "Evaluacion(poblacionHijos)" para calcular los costes de los individuos mutados.
 	
-	\paragraph{}Para finalizar, ejecutamos la función "ReemplazarElite(poblacionHijos,elite)". Esta función implementa la funcionalidad del operador de elitismo, el resultado de la ejecución la guardamos en la variable "poblacionPadres". Con este último paso estamos listos para iniciar la ejecución de una nueva iteración.
+	\paragraph{}Para finalizar, ejecutamos la función "ReemplazarElite(poblacionHijos,elite)". Esta función implementa la funcionalidad del operador de elitismo, el resultado de la ejecución la guardamos en la variable "poblacion". Con este último paso estamos listos para iniciar la ejecución de una nueva iteración.
 		
 	\subsection{Generación de la población inicial}
 	

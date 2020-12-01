@@ -509,7 +509,7 @@
 
 	\subsubsection{Cruce en dos puntos con elitismo 2 vs elitismo 3}
 	
-	\paragraph{}De la experimentación realizada, obtenemos los siguientes datos
+	\paragraph{}De la experimentación realizada, obtenemos las siguientes tablas, correspondientes al cruce en dos puntos:
 	
 	\begin{table}[H]
 		\begin{center}
@@ -637,7 +637,7 @@
 	
 	
 	
-	\subsubsection{Cruce Mpx con elitismo 3 vs dos puntos con elitismo 3}
+	\subsubsection{Cruce Mpx con elitismo 3 vs dos puntos con elitismo 3} De las pruebas realizadas, se pueden extraer las siguientes tablas, dónde para cada archivo y tipo de cruce, se indica la desviación típica de la media de las ejecuciones, con respecto a los óptimos globales, así como una media de los tiempos. 
 	
 	\begin{table}[H]
 		\begin{center}
@@ -704,6 +704,17 @@
 	\paragraph{}Como se ha indicado anteriormente, dicha estrategia difiere según el tipo de cruce. Para el cruce en dos puntos se necesita recorrer todos los elementos no seleccionados, e ir evaluando el coste que aportan, este proceso se repite hasta que los cromosomas tengan los genes necesarios, sin embargo, en el mpx solo necesitamos eliminar los genes del cromosoma que menos aportan. Por tanto, el número de operaciones necesarias es mayor en el caso del cruce en dos puntos.
 	
 	
+	\subsubsection{Posibles mejoras}
+	
+	Cómo se ha visto anteriormente en las gráficas de convergencias asociadas a los archivos MDG, (\ref{MDG-a_21_historico}),(\ref{MDG-a_22_historico}) y (\ref{MDG-a_23_historico}), el cruce en dos puntos presenta una evolución más lenta en comparación con el cruce MPX. Para subsanar esa deficiencia, se han pensado una serie de cambios que serían interesantes aplicar:
+	
+	\begin{itemize}
+		\item Aumentar el número máximo de evaluaciones: El algoritmo tendría la capacidad de mejorar, pero a costa de empeorar los tiempos.
+		\item Uso de memorias adaptativas: Un sistema de memorias similar al de la búsqueda tabú podría ayudar a mejorar los resultados.
+		\item Reiniciar parte de la población: Pasadas cierto número de generaciones sin mejora, se podría optar por reiniciar a una parte de los individuos de la población, para aumentar la diversidad.
+		\item Cambiar la estrategia de reparación: Un Greedy puro, como se vio anteriormente, no ofrece los mejores resultados, podría sustituirse por un Greedy Randomized Adaptive Search Procedure (GRASP).
+		
+	\end{itemize} 
 	
 	
 	

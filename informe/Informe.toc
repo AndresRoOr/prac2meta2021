@@ -281,7 +281,8 @@
 \contentsline {paragraph}{}{46}{section*.274}%
 \contentsline {subsubsection}{\numberline {4.3.5}Cruce Mpx con elitismo 3 vs dos puntos con elitismo 3}{47}{subsubsection.4.3.5}%
 \contentsline {paragraph}{}{47}{section*.278}%
-\contentsline {paragraph}{}{47}{section*.279}%
+\contentsline {paragraph}{}{48}{section*.279}%
 \contentsline {paragraph}{}{48}{section*.280}%
 \contentsline {paragraph}{}{48}{section*.282}%
-\contentsline {paragraph}{}{48}{section*.283}%
+\contentsline {subsubsection}{\numberline {4.3.6}Posibles mejoras}{48}{subsubsection.4.3.6}%
+\contentsline {paragraph}{}{49}{section*.283}%
