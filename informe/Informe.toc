@@ -270,19 +270,20 @@
 \contentsline {paragraph}{}{38}{section*.247}%
 \contentsline {paragraph}{}{38}{section*.248}%
 \contentsline {paragraph}{}{38}{section*.249}%
-\contentsline {subsubsection}{\numberline {4.3.3}Cruce MPX con elitismo 2 vs elitismo 3}{39}{subsubsection.4.3.3}%
-\contentsline {paragraph}{}{40}{section*.256}%
-\contentsline {paragraph}{}{41}{section*.257}%
+\contentsline {subsubsection}{\numberline {4.3.3}Cruce MPX con elitismo 2 vs elitismo 3}{38}{subsubsection.4.3.3}%
+\contentsline {paragraph}{}{38}{section*.250}%
+\contentsline {paragraph}{}{40}{section*.257}%
 \contentsline {paragraph}{}{41}{section*.258}%
 \contentsline {paragraph}{}{41}{section*.259}%
-\contentsline {paragraph}{}{42}{section*.263}%
+\contentsline {paragraph}{}{41}{section*.260}%
+\contentsline {paragraph}{}{42}{section*.264}%
 \contentsline {subsubsection}{\numberline {4.3.4}Cruce en dos puntos con elitismo 2 vs elitismo 3}{43}{subsubsection.4.3.4}%
-\contentsline {paragraph}{}{43}{section*.267}%
-\contentsline {paragraph}{}{45}{section*.274}%
+\contentsline {paragraph}{}{43}{section*.268}%
+\contentsline {paragraph}{}{45}{section*.275}%
 \contentsline {subsubsection}{\numberline {4.3.5}Cruce Mpx con elitismo 3 vs dos puntos con elitismo 3}{46}{subsubsection.4.3.5}%
-\contentsline {paragraph}{}{47}{section*.279}%
 \contentsline {paragraph}{}{47}{section*.280}%
-\contentsline {paragraph}{}{47}{section*.282}%
-\contentsline {paragraph}{}{48}{section*.284}%
+\contentsline {paragraph}{}{47}{section*.281}%
+\contentsline {paragraph}{}{47}{section*.283}%
+\contentsline {paragraph}{}{48}{section*.285}%
 \contentsline {subsubsection}{\numberline {4.3.6}Posibles mejoras}{48}{subsubsection.4.3.6}%
-\contentsline {paragraph}{}{49}{section*.285}%
+\contentsline {paragraph}{}{49}{section*.286}%
