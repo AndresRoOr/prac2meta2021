@@ -82,9 +82,9 @@
 	\begin{figure}[H]
 		
 		\centering
-		\includegraphics[scale=0.7]{img/BigotesMutacionSOM_11}
-		\includegraphics[scale=0.7]{img/BigotesMutacionSOM_12}
-		\includegraphics[scale=0.7]{img/BigotesMutacionSOM_13}
+		\includegraphics[scale=0.65]{img/BigotesMutacionSOM_11}
+		\includegraphics[scale=0.65]{img/BigotesMutacionSOM_12}
+		\includegraphics[scale=0.65]{img/BigotesMutacionSOM_13}
 		
 	\end{figure}
 	
@@ -93,18 +93,18 @@
 	\begin{figure}[H]
 		
 		\centering
-		\includegraphics[scale=0.7]{img/BigotesMutacion0_SOM_1}
+		\includegraphics[scale=0.65]{img/BigotesMutacion0_SOM_1}
 	\end{figure}
 	\begin{figure}[H]
 		
 		\centering
-		\includegraphics[scale=0.7]{img/BigotesMutacion0_SOM_2}
+		\includegraphics[scale=0.65]{img/BigotesMutacion0_SOM_2}
 		
 	\end{figure}
 	\begin{figure}[H]
 		
 		\centering
-		\includegraphics[scale=0.7]{img/BigotesMutacion0SOM_3}
+		\includegraphics[scale=0.65]{img/BigotesMutacion0SOM_3}
 		
 	\end{figure}
 
@@ -633,7 +633,7 @@
 		\end{center}
 	\end{table}
 	
-	\paragraph{}
+	\paragraph{} Como se puede ver en las anteriores tablas, el algoritmo genético con cruce en dos puntos, tiene un mejor comportamiento cuando se fija una élite de 3 individuos. Los resultados son mejores tanto en media, cómo en desviación típica, este último valor nos indica que con una élite de 3, el algoritmo es más robusto. 
 	
 	
 	
@@ -686,10 +686,38 @@
 			\label{tab:tabvsMDG}
 		\end{center}
 	\end{table}
+
+
+	\begin{table}[H]
+		\begin{center}
+			\begin{tabular}{| c | c |c|}
+				\hline
+				\multicolumn{3}{ |c| }{Tabla resumen} \\ \hline
+				& Coste& Tiempo \\ \hline
+				MPX, 2 Elite &-0,56\% & 10843,20\\ \hline
+				MPX, 3 Elite &-0,53\% & 10135,69 \\ \hline
+				2 puntos, 2 Elite &-0,83\% & 15778,73 \\ \hline
+				2 puntos, 3 Elite &-0,76\% & 15066,93 \\ \hline
+			\end{tabular}
+			\caption{Resultados}
+			\label{tab:tabvsResumen}
+		\end{center}
+	\end{table}
+
+
 	
 	\paragraph{} Si evaluamos los costes obtenidos, podemos observar que los dos operadores de cruce se comportan de manera similar en las instancias de datos GKD, no obstante, para el resto de datos, el cruce MPX ofrece unos resultados considerablemente mejores respecto al cruce en dos puntos, esto puede deberse a la estrategia de reparación de los cromosomas, la cuál, difiere entre un tipo de cruce y otro.
 	
 	\paragraph{}El cruce MPX genera más genes de los deseados, y para reparar los cromosomas, se emplea una estrategia de reparación basada en la eliminación de los genes que menos aportan al coste de la solución. Sin embargo, el cruce en dos puntos, genera menos genes de los deseados, y la estrategia empleada es la de incluir los genes que más aportan a la solución, que no están contenidos en la solución.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[scale=0.65]{img/MPXvs2Puntos/Costes}
+		\caption{Media de tiempos para los distintos archivos MDG, tiempos expresados en milisegundos}
+		\label{MDG_MPXvs2Puntos_Costes}
+		
+	\end{figure}
+	
 	
 	\paragraph{}Si procedemos a evaluar la cantidad de tiempo empleada en obtener las soluciones, podemos observar que el cruce en dos puntos es hasta un 60\% más lento respecto al cruce mpx. La diferencia de tiempos, viene determinada por la estrategia de reparación de los cromosomas.
 	
