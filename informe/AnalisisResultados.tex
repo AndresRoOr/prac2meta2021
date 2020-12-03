@@ -650,6 +650,8 @@
 		
 	\end{figure}
 
+	\paragraph{}Como se puede observar en la gráfica \ref{MDGa1_2Puntos}, con una élite de 3 puntos se consiguen mejores resultados, y un mayor agrupamiento de los mismos.
+
 	\begin{figure}[H]
 		\centering
 		\includegraphics[scale=0.65]{img/2point_2vs3/MDG2}
@@ -657,16 +659,20 @@
 		\label{MDGa2_2Puntos}
 	
 	\end{figure}
+
+	\paragraph{}En el archivo MDG-a\_22\ref{MDGa1_2Puntos}, con una élite de 3 puntos se consigue un mayor agrupamiento de las soluciones, pero los máximos están por debajo de los encontrados con una élite de 2.
 	
-		\begin{figure}[H]
+	\begin{figure}[H]
 		\centering
 		\includegraphics[scale=0.65]{img/2point_2vs3/MDG3}
 		\caption{}
 		\label{MDGa3_2Puntos}
 		
 	\end{figure}
+
+	\paragraph{}En el archivo MDG-a\_23\ref{MDGa1_2Puntos}, con una élite de 3 puntos se consigue un mayor agrupamiento de las soluciones.
 		
-	
+	\paragraph{}Dada la ligera mejora que presenta el cruce en dos puntos con una élite de 3 individuos, lo elegimos como ganador de la comparativa.
 	
 	\subsubsection{Cruce Mpx con elitismo 3 vs cruce en dos puntos con elitismo 3} De las pruebas realizadas, se pueden extraer las siguientes tablas, donde para cada archivo y tipo de cruce, se indica la desviación típica de la media de las ejecuciones, con respecto a los óptimos globales, así como una media de los tiempos. 
 	
@@ -760,7 +766,7 @@
 		
 	\end{figure}
 	
-	\paragraph{}Como se ha indicado anteriormente, dicha estrategia difiere según el tipo de cruce. Para el cruce en dos puntos se necesita recorrer todos los elementos no seleccionados, e ir evaluando el coste que aportan, este proceso se repite hasta que los cromosomas tengan los genes necesarios, sin embargo, en el mpx solo necesitamos eliminar los genes del cromosoma que menos aportan. Por tanto, el número de operaciones necesarias es mayor en el caso del cruce en dos puntos.
+	\paragraph{}Como se ha indicado anteriormente, dicha estrategia de reparación, difiere según el tipo de cruce. Para el cruce en dos puntos se necesita recorrer todos los elementos no seleccionados, e ir evaluando el coste que aportan, este proceso se repite hasta que los cromosomas tengan los genes necesarios, sin embargo, en el mpx solo necesitamos eliminar los genes del cromosoma que menos aportan. Por tanto, el número de operaciones necesarias es mayor en el caso del cruce en dos puntos.
 	
 	
 	\subsubsection{Posibles mejoras}
@@ -776,7 +782,9 @@
 	\end{itemize} 
 	
 	
+	\subsubsection{Conclusiones finales}
 	
+	\paragraph{} Como se ha podido observar, el cruce MPX ofrece mejores resultados tanto en lo referente a costes de las soluciones finales, como en tiempos. A su vez, se ha podido comprobar mediante las gráficas de convergencias \ref{MDG-a_23_historico}, que desde el primer momento, los resultados presentan una evolución más rápida. Por todos estos motivos, el cruce MPX con una élite de 2 individuos, es el mejor algoritmo que podemos aplicar a esta serie de datos.
 
 	
 	\paragraph{} 
