@@ -78,33 +78,51 @@
 	\end{figure}
 	
 	\paragraph{}Como se puede observar, un mayor porcentaje de mutación, empeora los resultados obtenidos mediante algoritmos genéticos.
-	
+
 	\begin{figure}[H]
 		
 		\centering
 		\includegraphics[scale=0.65]{img/BigotesMutacionSOM_11}
+		\caption{Gráfico de bigotes del problema SOM-b11}
+		
+	\end{figure}
+
+	\begin{figure}[H]
+		
+		\centering
 		\includegraphics[scale=0.65]{img/BigotesMutacionSOM_12}
+		\caption{Gráfico de bigotes del problema SOM-b12}
+		
+	\end{figure}
+
+	\begin{figure}[H]
+		
+		\centering
 		\includegraphics[scale=0.65]{img/BigotesMutacionSOM_13}
+		\caption{Gráfico de bigotes del problema SOM-b13}
 		
 	\end{figure}
 	
-	\paragraph{}A raíz de los resultados obtenidos anteriormente, se reflexionó sobre el impacto que tendría fijar una capacidad de mutación nula. Al realizar las pruebas, se obtuvo que fijar una mutación al 0,00 elimina parte de la capacidad de mejora, siendo sus resultados inferiores a una mutación del 0,01. Esto es debido a que el comportamiento del algoritmo sin la mutación se basa en la explotación.
+	\paragraph{}A raíz de los resultados obtenidos anteriormente, se reflexionó sobre el impacto que tendría fijar una capacidad de mutación nula. Al realizar las pruebas, se obtuvo que fijar una mutación al 0,00 elimina parte de la capacidad de mejora, siendo sus resultados inferiores a una mutación del 0,01. Esto es debido a que el comportamiento del algoritmo sin la mutación se basa en la explotación, siendo incapaz de salir del estancamiento en óptimos locales.
 	
 	\begin{figure}[H]
 		
 		\centering
 		\includegraphics[scale=0.65]{img/BigotesMutacion0_SOM_1}
+		\caption{Gráfico de bigotes del problema SOM-b11}
 	\end{figure}
 	\begin{figure}[H]
 		
 		\centering
 		\includegraphics[scale=0.65]{img/BigotesMutacion0_SOM_2}
+		\caption{Gráfico de bigotes del problema SOM-b12}
 		
 	\end{figure}
 	\begin{figure}[H]
 		
 		\centering
 		\includegraphics[scale=0.65]{img/BigotesMutacion0SOM_3}
+		\caption{Gráfico de bigotes del problema SOM-b13}
 		
 	\end{figure}
 
@@ -121,13 +139,13 @@
 
 	\paragraph{}Para el problema GKD-c1 los algoritmos MPX empiezan a encontrar soluciones aceptables en torno a las 100 evaluaciones realizadas para los dos elitismos. Los algoritmos de cruce en dos puntos empiezan a obtener soluciones aceptables a partir de las 420 evaluaciones para una élite = 2, y a partir de las 372 evaluaciones para una élite = 3. Hemos considerado una solución aceptable aquella solución que difiere como máximo un 10\% respecto al óptimo global. En este problema las soluciones óptimas son todas aquellas cuyo coste es superior a 17.536,669.
 	
-	\paragraph{}En la ejecución del algoritmo MPX con un elitismo = 2, el mejor coste obtenido se estabiliza en 19.485,19 a partir de las 6.250 evaluaciones, permaneciendo inalterable hasta finalizar las 50.000 evaluaciones objetivo.
+	\paragraph{}En la ejecución del algoritmo MPX con un elitismo = 2, el mejor coste obtenido se estabiliza en 19.485,19 a partir de las 6.250 evaluaciones, permaneciendo inalterable hasta finalizar las 50.000 evaluaciones objetivo. Este algoritmo es capaz de encontrar costes con una diferencia inferior a un 1\% respecto al óptimo global a partir de las 400 evaluaciones.
 	
-	\paragraph{}En la ejecución del algoritmo MPX con un elitismo = 3, el mejor coste obtenido se estabiliza en 19.485,19 a partir de las 12.700 evaluaciones, permaneciendo inalterable hasta alcanzar las 50.000 evaluaciones objetivo.
+	\paragraph{}En la ejecución del algoritmo MPX con un elitismo = 3, el mejor coste obtenido se estabiliza en 19.485,19 a partir de las 12.700 evaluaciones, permaneciendo inalterable hasta alcanzar las 50.000 evaluaciones objetivo. Este algoritmo es capaz de encontrar costes con una diferencia inferior a un 1\% respecto al óptimo global a partir de las 450 evaluaciones.
 	
-	\paragraph{}En la ejecución del algoritmo de corte en dos puntos con un elitismo = 2, el mejor coste obtenido se estabiliza en 19.485,19 a partir de las 4.419 evaluaciones, permaneciendo estable hasta finalizar las 50.000 evaluaciones objetivo.
+	\paragraph{}En la ejecución del algoritmo de corte en dos puntos con un elitismo = 2, el mejor coste obtenido se estabiliza en 19.485,19 a partir de las 4.419 evaluaciones, permaneciendo estable hasta finalizar las 50.000 evaluaciones objetivo.Este algoritmo es capaz de encontrar costes con una diferencia inferior a un 1\% respecto al óptimo global a partir de las 1.679 evaluaciones.
 	
-	\paragraph{}En la ejecución del algoritmo de corte en dos puntos con un elitismo = 3, el mejor coste obtenido se estabiliza en 19.485,19 a partir de las 8.452 evaluaciones, permaneciendo inalterable hasta alcanzar las 50.000 evaluaciones objetivo.
+	\paragraph{}En la ejecución del algoritmo de corte en dos puntos con un elitismo = 3, el mejor coste obtenido se estabiliza en 19.485,19 a partir de las 8.452 evaluaciones, permaneciendo inalterable hasta alcanzar las 50.000 evaluaciones objetivo. Este algoritmo es capaz de encontrar costes con una diferencia inferior a un 1\% respecto al óptimo global a partir de las 1.835 evaluaciones.
 	
 	\paragraph{}En todos los algoritmos ejecutados obtenemos un coste final = 19.485,19, coincidiendo con el óptimo global.
 
@@ -140,13 +158,13 @@
 
 	\paragraph{}Para el problema GKD-c2 los algoritmos MPX empiezan a encontrar soluciones aceptables en torno a las 100 evaluaciones realizadas para los dos elitismos. Los algoritmos de cruce en dos puntos empiezan a obtener soluciones aceptables a partir de las 321 evaluaciones para una élite = 2, y a partir de las 277 evaluaciones para una élite = 3. En este problema las soluciones óptimas son todas aquellas cuyo coste es superior a 17.731,383.
 	
-	\paragraph{}En la ejecución del algoritmo MPX con un elitismo = 2, el mejor coste obtenido se estabiliza en 19.700,34 a partir de las 18.800 evaluaciones, permaneciendo inalterable hasta finalizar las 50.000 evaluaciones objetivo.
+	\paragraph{}En la ejecución del algoritmo MPX con un elitismo = 2, el mejor coste obtenido se estabiliza en 19.700,34 a partir de las 18.800 evaluaciones, permaneciendo inalterable hasta finalizar las 50.000 evaluaciones objetivo. Este algoritmo es capaz de encontrar costes con una diferencia inferior a un 1\% respecto al óptimo global a partir de las 450 evaluaciones.
 	
-	\paragraph{}En la ejecución del algoritmo MPX con un elitismo = 3, el mejor coste obtenido se estabiliza en 19.701,523 a partir de las 6.600 evaluaciones, permaneciendo inalterable hasta alcanzar las 50.000 evaluaciones objetivo.
+	\paragraph{}En la ejecución del algoritmo MPX con un elitismo = 3, el mejor coste obtenido se estabiliza en 19.701,523 a partir de las 6.600 evaluaciones, permaneciendo inalterable hasta alcanzar las 50.000 evaluaciones objetivo. Este algoritmo es capaz de encontrar costes con una diferencia inferior a un 1\% respecto al óptimo global a partir de las 450 evaluaciones.
 	
-	\paragraph{}En la ejecución del algoritmo de corte en dos puntos con un elitismo = 2, el mejor coste obtenido se estabiliza en 19.701,523 a partir de las 9.396 evaluaciones, permaneciendo estable hasta finalizar las 50.000 evaluaciones objetivo.
+	\paragraph{}En la ejecución del algoritmo de corte en dos puntos con un elitismo = 2, el mejor coste obtenido se estabiliza en 19.701,523 a partir de las 9.396 evaluaciones, permaneciendo estable hasta finalizar las 50.000 evaluaciones objetivo. Este algoritmo es capaz de encontrar costes con una diferencia inferior a un 1\% respecto al óptimo global a partir de las 1.665 evaluaciones.
 	
-	\paragraph{}En la ejecución del algoritmo de corte en dos puntos con un elitismo = 3, el mejor coste obtenido se estabiliza en 19.701,523 a partir de las 4.108 evaluaciones, permaneciendo inalterable hasta alcanzar las 50.000 evaluaciones objetivo.
+	\paragraph{}En la ejecución del algoritmo de corte en dos puntos con un elitismo = 3, el mejor coste obtenido se estabiliza en 19.701,523 a partir de las 4.108 evaluaciones, permaneciendo inalterable hasta alcanzar las 50.000 evaluaciones objetivo. Este algoritmo es capaz de encontrar costes con una diferencia inferior a un 1\% respecto al óptimo global a partir de las 1.690 evaluaciones.
 	
 	\paragraph{}En todos los algoritmos ejecutados, menos en el MPX con elitismo = 2, obtenemos un coste final = 19.701,523 , difiriendo en un 0,0000008\% aproximadamente respecto al óptimo global = 19.701,537.
 	
@@ -161,13 +179,13 @@
 
 	\paragraph{}Para el problema GKD-c3 los algoritmos MPX empiezan a encontrar soluciones aceptables en torno a las 100 evaluaciones realizadas para los dos elitismos. Los algoritmos de cruce en dos puntos empiezan a obtener soluciones aceptables a partir de las 467 evaluaciones para una élite = 2, y a partir de las 324 evaluaciones para una élite = 3. En este problema las soluciones óptimas son todas aquellas cuyo coste es superior a 17.592,486.
 	
-	\paragraph{}En la ejecución del algoritmo MPX con un elitismo = 2, el mejor coste obtenido se estabiliza en 19.547,215 a partir de las 3.200 evaluaciones, permaneciendo inalterable hasta finalizar las 50.000 evaluaciones objetivo.
+	\paragraph{}En la ejecución del algoritmo MPX con un elitismo = 2, el mejor coste obtenido se estabiliza en 19.547,215 a partir de las 3.200 evaluaciones, permaneciendo inalterable hasta finalizar las 50.000 evaluaciones objetivo. Este algoritmo es capaz de encontrar costes con una diferencia inferior a un 1\% respecto al óptimo global a partir de las 400 evaluaciones.
 	
-	\paragraph{}En la ejecución del algoritmo MPX con un elitismo = 3, el mejor coste obtenido se estabiliza en 19.547,215 a partir de las 4.500 evaluaciones, permaneciendo inalterable hasta alcanzar las 50.000 evaluaciones objetivo.
+	\paragraph{}En la ejecución del algoritmo MPX con un elitismo = 3, el mejor coste obtenido se estabiliza en 19.547,215 a partir de las 4.500 evaluaciones, permaneciendo inalterable hasta alcanzar las 50.000 evaluaciones objetivo. Este algoritmo es capaz de encontrar costes con una diferencia inferior a un 1\% respecto al óptimo global a partir de las 450 evaluaciones.
 	
-	\paragraph{}En la ejecución del algoritmo de corte en dos puntos con un elitismo = 2, el mejor coste obtenido se estabiliza en 19.547,215 a partir de las 4.459 evaluaciones, permaneciendo estable hasta finalizar las 50.000 evaluaciones objetivo.
+	\paragraph{}En la ejecución del algoritmo de corte en dos puntos con un elitismo = 2, el mejor coste obtenido se estabiliza en 19.547,215 a partir de las 4.459 evaluaciones, permaneciendo estable hasta finalizar las 50.000 evaluaciones objetivo. Este algoritmo es capaz de encontrar costes con una diferencia inferior a un 1\% respecto al óptimo global a partir de las 2.190 evaluaciones.
 	
-	\paragraph{}En la ejecución del algoritmo de corte en dos puntos con un elitismo = 3, el mejor coste obtenido se estabiliza en 19.547,215 a partir de las 6.414 evaluaciones, permaneciendo inalterable hasta alcanzar las 50.000 evaluaciones objetivo.
+	\paragraph{}En la ejecución del algoritmo de corte en dos puntos con un elitismo = 3, el mejor coste obtenido se estabiliza en 19.547,215 a partir de las 6.414 evaluaciones, permaneciendo inalterable hasta alcanzar las 50.000 evaluaciones objetivo. Este algoritmo es capaz de encontrar costes con una diferencia inferior a un 1\% respecto al óptimo global a partir de las 1.426 evaluaciones.
 	
 	\paragraph{}En todos los algoritmos ejecutados obtenemos un coste final = 19.547,215, coincidiendo con el óptimo global.
 
@@ -180,13 +198,13 @@
 
 	\paragraph{}Para el problema SOM-b11 los algoritmos MPX empiezan a encontrar soluciones aceptables en torno a las 100 evaluaciones realizadas para los dos elitismos. Los algoritmos de cruce en dos puntos empiezan a obtener soluciones aceptables a partir de las 148 evaluaciones para los dos elitismos. En este problema las soluciones óptimas son todas aquellas cuyo coste es superior a 18.668,7.
 	
-	\paragraph{}En la ejecución del algoritmo MPX con un elitismo = 2, el mejor coste obtenido se estabiliza en 20.651 a partir de las 18.800 evaluaciones, permaneciendo inalterable hasta finalizar las 50.000 evaluaciones objetivo.
+	\paragraph{}En la ejecución del algoritmo MPX con un elitismo = 2, el mejor coste obtenido se estabiliza en 20.651 a partir de las 18.800 evaluaciones, permaneciendo inalterable hasta finalizar las 50.000 evaluaciones objetivo. Este algoritmo es capaz de encontrar costes con una diferencia inferior a un 1\% respecto al óptimo global a partir de las 500 evaluaciones.
 	
-	\paragraph{}En la ejecución del algoritmo MPX con un elitismo = 3, el mejor coste obtenido se estabiliza en 20.650 a partir de las 750 evaluaciones, permaneciendo inalterable hasta alcanzar las 50.000 evaluaciones objetivo.
+	\paragraph{}En la ejecución del algoritmo MPX con un elitismo = 3, el mejor coste obtenido se estabiliza en 20.650 a partir de las 750 evaluaciones, permaneciendo inalterable hasta alcanzar las 50.000 evaluaciones objetivo. Este algoritmo es capaz de encontrar costes con una diferencia inferior a un 1\% respecto al óptimo global a partir de las 400 evaluaciones.
 	
-	\paragraph{}En la ejecución del algoritmo de corte en dos puntos con un elitismo = 2, el mejor coste obtenido se estabiliza en 20.631 a partir de las 15.280 evaluaciones, permaneciendo estable hasta finalizar las 50.000 evaluaciones objetivo.
+	\paragraph{}En la ejecución del algoritmo de corte en dos puntos con un elitismo = 2, el mejor coste obtenido se estabiliza en 20.631 a partir de las 15.280 evaluaciones, permaneciendo estable hasta finalizar las 50.000 evaluaciones objetivo. Este algoritmo es capaz de encontrar costes con una diferencia inferior a un 1\% respecto al óptimo global a partir de las 4.706 evaluaciones.
 	
-	\paragraph{}En la ejecución del algoritmo de corte en dos puntos con un elitismo = 3, el mejor coste obtenido se estabiliza en 20.623 a partir de las 7.865 evaluaciones, permaneciendo inalterable hasta alcanzar las 50.000 evaluaciones objetivo.
+	\paragraph{}En la ejecución del algoritmo de corte en dos puntos con un elitismo = 3, el mejor coste obtenido se estabiliza en 20.623 a partir de las 7.865 evaluaciones, permaneciendo inalterable hasta alcanzar las 50.000 evaluaciones objetivo. Este algoritmo es capaz de encontrar costes con una diferencia inferior a un 1\% respecto al óptimo global a partir de las 4.083 evaluaciones.
 	
 	\paragraph{}En el algoritmo MPX con un elitismo = 2 obtenemos un coste final = 20.651, que difiere del óptimo global en un 0,005\% aproximadamente. El óptimo global para este problema es 20.743.
 	
@@ -205,13 +223,13 @@
 
 	\paragraph{}Para el problema SOM-b12 todos los algoritmos empiezan a encontrar soluciones aceptables en torno a las 100 evaluaciones realizadas para los dos elitismos. En este problema las soluciones óptimas son todas aquellas cuyo coste es superior a 32.292,9.
 	
-	\paragraph{}En la ejecución del algoritmo MPX con un elitismo = 2, el mejor coste obtenido se estabiliza en 35.871 a partir de las 8.400 evaluaciones, permaneciendo inalterable hasta finalizar las 50.000 evaluaciones objetivo.
+	\paragraph{}En la ejecución del algoritmo MPX con un elitismo = 2, el mejor coste obtenido se estabiliza en 35.871 a partir de las 8.400 evaluaciones, permaneciendo inalterable hasta finalizar las 50.000 evaluaciones objetivo. Este algoritmo es capaz de encontrar costes con una diferencia inferior a un 1\% respecto al óptimo global a partir de las 350 evaluaciones.
 	
-	\paragraph{}En la ejecución del algoritmo MPX con un elitismo = 3, el mejor coste obtenido se estabiliza en 35.834 a partir de las 3.550 evaluaciones, permaneciendo inalterable hasta alcanzar las 50.000 evaluaciones objetivo.
+	\paragraph{}En la ejecución del algoritmo MPX con un elitismo = 3, el mejor coste obtenido se estabiliza en 35.834 a partir de las 3.550 evaluaciones, permaneciendo inalterable hasta alcanzar las 50.000 evaluaciones objetivo. Este algoritmo es capaz de encontrar costes con una diferencia inferior a un 1\% respecto al óptimo global a partir de las 350 evaluaciones.
 	
-	\paragraph{}En la ejecución del algoritmo de corte en dos puntos con un elitismo = 2, el mejor coste obtenido se estabiliza en 35.847 a partir de las 21.669 evaluaciones, permaneciendo estable hasta finalizar las 50.000 evaluaciones objetivo.
+	\paragraph{}En la ejecución del algoritmo de corte en dos puntos con un elitismo = 2, el mejor coste obtenido se estabiliza en 35.847 a partir de las 21.669 evaluaciones, permaneciendo estable hasta finalizar las 50.000 evaluaciones objetivo. Este algoritmo es capaz de encontrar costes con una diferencia inferior a un 1\% respecto al óptimo global a partir de las 3.993 evaluaciones.
 	
-	\paragraph{}En la ejecución del algoritmo de corte en dos puntos con un elitismo = 3, el mejor coste obtenido se estabiliza en 35.863 a partir de las 39.724 evaluaciones, permaneciendo inalterable hasta alcanzar las 50.000 evaluaciones objetivo.
+	\paragraph{}En la ejecución del algoritmo de corte en dos puntos con un elitismo = 3, el mejor coste obtenido se estabiliza en 35.863 a partir de las 39.724 evaluaciones, permaneciendo inalterable hasta alcanzar las 50.000 evaluaciones objetivo. Este algoritmo es capaz de encontrar costes con una diferencia inferior a un 1\% respecto al óptimo global a partir de las 4.746 evaluaciones.
 	
 	\paragraph{}En el algoritmo MPX con un elitismo = 2 obtenemos un coste final = 35.871, que difiere del óptimo global en un 0,0003\% aproximadamente. El óptimo global para este problema es 35.881.
 	
@@ -230,13 +248,15 @@
 
 	\paragraph{}Para el problema SOM-b13 los algoritmos MPX empiezan a encontrar soluciones aceptables en torno a las 200 evaluaciones realizadas para los dos elitismos. Los algoritmos de cruce en dos puntos empiezan a obtener soluciones aceptables a partir de las 1085 evaluaciones para una élite = 2, y a partir de las 793 evaluaciones para una élite = 3. En este problema las soluciones óptimas son todas aquellas cuyo coste es superior a 4.192,2.
 	
-	\paragraph{}En la ejecución del algoritmo MPX con un elitismo = 2, el mejor coste obtenido se estabiliza en 4.595 a partir de las 29.800 evaluaciones, permaneciendo inalterable hasta finalizar las 50.000 evaluaciones objetivo.
+	\paragraph{}En la ejecución del algoritmo MPX con un elitismo = 2, el mejor coste obtenido se estabiliza en 4.595 a partir de las 29.800 evaluaciones, permaneciendo inalterable hasta finalizar las 50.000 evaluaciones objetivo. 
 	
 	\paragraph{}En la ejecución del algoritmo MPX con un elitismo = 3, el mejor coste obtenido se estabiliza en 4.584 a partir de las 16.400 evaluaciones, permaneciendo inalterable hasta alcanzar las 50.000 evaluaciones objetivo.
 	
 	\paragraph{}En la ejecución del algoritmo de corte en dos puntos con un elitismo = 2, el mejor coste obtenido se estabiliza en 4.571 a partir de las 3.818 evaluaciones, permaneciendo estable hasta finalizar las 50.000 evaluaciones objetivo.
 	
 	\paragraph{}En la ejecución del algoritmo de corte en dos puntos con un elitismo = 3, el mejor coste obtenido se estabiliza en 4.560 a partir de las 3.829 evaluaciones, permaneciendo inalterable hasta alcanzar las 50.000 evaluaciones objetivo.
+	
+	\paragraph{}En este caso, ninguno de los algoritmos es capaz de encontrar costes que difieran menos de un 1\% respecto al óptimo global.
 	
 	\paragraph{}En el algoritmo MPX con un elitismo = 2 obtenemos un coste final = 4.595, que difiere del óptimo global en un 0,02\% aproximadamente. El óptimo global para este problema es 4.658.
 	
@@ -255,13 +275,15 @@
 
 	\paragraph{}Para el problema MDG-a21 los algoritmos MPX empiezan a encontrar soluciones aceptables en torno a las 100 evaluaciones realizadas para los dos elitismos. Los algoritmos de cruce en dos puntos empiezan a obtener soluciones aceptables a partir de las 545 evaluaciones para una élite = 2, y a partir de las 692 evaluaciones para una élite = 3. En este problema las soluciones óptimas son todas aquellas cuyo coste es superior a 102.833,1.
 	
-	\paragraph{}En la ejecución del algoritmo MPX con un elitismo = 2, no se estabiliza el mejor coste en un valor fijo, sino que se va mejorando continuamente, llegando a obtener el coste final obtenido = 113.312 al llegar a las 49.900 evaluaciones realizadas.
+	\paragraph{}En la ejecución del algoritmo MPX con un elitismo = 2, no se estabiliza el mejor coste en un valor fijo, sino que se va mejorando continuamente, llegando a obtener el coste final obtenido = 113.312 al llegar a las 49.900 evaluaciones realizadas. Este algoritmo es capaz de encontrar costes con una diferencia inferior a un 1\% respecto al óptimo global a partir de las 31.700 evaluaciones.
 	
-	\paragraph{}En la ejecución del algoritmo MPX con un elitismo = 3, el mejor coste obtenido se estabiliza en 113.193 a partir de las 43.350 evaluaciones, permaneciendo inalterable hasta alcanzar las 50.000 evaluaciones objetivo.
+	\paragraph{}En la ejecución del algoritmo MPX con un elitismo = 3, el mejor coste obtenido se estabiliza en 113.193 a partir de las 43.350 evaluaciones, permaneciendo inalterable hasta alcanzar las 50.000 evaluaciones objetivo. Este algoritmo es capaz de encontrar costes con una diferencia inferior a un 1\% respecto al óptimo global a partir de las 35.750 evaluaciones.
 	
 	\paragraph{}En la ejecución del algoritmo de corte en dos puntos con un elitismo = 2, no se estabiliza el mejor coste en un valor fijo, sino que se va mejorando continuamente, llegando a obtener el coste final obtenido = 111.963 al llegar a las 49.554 evaluaciones realizadas.
 	
 	\paragraph{}En la ejecución del algoritmo de corte en dos puntos con un elitismo = 3, no se estabiliza el mejor coste en un valor fijo, sino que se va mejorando continuamente, llegando a obtener el coste final obtenido = 112.350 al llegar a las 49.926 evaluaciones realizadas.
+	
+	\paragraph{}En este caso, ningún algoritmo de corte en dos puntos consigue encontrar costes que difieran menos de un 1\% respecto al óptimo global.
 	
 	\paragraph{}En el algoritmo MPX con un elitismo = 2 obtenemos un coste final = 113.312, que difiere del óptimo global en un 0,008\% aproximadamente. El óptimo global para este problema es 114.259.
 	
@@ -280,13 +302,15 @@
 
 	\paragraph{}Para el problema MDG-a22 los algoritmos MPX empiezan a encontrar soluciones aceptables en torno a las 100 evaluaciones realizadas para los dos elitismos. Los algoritmos de cruce en dos puntos empiezan a obtener soluciones aceptables a partir de las 642 evaluaciones para una élite = 2, y a partir de las 738 evaluaciones para una élite = 3. En este problema las soluciones óptimas son todas aquellas cuyo coste es superior a 102.894,3.
 	
-	\paragraph{}En la ejecución del algoritmo MPX con un elitismo = 2, no se estabiliza el mejor coste en un valor fijo, sino que se va mejorando continuamente, llegando a obtener el coste final obtenido = 113.217 al llegar a las 47.350 evaluaciones realizadas.
+	\paragraph{}En la ejecución del algoritmo MPX con un elitismo = 2, no se estabiliza el mejor coste en un valor fijo, sino que se va mejorando continuamente, llegando a obtener el coste final obtenido = 113.217 al llegar a las 47.350 evaluaciones realizadas. Este algoritmo es capaz de encontrar costes con una diferencia inferior a un 1\% respecto al óptimo global a partir de las 31.550 evaluaciones.
 	
-	\paragraph{}En la ejecución del algoritmo MPX con un elitismo = 3, no se estabiliza el mejor coste en un valor fijo, sino que se va mejorando continuamente, llegando a obtener el coste final obtenido = 113.402 al llegar a las 42.950 evaluaciones realizadas.
+	\paragraph{}En la ejecución del algoritmo MPX con un elitismo = 3, no se estabiliza el mejor coste en un valor fijo, sino que se va mejorando continuamente, llegando a obtener el coste final obtenido = 113.402 al llegar a las 42.950 evaluaciones realizadas.Este algoritmo es capaz de encontrar costes con una diferencia inferior a un 1\% respecto al óptimo global a partir de las 21.850 evaluaciones.
 
 	\paragraph{}En la ejecución del algoritmo de corte en dos puntos con un elitismo = 2, no se estabiliza el mejor coste en un valor fijo, sino que se va mejorando continuamente, llegando a obtener el coste final obtenido = 112.604 al llegar a las 48.692 evaluaciones realizadas.
 	
 	\paragraph{}En la ejecución del algoritmo de corte en dos puntos con un elitismo = 3, no se estabiliza el mejor coste en un valor fijo, sino que se va mejorando continuamente, llegando a obtener el coste final obtenido = 112.564 al llegar a las 47.679 evaluaciones realizadas.
+	
+	\paragraph{}En este caso, ningún algoritmo de corte en dos puntos consigue encontrar costes que difieran menos de un 1\% respecto al óptimo global.
 	
 	\paragraph{}En el algoritmo MPX con un elitismo = 2 obtenemos un coste final = 113.217, que difiere del óptimo global en un 0,01\% aproximadamente. El óptimo global para este problema es 114.327.
 	
@@ -305,13 +329,15 @@
 
 	\paragraph{}Para el problema MDG-a22 los algoritmos MPX empiezan a encontrar soluciones aceptables en torno a las 100 evaluaciones realizadas para los dos elitismos. Los algoritmos de cruce en dos puntos empiezan a obtener soluciones aceptables a partir de las 741 evaluaciones para una élite = 2, y a partir de las 692 evaluaciones para una élite = 3. En este problema las soluciones óptimas son todas aquellas cuyo coste es superior a 102.710,7.
 	
-	\paragraph{}En la ejecución del algoritmo MPX con un elitismo = 2, no se estabiliza el mejor coste en un valor fijo, sino que se va mejorando continuamente, llegando a obtener el coste final obtenido = 112.982 al llegar a las 49.900 evaluaciones realizadas.
+	\paragraph{}En la ejecución del algoritmo MPX con un elitismo = 2, no se estabiliza el mejor coste en un valor fijo, sino que se va mejorando continuamente, llegando a obtener el coste final obtenido = 112.982 al llegar a las 49.900 evaluaciones realizadas. Este algoritmo es capaz de encontrar costes con una diferencia inferior a un 1\% respecto al óptimo global a partir de las 49.900 evaluaciones.
 	
-	\paragraph{}En la ejecución del algoritmo MPX con un elitismo = 3, no se estabiliza el mejor coste en un valor fijo, sino que se va mejorando continuamente, llegando a obtener el coste final obtenido = 113.212 al llegar a las 45.150 evaluaciones realizadas.
+	\paragraph{}En la ejecución del algoritmo MPX con un elitismo = 3, no se estabiliza el mejor coste en un valor fijo, sino que se va mejorando continuamente, llegando a obtener el coste final obtenido = 113.212 al llegar a las 45.150 evaluaciones realizadas. Este algoritmo es capaz de encontrar costes con una diferencia inferior a un 1\% respecto al óptimo global a partir de las 23.950 evaluaciones.
 	
 	\paragraph{}En la ejecución del algoritmo de corte en dos puntos con un elitismo = 2, no se estabiliza el mejor coste en un valor fijo, sino que se va mejorando continuamente, llegando a obtener el coste final obtenido = 111.921 al llegar a las 48.627 evaluaciones realizadas.
 	
 	\paragraph{}En la ejecución del algoritmo de corte en dos puntos con un elitismo = 3, no se estabiliza el mejor coste en un valor fijo, sino que se va mejorando continuamente, llegando a obtener el coste final obtenido = 112.178 al llegar a las 48.561 evaluaciones realizadas.
+	
+	\paragraph{}En este caso, ningún algoritmo de corte en dos puntos consigue encontrar costes que difieran menos de un 1\% respecto al óptimo global.
 	
 	\paragraph{}En el algoritmo MPX con un elitismo = 2 obtenemos un coste final = 112.982, que difiere del óptimo global en un 0,01\% aproximadamente. El óptimo global para este problema es 114.123.
 	
