@@ -8,6 +8,7 @@
 package es.meta.metaheuristicas_practica_2;
 
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
@@ -17,12 +18,12 @@ import java.io.PrintWriter;
  * @author David Díaz Jiménez
  * @date 02/11/2020
  */
-public class GestorLog {
+public final class AlgGestorLog_Clase02_Grupo06 {
 
     ///Atributos de la clase:
     private String _archiveName;
-    FileWriter fichero = null;
-    PrintWriter pw = null;
+    private FileWriter fichero = null;
+    private PrintWriter pw = null;
 
     /**
      * @brief Constructor parametrizado de la clase GestorLog
@@ -31,7 +32,7 @@ public class GestorLog {
      * @date 02/11/2020
      * @param name String
      */
-    public GestorLog(String name) {
+    public AlgGestorLog_Clase02_Grupo06(String name) {
         _archiveName = name;
 
     }
@@ -58,8 +59,7 @@ public class GestorLog {
             fichero = new FileWriter("./archivos/Log/" + _archiveName);
             pw = new PrintWriter(fichero);
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IOException e) {
         }
     }
 
@@ -87,8 +87,7 @@ public class GestorLog {
             if (null != fichero) {
                 fichero.close();
             }
-        } catch (Exception e2) {
-            e2.printStackTrace();
+        } catch (IOException e2) {
         }
     }
 }

@@ -23,11 +23,7 @@
 	\subsection{Función objetivo}
 	
 	\[ C(M)=\sum_{s_i , s_j \in M} d_{ij}\]
-	
-	\subsection{Operadores comunes}
-	
-	\paragraph{}El operador de intercambio es el 1-opt, se seleccionara un elemento de la solución actual en base a un criterio y se sustituirá por un elemento que no pertenece a la solución. 
-	
+		
 	\section{Clases auxiliares}
 	
 	\paragraph{} A continuación se enumeran las diferentes clases auxiliares utilizadas en el programa acompañadas de una breve descripción de las mismas.
@@ -43,9 +39,9 @@
 	
 	\paragraph{}Utilizamos esta clase para leer y almacenar los parámetros del programa que se encuentran dentro del archivo de configuración.
 	
-	\subsection{ElementoSolucion}
+	\subsection{Cromosomas}
 	
-	\paragraph{}Clase encargada de representar a un elemento perteneciente a una solución y almacenar toda la información necesaria para la ejecución de las metaheurísticas del programa.
+	\paragraph{}Clase encargada de representar a cada cromosoma y almacenar toda la información necesaria para la ejecución de las metaheurísticas del programa.
 	
 	\subsection{GestorLog}
 	
@@ -54,11 +50,7 @@
 	\subsection{Metaheuristicas}
 	
 	\paragraph{}Esta clase se utiliza para lanzar la ejecución de los algoritmos para cada problema facilitado como parámetro.
-	
-	\subsection{Pair}
-	
-	\paragraph{}Representa un par formado por un candidato y un coste asociado a este.
-	
+
 	\subsection{RandomP}
 	
 	\paragraph{}Clase para generar números aleatorios.

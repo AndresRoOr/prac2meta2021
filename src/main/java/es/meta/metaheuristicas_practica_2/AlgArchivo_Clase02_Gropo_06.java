@@ -7,6 +7,7 @@
  */
 package es.meta.metaheuristicas_practica_2;
 
+import org.apache.commons.lang3.StringUtils;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -20,14 +21,14 @@ import java.io.IOException;
  * @author David Díaz Jiménez
  * @date 27/09/2020
  */
-public class Archivo {
+public final class AlgArchivo_Clase02_Gropo_06 {
 
     ///Atributos de la clase:
-    String _nombre;///<Nombre del objeto                                        
-    String _ruta;///<Ruta completa del archivo de datos
-    Integer _tama_Matriz;///<Tamaño de la matriz de datos
-    Integer _tama_Solucion;///<Tamaño de la solución             
-    float[][] _matriz;///<Matriz que almacena los datos del archivo
+    private String _nombre;///<Nombre del objeto                                        
+    private String _ruta;///<Ruta completa del archivo de datos
+    private Integer _tama_Matriz;///<Tamaño de la matriz de datos
+    private Integer _tama_Solucion;///<Tamaño de la solución             
+    private float[][] _matriz;///<Matriz que almacena los datos del archivo
 
     /**
      * @brief Constructor parametrizado de la clase Archivo
@@ -40,7 +41,7 @@ public class Archivo {
      * @throws FileNotFoundException
      * @throws IOException
      */
-    Archivo(String nombre, String ruta)
+    AlgArchivo_Clase02_Gropo_06(String nombre, String ruta)
             throws FileNotFoundException, IOException {
 
         _nombre = nombre;
@@ -56,7 +57,7 @@ public class Archivo {
             while (currentRecord != null) {
                 if (!currentRecord.isEmpty()) {
 
-                    String[] linea = currentRecord.split(" ");
+                    String[] linea = StringUtils.split(currentRecord, " ");
 
                     if (num_linea == 0) {
                         _tama_Matriz = Integer.parseInt(linea[0]);
@@ -73,7 +74,6 @@ public class Archivo {
                 currentRecord = br.readLine();
             }
             br.close();
-            System.out.println("");
         } catch (IOException e) {
             System.out.println("Error: " + e.getMessage());
         }

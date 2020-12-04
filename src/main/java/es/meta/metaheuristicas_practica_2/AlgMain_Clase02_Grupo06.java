@@ -11,6 +11,8 @@ import com.formdev.flatlaf.FlatLightLaf;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
@@ -22,19 +24,20 @@ import javax.swing.UIManager;
  * @author David Díaz Jiménez
  * @date 27/09/2020
  */
-public class Main {
+public class AlgMain_Clase02_Grupo06 {
+
+    
+    public static AlgConsola_Clase02_Grupo06 console = new AlgConsola_Clase02_Grupo06();
+    public static AlgGestorLog_Clase02_Grupo06 gestor = new AlgGestorLog_Clase02_Grupo06("");
+    public static final ExecutorService exec = Executors.newFixedThreadPool(4);
 
     /**
      * @brief Función principal del programa
      * @author Andrés Rojas Ortega
      * @author David Díaz Jiménez
      * @date 27/09/2020
-     * @param args
      * @throws IOException
      */
-    public static Consola console = new Consola();
-    public static int narchivos;
-
     public static void main(String[] args) throws IOException {
 
         try {
@@ -43,7 +46,7 @@ public class Main {
             System.err.println("Failed to initialize LaF");
         }
 
-        Configurador config = new Configurador("./config.txt");
+        AlgConfigurador_Clase02_Grupo06 config = new AlgConfigurador_Clase02_Grupo06("./config.txt");
 
         ArrayList<File> directorios = new ArrayList<>();
         directorios.add(new File("./archivos"));
@@ -64,34 +67,35 @@ public class Main {
                 try {
                     Thread.sleep(500);
                 } catch (InterruptedException ex) {
-                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(AlgMain_Clase02_Grupo06.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             if (console.getEleccion() == 4) {
                 System.exit(0);
             }
 
-            
-            Metaheuristicas M1 = new Metaheuristicas(config.getDirectoriosDatos().get(0),
+            AlgMetaheuristicas_Clase02_Grupo06 M1 = new AlgMetaheuristicas_Clase02_Grupo06(config.getDirectoriosDatos().get(0),
             config.getDirectoriosDatos().get(0), config);
             M1.lector_Archivos();
 
             switch (console.getEleccion()) {
 
                 case 1:
-
+                    
                     M1.genetico();
                     break;
-
-                case 4:
-                    System.exit(0);
-
+                    
+                case 2:
+                    config = null;
+                    config = new AlgConfigurador_Clase02_Grupo06("./config.txt");
+                    console.restaurarEleccion();
+                    break;
+                   
             }
-
-            
-
+            M1 = null;
             console.restaurarEleccion();
         }
+        exec.shutdownNow();
         System.exit(0);
     }
 }

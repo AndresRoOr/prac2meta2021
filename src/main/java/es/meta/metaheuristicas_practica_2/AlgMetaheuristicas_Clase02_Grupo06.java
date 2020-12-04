@@ -20,14 +20,14 @@ import java.util.ArrayList;
  * @author David Díaz Jiménez
  * @date 27/09/2020
  */
-public class Metaheuristicas {
+public final class AlgMetaheuristicas_Clase02_Grupo06 {
 
     ///Atributos de la clase:
-    Configurador _config;///<Contiene los parámetros principales del programa
-    String _nombre;///<Nombre del objeto Metaheuristicas
-    ArrayList<Archivo> _archivos;///<Contiene el nombre de los archivos que 
+    private final AlgConfigurador_Clase02_Grupo06 _config;///<Contiene los parámetros principales del programa
+    private final String _nombre;///<Nombre del objeto AlgMetaheuristicas_Clase02_Grupo06
+    private ArrayList<AlgArchivo_Clase02_Gropo_06> _archivos;///<Contiene el nombre de los archivos que 
     ///contienen los datos sobre los que hacer los cálculos
-    String _ruta_Carpeta_Archivos;///<Directorio que contiene los archivos
+    private String _ruta_Carpeta_Archivos;///<Directorio que contiene los archivos
 
     /**
      * @brief Constructor parametrizado de la clase Metaheuristicas
@@ -36,9 +36,9 @@ public class Metaheuristicas {
      * @date 27/09/2020
      * @param nombre String Nombre de la nueva instancia
      * @param ruta String Ruta del directorio que contiene los archivos
-     * @param config Configurador Objeto con los parámetros del programa
+     * @param config AlgConfigurador_Clase02_Grupo06 Objeto con los parámetros del programa
      */
-    Metaheuristicas(String nombre, String ruta, Configurador config) {
+    AlgMetaheuristicas_Clase02_Grupo06(String nombre, String ruta, AlgConfigurador_Clase02_Grupo06 config) {
         _config = config;
         _nombre = nombre;
         _ruta_Carpeta_Archivos = ruta;
@@ -58,7 +58,7 @@ public class Metaheuristicas {
         for (final File fichero_Entrada : carpeta.listFiles()) {
 
             if (fichero_Entrada.isFile()) {
-                Archivo ar = new Archivo(fichero_Entrada.getName(),
+                AlgArchivo_Clase02_Gropo_06 ar = new AlgArchivo_Clase02_Gropo_06(fichero_Entrada.getName(),
                         _ruta_Carpeta_Archivos + "/"
                         + fichero_Entrada.getName());
                 _archivos.add(ar);
@@ -74,7 +74,7 @@ public class Metaheuristicas {
      * @date 27/09/2020
      */
     void mostrar_Datos() {
-        for (Archivo ar : _archivos) {
+        for (AlgArchivo_Clase02_Gropo_06 ar : _archivos) {
             ar.presentarDatos();
         }
     }
@@ -90,29 +90,27 @@ public class Metaheuristicas {
 
         if (_archivos.size() > 0) {
 
-            GestorLog gestor = new GestorLog("");
-
             int aumento = (1000 / (_archivos.size() * 5));
 
-            for (Archivo ar : _archivos) {
+            for (AlgArchivo_Clase02_Gropo_06 ar : _archivos) {
 
                 int ite = 1;
 
                 while (ite <= 5) {
 
-                    Main.console.setValue(aumento / 2);
+                    AlgMain_Clase02_Grupo06.console.setValue(aumento / 2);
 
-                    Timer t = new Timer();
+                    AlgTimer_Clase02_Grupo06 t = new AlgTimer_Clase02_Grupo06();
 
-                    gestor.cambiarNombre("genetico/Log_SEM_" + _config.getSemilla() + ar.getNombre());
-                    gestor.abrirArchivo();
+                    AlgMain_Clase02_Grupo06.gestor.cambiarNombre("genetico/MPX_"+_config.getCruceMpx()+";Elitismo_"+_config.getElitismo()+";SEM_" + _config.getSemilla()+"_" + ar.getNombre());
+                    AlgMain_Clase02_Grupo06.gestor.abrirArchivo();
 
-                    Random_p sem = new Random_p();
+                    AlgRandom_p_Clase02_Grupo06 sem = new AlgRandom_p_Clase02_Grupo06();
                     sem.Set_random(_config.getSemilla());
 
-                    Genetico g = new Genetico(ar, gestor, _config.getEvaluaciones(),_config.getElitismo(),
+                    AlgGenetico_Clase02_Grupo06 g = new AlgGenetico_Clase02_Grupo06(ar, AlgMain_Clase02_Grupo06.gestor, _config.getEvaluaciones(),_config.getElitismo(),
                             _config.getCruceMpx(), _config.getProbReproduccion(),
-                            _config.getProbMutacion());
+                            _config.getProbMutacion(), _config.getProbMpx(),_config.getNumeroCromosomas());
 
                     t.startTimer();
 
@@ -120,14 +118,14 @@ public class Metaheuristicas {
 
                     double tiempo = t.stopTimer();
 
-                    Main.console.presentarSalida("Datos de la solución al problema: " + ar._nombre);
-                    Main.console.presentarSalida("Tiempo de ejecución del algoritmo: " + tiempo + " milisegundos");
+                    AlgMain_Clase02_Grupo06.console.presentarSalida("Datos de la solución al problema: " + ar.getNombre() + ", con SEMILLA: " + _config.getSemilla());
+                    AlgMain_Clase02_Grupo06.console.presentarSalida("Tiempo de ejecución del algoritmo: " + tiempo + " milisegundos");
 
                     g.PresentarResultados();
 
-                    gestor.cerrarArchivo();
+                    AlgMain_Clase02_Grupo06.gestor.cerrarArchivo();
 
-                    Main.console.setValue(aumento / 2);
+                    AlgMain_Clase02_Grupo06.console.setValue(aumento / 2);
 
                     ite++;
 
@@ -137,7 +135,7 @@ public class Metaheuristicas {
                 _config.RecuperarSemilla();
             }
         } else {
-            Main.console.presentarSalida("No hay datos en el directorio: " + _config.directoriosDatos.get(0));
+            AlgMain_Clase02_Grupo06.console.presentarSalida("No hay datos en el directorio: " + _config.directoriosDatos.get(0));
         }
     }
 }

@@ -5,22 +5,33 @@
  */
 package es.meta.metaheuristicas_practica_2;
 
-import javax.swing.JMenuItem;
+import java.awt.Image;
+import java.util.LinkedList;
+import java.util.List;
+import javax.swing.ImageIcon;
 
 /**
  *
  * @author David
  */
-public class Consola extends javax.swing.JFrame {
+public final class AlgConsola_Clase02_Grupo06 extends javax.swing.JFrame {
 
-    int eleccion;
+    private int eleccion;
     
     
     /**
      * Creates new form Consola
      */
-    public Consola() {
+    public AlgConsola_Clase02_Grupo06() {
+        List<Image> lista = new LinkedList<>();
+        lista.add(new ImageIcon("src/main/resources/icons/gen_3_16.png").getImage());
+        lista.add(new ImageIcon("src/main/resources/icons/gen_3_20.png").getImage());
+        lista.add(new ImageIcon("src/main/resources/icons/gen_3_40.png").getImage());
+        lista.add(new ImageIcon("src/main/resources/icons/gen_3_64.png").getImage());
+        lista.add(new ImageIcon("src/main/resources/icons/gen_3_128.png").getImage());
+        
         initComponents();
+        this.setIconImages(lista);
         this.eleccion = 0;
         this.jProgressBarEstado.setVisible(true);
         
@@ -39,6 +50,7 @@ public class Consola extends javax.swing.JFrame {
         eleccion = 0;
         this.jButtonGreedy.setEnabled(true);
         this.jProgressBarEstado.setValue(0);
+        this.jButtonReload.setEnabled(true);
     }
     
     
@@ -67,18 +79,19 @@ public class Consola extends javax.swing.JFrame {
         jButtonExit = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jProgressBarEstado = new javax.swing.JProgressBar();
+        jButtonReload = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Metaheurísticas: Práctica 2");
         setBackground(new java.awt.Color(0, 0, 0));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setPreferredSize(new java.awt.Dimension(730, 355));
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(34, 43, 53));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel1.setForeground(new java.awt.Color(0, 51, 102));
-        jPanel1.setPreferredSize(new java.awt.Dimension(730, 330));
+        jPanel1.setPreferredSize(new java.awt.Dimension(730, 320));
+        jPanel1.setRequestFocusEnabled(false);
 
         jTextArea.setEditable(false);
         jTextArea.setBackground(new java.awt.Color(153, 153, 153));
@@ -86,12 +99,13 @@ public class Consola extends javax.swing.JFrame {
         jTextArea.setFont(new java.awt.Font("Segoe UI Semibold", 0, 13)); // NOI18N
         jTextArea.setForeground(new java.awt.Color(255, 255, 255));
         jTextArea.setRows(5);
+        jTextArea.setAutoscrolls(false);
         jTextArea.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jScrollPane1.setViewportView(jTextArea);
 
         jButtonGreedy.setBackground(new java.awt.Color(153, 153, 153));
         jButtonGreedy.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
-        jButtonGreedy.setText("Genético");
+        jButtonGreedy.setText("Genéticos");
         jButtonGreedy.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jButtonGreedy.setBorderPainted(false);
         jButtonGreedy.setFocusPainted(false);
@@ -126,6 +140,19 @@ public class Consola extends javax.swing.JFrame {
         jProgressBarEstado.setBorderPainted(false);
         jProgressBarEstado.setFocusable(false);
 
+        jButtonReload.setBackground(new java.awt.Color(153, 153, 153));
+        jButtonReload.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
+        jButtonReload.setText("Recargar config");
+        jButtonReload.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jButtonReload.setBorderPainted(false);
+        jButtonReload.setFocusPainted(false);
+        jButtonReload.setFocusable(false);
+        jButtonReload.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonReloadActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -137,7 +164,9 @@ public class Consola extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addGap(40, 40, 40)
                         .addComponent(jButtonGreedy, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 344, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 205, Short.MAX_VALUE)
+                        .addComponent(jButtonReload, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33)
                         .addComponent(jButtonExit, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jProgressBarEstado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))
@@ -155,7 +184,9 @@ public class Consola extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel1)
                         .addComponent(jButtonGreedy, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButtonExit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButtonExit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonReload, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -163,11 +194,11 @@ public class Consola extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 351, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -175,14 +206,27 @@ public class Consola extends javax.swing.JFrame {
 
     private void jButtonGreedyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGreedyActionPerformed
         eleccion = 1;
+        jTextArea.removeAll();
         jTextArea.setText("");
         this.jButtonGreedy.setEnabled(false);
         this.jProgressBarEstado.setVisible(true);
+        this.jButtonReload.setEnabled(false);
     }//GEN-LAST:event_jButtonGreedyActionPerformed
 
     private void jButtonExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExitActionPerformed
+        AlgMain_Clase02_Grupo06.exec.shutdownNow();
         System.exit(0);
     }//GEN-LAST:event_jButtonExitActionPerformed
+
+    private void jButtonReloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReloadActionPerformed
+        // TODO add your handling code here:
+        
+         eleccion = 2;
+         jTextArea.removeAll();
+         jTextArea.setText("Archivo de configuración recargado");
+         this.jButtonGreedy.setEnabled(false);
+         this.jButtonReload.setEnabled(false);
+    }//GEN-LAST:event_jButtonReloadActionPerformed
 
     
     
@@ -193,6 +237,7 @@ public class Consola extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonExit;
     private javax.swing.JButton jButtonGreedy;
+    private javax.swing.JButton jButtonReload;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JProgressBar jProgressBarEstado;
