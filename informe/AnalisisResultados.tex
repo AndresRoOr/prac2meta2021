@@ -139,6 +139,8 @@
 	\subsubsection{Resultados obtenidos durante la experimentación}
 
 	\paragraph{} En las gráficas siguientes se muestra la evolución del mejor coste encontrado hasta el momento en la ejecución de cada uno de los algoritmos conforme aumenta el número de evaluaciones realizadas para cada uno de los problemas. La semilla utilizada ha sido 35608477.
+	
+	\paragraph{}Hemos decidido que la unidad de tiempo sea el número de evaluaciones realizadas ya que este valor es sobre el que se comprueba la condición de parada, además, puede arrojar información relevante a la hora de la modificación de dicho parámetro para obtener mejoras de tiempos o en el valor de las soluciones obtenidas.
 
 	\begin{figure}[H]
 		\centering
@@ -486,13 +488,17 @@
 
 
 	
-	\paragraph{} El operador de cruce MPX aplicado a la serie de datos GKD, con una élite de 2 o 3 individuos, ofrece unos resultados muy similares respecto a coste.
+	\paragraph{} El operador de cruce MPX aplicado a la serie de datos GKD, con una élite de 2 o 3 individuos, en términos de coste presenta unas diferencias ínfimas.
 	
 	\paragraph{} Para el archivo GKD-c1  (\ref{gkd-c1_coste}), los resultados obtenidos en las diferentes iteraciones, son similares, ofreciendo un ligero mayor agrupamiento de los resultados a favor de la élite de 3 individuos.
 	
 	\paragraph{} Para el archivo GKD-c2  (\ref{gkd-c2_coste}),los resultados son ligeramente superiores con una élite de 3 individuos, no obstante, los resultados tienden a agruparse más con una élite de dos, pero sin llegara obtener el óptimo.
 	
 	\paragraph{} Para el archivo GKD-c3  (\ref{gkd-c3_coste}), se comportan de manera muy similar.
+	
+	\paragraph{} En lo que se refiere a convergencia de los costes, el comportamiento de los dos operadores es prácticamente similar. Podemos observar este comportamiento en las Figuras 9, 10 y 11.
+	
+	\paragraph{}A continuación, mostramos gráficos de cajas y bigotes para cada problema de la serie GKD (Figura 18, 19 y 20). En ellos podemos comparar tanto los costes obtenidos como la agrupación de los mismos.
 	
 	
 	\begin{figure}[H]
@@ -519,6 +525,8 @@
 	\end{figure}
 
 		\paragraph{} El operador de cruce MPX aplicado a la serie de datos SOM, con una élite de 2 o 3 individuos, ofrece unos resultados muy similares respecto a coste.
+		
+		\paragraph{}En cuanto a la convergencia de los costes obtenidos, podemos observar en la Figura 12, 13 y 14 que el comportamiento de los algoritmos es prácticamente similar para los dos valores de elitismo. 
 
 	\begin{figure}[H]
 		
@@ -545,7 +553,7 @@
 	\end{figure}
 
 
-	\paragraph{}Como se ha podido observar en los resultados, no existe una diferencia significativa a nivel de costes, tiempo o convergencia de las soluciones, entre un elitismo de dos individuos y un elitismo de tres individuos. Por las ligeras diferencias, se elige al cruce MPX con un elitismo de 3 como ganador.
+	\paragraph{}Como se ha podido observar en los resultados, no existe una diferencia significativa a nivel de costes, tiempo o convergencia de las soluciones, entre un elitismo de dos individuos y un elitismo de tres individuos. No obstante, teniendo en cuenta las ligeras diferencias observadas en la experimentación, elegimos al operador de cruce MPX con un valor de elitismo = 3 como ganador.
 
 	\subsubsection{Cruce en dos puntos con elitismo 2 vs elitismo 3}
 	
