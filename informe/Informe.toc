@@ -297,15 +297,21 @@
 \contentsline {paragraph}{}{48}{section*.292}%
 \contentsline {paragraph}{}{48}{section*.293}%
 \contentsline {paragraph}{}{49}{section*.295}%
-\contentsline {paragraph}{}{49}{section*.297}%
+\contentsline {paragraph}{}{49}{section*.296}%
+\contentsline {paragraph}{}{50}{section*.298}%
 \contentsline {paragraph}{}{50}{section*.299}%
-\contentsline {paragraph}{}{50}{section*.300}%
+\contentsline {paragraph}{}{50}{section*.301}%
+\contentsline {paragraph}{}{50}{section*.302}%
+\contentsline {paragraph}{}{50}{section*.303}%
 \contentsline {subsubsection}{\numberline {4.3.5}Cruce Mpx con elitismo 3 vs cruce en dos puntos con elitismo 3}{50}{subsubsection.4.3.5}%
-\contentsline {paragraph}{}{51}{section*.305}%
-\contentsline {paragraph}{}{51}{section*.306}%
-\contentsline {paragraph}{}{52}{section*.308}%
+\contentsline {paragraph}{}{50}{section*.304}%
+\contentsline {paragraph}{}{51}{section*.309}%
 \contentsline {paragraph}{}{52}{section*.310}%
+\contentsline {paragraph}{}{52}{section*.312}%
+\contentsline {paragraph}{}{53}{section*.314}%
+\contentsline {paragraph}{}{53}{section*.315}%
+\contentsline {paragraph}{}{53}{section*.316}%
 \contentsline {subsubsection}{\numberline {4.3.6}Posibles mejoras}{53}{subsubsection.4.3.6}%
-\contentsline {subsubsection}{\numberline {4.3.7}Conclusiones finales}{53}{subsubsection.4.3.7}%
-\contentsline {paragraph}{}{53}{section*.311}%
-\contentsline {paragraph}{}{53}{section*.312}%
+\contentsline {subsubsection}{\numberline {4.3.7}Conclusiones finales}{54}{subsubsection.4.3.7}%
+\contentsline {paragraph}{}{54}{section*.317}%
+\contentsline {paragraph}{}{54}{section*.318}%

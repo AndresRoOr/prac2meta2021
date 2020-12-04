@@ -684,41 +684,49 @@
 	\paragraph{} Como se puede ver en las anteriores tablas, el algoritmo genético con cruce en dos puntos, tiene un mejor comportamiento cuando se fija una élite de 3 individuos. Los resultados son mejores tanto en media, cómo en desviación típica, este último valor nos indica que con una élite de 3, el algoritmo es más robusto.
 	
 	
-	\paragraph{} Las mayores diferencias las podemos encontrar en la serie de datos MDG, donde el cruce en dos puntos con una élite de 3 individuos, ofrece en la mayoría de casos, mejores resultados, y una agrupación de los resultados mayor. A continuación se incluyen los boxplots asociados a los archivos:
+	\paragraph{} Las mayores diferencias las podemos encontrar en la serie de datos MDG, donde el cruce en dos puntos con una élite de 3 individuos, ofrece en la mayoría de casos, mejores resultados, y una agrupación de los resultados mayor. A continuación se incluyen los box-plots asociados a los archivos, donde podemos observar de manera gráfica estas diferencias (Figura 24, 25 y 26):
 	
 	\begin{figure}[H]
 		\centering
 		\includegraphics[scale=0.65]{img/2point_2vs3/MDG1}
-		\caption{}
+		\caption{Gráfico de cajas y bigotes para el problema MDG-a-21}
 		\label{MDGa1_2Puntos}
 		
 	\end{figure}
 
-	\paragraph{}Como se puede observar en la gráfica \ref{MDGa1_2Puntos}, con una élite de 3 puntos se consiguen mejores resultados, y un mayor agrupamiento de los mismos.
+	\paragraph{}Como se puede observar en la Figura \ref{MDGa1_2Puntos}, con una élite de 3 puntos se consiguen mejores resultados, y un mayor agrupamiento de los mismos.
+	
+	\paragraph{}Así mismo, observando la Figura \ref{MDG-a_21_historico} apreciamos que, si bien las tendencias de las dos curvas de costes es similar la curva del operador de cruce de corte en 2 puntos con elitismo = 3 converge ligeramente más rápido que con elitismo = 2.
 
 	\begin{figure}[H]
 		\centering
 		\includegraphics[scale=0.65]{img/2point_2vs3/MDG2}
-		\caption{}
+		\caption{Gráfico de cajas y bigotes para el problema MDG-a-22}
 		\label{MDGa2_2Puntos}
 	
 	\end{figure}
 
 	\paragraph{}En el archivo MDG-a\_22\ref{MDGa1_2Puntos}, con una élite de 3 puntos se consigue un mayor agrupamiento de las soluciones, pero los máximos están por debajo de los encontrados con una élite de 2.
 	
+	\paragraph{}Observando la Figura \ref{MDG-a_22_historico} podemos apreciar que las curvas de convergencia son prácticamente similares, habiendo ligeras diferencias entre los dos elitismos. 
+	
 	\begin{figure}[H]
 		\centering
 		\includegraphics[scale=0.65]{img/2point_2vs3/MDG3}
-		\caption{}
+		\caption{Gráfico de cajas y bigotes para el problema MDG-a-23}
 		\label{MDGa3_2Puntos}
 		
 	\end{figure}
 
 	\paragraph{}En el archivo MDG-a\_23\ref{MDGa1_2Puntos}, con una élite de 3 puntos se consigue un mayor agrupamiento de las soluciones.
-		
-	\paragraph{}Dada la ligera mejora que presenta el cruce en dos puntos con una élite de 3 individuos, lo elegimos como ganador de la comparativa.
 	
-	\subsubsection{Cruce Mpx con elitismo 3 vs cruce en dos puntos con elitismo 3} De las pruebas realizadas, se pueden extraer las siguientes tablas, donde para cada archivo y tipo de cruce, se indica la desviación típica de la media de las ejecuciones, con respecto a los óptimos globales, así como una media de los tiempos. 
+	\paragraph{}En la Figura \ref{MDG-a_23_historico} podemos ver como claramente con una élite = 3 el algoritmo converge más rápido hacia el óptimo global.
+		
+	\paragraph{}Dada la ligera mejora que hemos observado en los resultados de la experimentación realizada con el cruce en dos puntos con una élite de 3 individuos, lo elegimos como ganador de la comparativa.
+	
+	\subsubsection{Cruce Mpx con elitismo 3 vs cruce en dos puntos con elitismo 3} 
+	
+	\paragraph{}De las pruebas realizadas, se pueden extraer las siguientes tablas, donde para cada archivo y tipo de cruce, se indica la desviación típica de la media de las ejecuciones, con respecto a los óptimos globales, así como una media de los tiempos. 
 	
 	\begin{table}[H]
 		\begin{center}
@@ -811,6 +819,11 @@
 	\end{figure}
 	
 	\paragraph{}Como se ha indicado anteriormente, dicha estrategia de reparación, difiere según el tipo de cruce. Para el cruce en dos puntos se necesita recorrer todos los elementos no seleccionados, e ir evaluando el coste que aportan, este proceso se repite hasta que los cromosomas tengan los genes necesarios, sin embargo, en el mpx solo necesitamos eliminar los genes del cromosoma que menos aportan. Por tanto, el número de operaciones necesarias es mayor en el caso del cruce en dos puntos.
+	
+	\paragraph{}Si observamos las gráficas de convergencia de resultados del apartado 4.3.2. , en todas ellas el operador de cruce MPX converge mucho más rápido que el operador de cruce de corte en dos puntos. El operador MPX es capaz de encontrar soluciones que difieren en menos de un 1\% en torno a las 300 - 400 evaluaciones realizadas vs los 3.000 - 4.000 evaluaciones que consigue el corte en dos puntos para problemas pequeños - medianos.
+	
+	\paragraph{}Basándonos en todos los resultados obtenidos de la experimentación podemos afirmar claramente que el operador de cruce MPX es superior al operador de cruce de corte en dos puntos.
+	
 	
 	
 	\subsubsection{Posibles mejoras}
