@@ -55,7 +55,7 @@
 	
 	\subsubsection{Semillas}
 	
-	\paragraph{}Para la generación de números pseudoaleatorios se utiliza una semilla previamente definida en el archivo de configuración, en este caso es 77356084. Esta semilla se va rotando en las 5 iteraciones de cada archivo.
+	\paragraph{}Para la generación de números pseudoaleatorios se utiliza una semilla previamente definida en el archivo de configuración, en este caso es 77356084. Esta semilla se va rotando en las cinco iteraciones de cada archivo.
 	
 	
 	\paragraph{} 77356084 $\rightarrow$ 73560847 $\rightarrow$ 35608477  ...
@@ -65,9 +65,11 @@
 	
 	\subsubsection{Efectos de la mutación}
 	
-	\paragraph{} La mutación en los algoritmos genéticos es una técnica de diversificación/exploración, la cual puede ayudar a salir de óptimos locales, no obstante, su porcentaje de aplicación debe ser reducido. Esto es debido a que una alta probabilidad de mutación puede alterar considerablemente las soluciones obtenidas, resultando en una calidad inferior de las mismas.
+	\paragraph{} La mutación en los algoritmos genéticos es una técnica de diversificación/exploración, la cual puede ayudar a salir de óptimos locales, no obstante, su porcentaje de aplicación debe ser reducido. Esto es debido a que una alta probabilidad de mutación puede alterar considerablemente las soluciones obtenidas al reducir o incluso eliminar el componente de explotación de los algoritmos genéticos, resultando en una calidad inferior de las mismas.
 	
-	Para reflejar este comportamiento de la mutación, se ha seleccionado el conjunto de datos SOM, y se ha establecido 3 valores distintos de probabilidad de mutación: 0,01, 0,05 y 0,09. Cada Probabilidad de mutación se ha aplicado en 5 iteraciones, con distinta semilla para cada archivo. Posteriormente se ha obtenido la media de las 5 iteraciones para cada archivo y probabilidad de mutación, de dichos resultados se ha obtenido la siguiente gráfica:
+	\paragraph{}Para reflejar este comportamiento de la mutación, se ha seleccionado el conjunto de datos SOM, y se ha establecido tres valores distintos de probabilidad de mutación: 0,01, 0,05 y 0,09. Cada Probabilidad de mutación se ha aplicado en 5 iteraciones, con distinta semilla para cada archivo. Posteriormente se ha obtenido la media de las 5 iteraciones para cada archivo y la probabilidad de mutación.
+	
+	\paragraph{}Hemos utilizado los resultados obtenidos para realizar los siguientes gráficos de cajas y bigotes (Figuras 3, 4 y 5) y de barras (Figura 2).
 	
 	\begin{figure}[H]
 		
@@ -76,8 +78,10 @@
 		\caption{Diferencias en porcentajes respecto a los óptimos globales}
 		
 	\end{figure}
+
+	\paragraph{}En la Figura 2 tenemos una gráfica de barras que compara el porcentaje que difieren los resultados obtenido para las tres asignaciones del valor de probabilidad de mutación.
 	
-	\paragraph{}Como se puede observar, un mayor porcentaje de mutación, empeora los resultados obtenidos mediante algoritmos genéticos.
+	\paragraph{}Como se puede observar en el gráfico anterior, a mayor porcentaje de mutación, mayor empeoramiento de los resultados obtenidos respecto al óptimo global en la ejecución de algoritmos genéticos.
 
 	\begin{figure}[H]
 		
@@ -102,8 +106,12 @@
 		\caption{Gráfico de bigotes del problema SOM-b13}
 		
 	\end{figure}
+
+	\paragraph{}En las Figuras 3, 4 y 5 podemos observar la dispersión de los costes obtenidos. En estos se observa cómo el valor de mutación obtiene mejores resultados en todos los problemas es 0,01, y cómo estos difieren muy poco en el caso de los problemas SOM-b-11 y SOM-b-12, obteniendo no obstante una variación notable en el caso del problema SOM-b-13.  Le sigue el valor de mutación 0,05 cuyo agrupamiento de los costes obtenidos empeora respecto al primer valor. El valor 0,09 es el que peor soluciones obtiene en todos los problemas y, además, es el valor cuyo gráfico es más compacto.
 	
-	\paragraph{}A raíz de los resultados obtenidos anteriormente, se reflexionó sobre el impacto que tendría fijar una capacidad de mutación nula. Al realizar las pruebas, se obtuvo que fijar una mutación al 0,00 elimina parte de la capacidad de mejora, siendo sus resultados inferiores a una mutación del 0,01. Esto es debido a que el comportamiento del algoritmo sin la mutación se basa en la explotación, siendo incapaz de salir del estancamiento en óptimos locales.
+	\paragraph{}A raíz de los resultados obtenidos anteriormente, se reflexionó sobre el impacto que tendría fijar una capacidad de mutación nula. Al realizar las mismas pruebas, se obtuvo que fijar una mutación al 0,00 elimina parte de la capacidad de mejora, siendo sus resultados inferiores a una mutación del 0,01. Esto es debido a que el comportamiento del algoritmo sin la mutación se basa en la explotación, siendo incapaz de salir del estancamiento en óptimos locales.
+	
+	\paragraph{}A continuación, presentamos los resultados de las pruebas haciendo uso de gráficas de cajas y bigotes (Figura 6, 7 y 8). En ellos podemos observar que en los problemas SOM-b-11 y SOM-b-12 empeora únicamente los resultados obtenido con el valor de mutación a un 0,01. En el problema SOM-b-13 empeora a todos los valores de mutación, excepto al valor 0,09. Podemos observar también que en los problemas SOM-b-11 y SOM-b-12 se obtienen valores atípicos.
 	
 	\begin{figure}[H]
 		
@@ -125,6 +133,8 @@
 		\caption{Gráfico de bigotes del problema SOM-b13}
 		
 	\end{figure}
+
+	\paragraph{}Basándonos en las pruebas realizadas y los resultados obtenidos de estas, llegamos a la determinación de que el mejor valor para la probabilidad de mutación del algoritmo genético para realizar la experimentación es 0,01.
 
 	\subsubsection{Resultados obtenidos durante la experimentación}
 
