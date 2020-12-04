@@ -44,7 +44,7 @@
                     </descriptorRefs>           
                     <archive>
                         <manifest>
-                            <mainClass>es.meta.metaheuristicas_practica_2.Main</mainClass>
+                            <mainClass>es.meta.metaheuristicas_practica_2.AlgMain_Clase02_Grupo06</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

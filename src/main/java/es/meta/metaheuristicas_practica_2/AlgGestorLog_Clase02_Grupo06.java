@@ -18,7 +18,7 @@ import java.io.PrintWriter;
  * @author David Díaz Jiménez
  * @date 02/11/2020
  */
-public final class GestorLog {
+public final class AlgGestorLog_Clase02_Grupo06 {
 
     ///Atributos de la clase:
     private String _archiveName;
@@ -32,7 +32,7 @@ public final class GestorLog {
      * @date 02/11/2020
      * @param name String
      */
-    public GestorLog(String name) {
+    public AlgGestorLog_Clase02_Grupo06(String name) {
         _archiveName = name;
 
     }

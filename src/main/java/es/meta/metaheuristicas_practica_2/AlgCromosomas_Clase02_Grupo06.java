@@ -18,7 +18,7 @@ import java.util.Set;
  * @author David Díaz Jiménez
  * @date 22/11/2020
  */
-public final class Cromosomas implements Comparable<Cromosomas> {
+public final class AlgCromosomas_Clase02_Grupo06 implements Comparable<AlgCromosomas_Clase02_Grupo06> {
 
     ///Atributos de la clase:
     private Set<Integer> cromosoma;///<Conjunte de genes solución del problema
@@ -33,7 +33,7 @@ public final class Cromosomas implements Comparable<Cromosomas> {
      * @param cromo Set<Integer>
      * @param _contribucion Float
      */
-    public Cromosomas(Set<Integer> cromo, float _contribucion) {
+    public AlgCromosomas_Clase02_Grupo06(Set<Integer> cromo, float _contribucion) {
         this.cromosoma = cromo;
         this._contribucion = _contribucion;
         this.recalcular = false;
@@ -49,7 +49,7 @@ public final class Cromosomas implements Comparable<Cromosomas> {
      * @param _contribucion float
      * @param recal boolean
      */
-    public Cromosomas(Set<Integer> cromo, float _contribucion, boolean recal) {
+    public AlgCromosomas_Clase02_Grupo06(Set<Integer> cromo, float _contribucion, boolean recal) {
         this.cromosoma = cromo;
         this._contribucion = _contribucion;
         this.recalcular = recal;
@@ -63,7 +63,7 @@ public final class Cromosomas implements Comparable<Cromosomas> {
      * @date 22/11/2020
      * @param otro Cromosomas
      */
-    public Cromosomas(Cromosomas otro) {
+    public AlgCromosomas_Clase02_Grupo06(AlgCromosomas_Clase02_Grupo06 otro) {
         this.cromosoma = new HashSet<>(otro.getCromosoma());
         this._contribucion = otro.getContribucion();
         this.recalcular = false;
@@ -71,7 +71,7 @@ public final class Cromosomas implements Comparable<Cromosomas> {
     }
 
     @Override
-    public int compareTo(Cromosomas otro) {
+    public int compareTo(AlgCromosomas_Clase02_Grupo06 otro) {
         Float ele1 = this.getContribucion();
         Float ele2 = otro.getContribucion();
         int comparativa = ele1.compareTo(ele2);

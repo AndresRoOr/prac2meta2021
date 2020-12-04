@@ -14,7 +14,7 @@ import javax.swing.ImageIcon;
  *
  * @author David
  */
-public final class Consola extends javax.swing.JFrame {
+public final class AlgConsola_Clase02_Grupo06 extends javax.swing.JFrame {
 
     private int eleccion;
     
@@ -22,7 +22,7 @@ public final class Consola extends javax.swing.JFrame {
     /**
      * Creates new form Consola
      */
-    public Consola() {
+    public AlgConsola_Clase02_Grupo06() {
         List<Image> lista = new LinkedList<>();
         lista.add(new ImageIcon("src/main/resources/icons/gen_3_16.png").getImage());
         lista.add(new ImageIcon("src/main/resources/icons/gen_3_20.png").getImage());
@@ -85,13 +85,13 @@ public final class Consola extends javax.swing.JFrame {
         setTitle("Metaheurísticas: Práctica 2");
         setBackground(new java.awt.Color(0, 0, 0));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setPreferredSize(new java.awt.Dimension(730, 355));
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(34, 43, 53));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel1.setForeground(new java.awt.Color(0, 51, 102));
-        jPanel1.setPreferredSize(new java.awt.Dimension(730, 330));
+        jPanel1.setPreferredSize(new java.awt.Dimension(730, 320));
+        jPanel1.setRequestFocusEnabled(false);
 
         jTextArea.setEditable(false);
         jTextArea.setBackground(new java.awt.Color(153, 153, 153));
@@ -105,7 +105,7 @@ public final class Consola extends javax.swing.JFrame {
 
         jButtonGreedy.setBackground(new java.awt.Color(153, 153, 153));
         jButtonGreedy.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
-        jButtonGreedy.setText("Genético");
+        jButtonGreedy.setText("Genéticos");
         jButtonGreedy.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jButtonGreedy.setBorderPainted(false);
         jButtonGreedy.setFocusPainted(false);
@@ -194,11 +194,11 @@ public final class Consola extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 351, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -214,7 +214,7 @@ public final class Consola extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonGreedyActionPerformed
 
     private void jButtonExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExitActionPerformed
-        Main.exec.shutdownNow();
+        AlgMain_Clase02_Grupo06.exec.shutdownNow();
         System.exit(0);
     }//GEN-LAST:event_jButtonExitActionPerformed
 

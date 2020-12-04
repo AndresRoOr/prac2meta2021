@@ -24,11 +24,11 @@ import javax.swing.UIManager;
  * @author David Díaz Jiménez
  * @date 27/09/2020
  */
-public class Main {
+public class AlgMain_Clase02_Grupo06 {
 
     
-    public static Consola console = new Consola();
-    public static GestorLog gestor = new GestorLog("");
+    public static AlgConsola_Clase02_Grupo06 console = new AlgConsola_Clase02_Grupo06();
+    public static AlgGestorLog_Clase02_Grupo06 gestor = new AlgGestorLog_Clase02_Grupo06("");
     public static final ExecutorService exec = Executors.newFixedThreadPool(4);
 
     /**
@@ -46,7 +46,7 @@ public class Main {
             System.err.println("Failed to initialize LaF");
         }
 
-        Configurador config = new Configurador("./config.txt");
+        AlgConfigurador_Clase02_Grupo06 config = new AlgConfigurador_Clase02_Grupo06("./config.txt");
 
         ArrayList<File> directorios = new ArrayList<>();
         directorios.add(new File("./archivos"));
@@ -67,14 +67,14 @@ public class Main {
                 try {
                     Thread.sleep(500);
                 } catch (InterruptedException ex) {
-                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(AlgMain_Clase02_Grupo06.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             if (console.getEleccion() == 4) {
                 System.exit(0);
             }
 
-            Metaheuristicas M1 = new Metaheuristicas(config.getDirectoriosDatos().get(0),
+            AlgMetaheuristicas_Clase02_Grupo06 M1 = new AlgMetaheuristicas_Clase02_Grupo06(config.getDirectoriosDatos().get(0),
             config.getDirectoriosDatos().get(0), config);
             M1.lector_Archivos();
 
@@ -87,7 +87,7 @@ public class Main {
                     
                 case 2:
                     config = null;
-                    config = new Configurador("./config.txt");
+                    config = new AlgConfigurador_Clase02_Grupo06("./config.txt");
                     console.restaurarEleccion();
                     break;
                    

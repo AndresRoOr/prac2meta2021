@@ -26,7 +26,7 @@ import java.util.logging.Logger;
  * @author David Díaz Jiménez
  * @date 13/11/2020
  */
-public final class Genetico {
+public final class AlgGenetico_Clase02_Grupo06 {
     
     /**
      * @brief Clase que implementa la funcionalidad de un hilo para poder
@@ -36,10 +36,10 @@ public final class Genetico {
      * @author Andrés Rojas Ortega
      * @date 16/11/2020
      */
-    private class RepairTask implements Callable<ArrayList<Cromosomas>> {
+    private class RepairTask implements Callable<ArrayList<AlgCromosomas_Clase02_Grupo06>> {
 
         ///Atributos de la clase:
-        private final ArrayList<Cromosomas> Cromosomas;///<Conjunto de individuos
+        private final ArrayList<AlgCromosomas_Clase02_Grupo06> Cromosomas;///<Conjunto de individuos
         private final int empieza;///<Posición del primer individuo
         private final int termina;///<Posición del último individuo
 
@@ -52,7 +52,7 @@ public final class Genetico {
          * @param empie int
          * @param termi int
          */
-        public RepairTask(ArrayList<Cromosomas> cromosomas, int empie, int termi) {
+        public RepairTask(ArrayList<AlgCromosomas_Clase02_Grupo06> cromosomas, int empie, int termi) {
             Cromosomas = cromosomas;
             empieza = empie;
             termina = termi;
@@ -60,10 +60,10 @@ public final class Genetico {
         }
 
         @Override
-        public ArrayList<Cromosomas> call() throws Exception {
+        public ArrayList<AlgCromosomas_Clase02_Grupo06> call() throws Exception {
             int numeroGenes = _archivoDatos.getTama_Solucion();
 
-            ArrayList<Cromosomas> cromosomaReparado = new ArrayList<>();
+            ArrayList<AlgCromosomas_Clase02_Grupo06> cromosomaReparado = new ArrayList<>();
             for (int i=empieza;i<=termina;i++) {
 
                 Set<Integer> cromosoma = Cromosomas.get(i).getCromosoma();
@@ -80,7 +80,7 @@ public final class Genetico {
 
                         Cromosomas.get(i).setCromosoma(cromosoma);
 
-                        cromosomaReparado.add(new Cromosomas(Cromosomas.get(i)));
+                        cromosomaReparado.add(new AlgCromosomas_Clase02_Grupo06(Cromosomas.get(i)));
 
                     } else {
 
@@ -92,10 +92,10 @@ public final class Genetico {
 
                         Cromosomas.get(i).setCromosoma(cromosoma);
 
-                        cromosomaReparado.add(new Cromosomas(Cromosomas.get(i)));
+                        cromosomaReparado.add(new AlgCromosomas_Clase02_Grupo06(Cromosomas.get(i)));
                     }
                 } else {
-                    cromosomaReparado.add(new Cromosomas(Cromosomas.get(i)));
+                    cromosomaReparado.add(new AlgCromosomas_Clase02_Grupo06(Cromosomas.get(i)));
                 }
 
             }
@@ -115,7 +115,7 @@ public final class Genetico {
     private class CalcCostTask implements Callable<Float> {
 
         ///Atributos de la clase:
-        private final ArrayList<Cromosomas> Cromosomas;///<Conjunto de individuos
+        private final ArrayList<AlgCromosomas_Clase02_Grupo06> Cromosomas;///<Conjunto de individuos
         private final int empieza;///<Posición del primer individuo
         private final int termina;///<Posición del último individuo
 
@@ -128,7 +128,7 @@ public final class Genetico {
          * @param empie int
          * @param termi int
          */
-        public CalcCostTask(ArrayList<Cromosomas> cromosomas, int empie, int termi) {
+        public CalcCostTask(ArrayList<AlgCromosomas_Clase02_Grupo06> cromosomas, int empie, int termi) {
             Cromosomas =cromosomas;
             empieza = empie;
             termina = termi;
@@ -150,8 +150,8 @@ public final class Genetico {
     }
 
     ///Atributos de la clase:
-    private final Archivo _archivoDatos;///<Contiene los datos del problema
-    private final GestorLog _gestor;///<Gestor encargado de la creación del Log
+    private final AlgArchivo_Clase02_Gropo_06 _archivoDatos;///<Contiene los datos del problema
+    private final AlgGestorLog_Clase02_Grupo06 _gestor;///<Gestor encargado de la creación del Log
     private final int _elitismo;///<Número de los mejores individuos de la generación anterior que pueden pasar a la siguiente generación
     private final boolean _operadorMPX;///<True: el algoritmo de cruce a aplicar es MPX;
     ///False: el algoritmo de cruce a aplicar es corte en dos puntos 
@@ -164,11 +164,11 @@ public final class Genetico {
     ///incluya en el hijo
     private final boolean _generacional;///<Generacional o estacionario
     private int generacion;///<Indica la generación actual
-    private ArrayList<Cromosomas> _vcromosomas;///<Población inicial
-    private ArrayList<Cromosomas> _vcromosomasPadre;///<Población resultante del torneo binario
-    private ArrayList<Cromosomas> _vcromosomasHijo;///<Población resultante del cruce
-    private Cromosomas _mejorCromosoma;///<Almacena el mejor individuo hasta el momento
-    private ArrayList<Cromosomas> cromosomasElite;///<Alamacena a los elites de la generación
+    private ArrayList<AlgCromosomas_Clase02_Grupo06> _vcromosomas;///<Población inicial
+    private ArrayList<AlgCromosomas_Clase02_Grupo06> _vcromosomasPadre;///<Población resultante del torneo binario
+    private ArrayList<AlgCromosomas_Clase02_Grupo06> _vcromosomasHijo;///<Población resultante del cruce
+    private AlgCromosomas_Clase02_Grupo06 _mejorCromosoma;///<Almacena el mejor individuo hasta el momento
+    private ArrayList<AlgCromosomas_Clase02_Grupo06> cromosomasElite;///<Alamacena a los elites de la generación
     private int _genSinMejora;
     private float costeSinMejora;
 
@@ -177,7 +177,7 @@ public final class Genetico {
      * @author Andrés Rojas Ortega
      * @author David Díaz Jiménez
      * @date 13/11/2020
-     * @param _archivoDatos Archivo
+     * @param _archivoDatos AlgArchivo_Clase02_Gropo_06
      * @param gestor Gestor
      * @param evaluaciones int
      * @param Elitismo int
@@ -188,7 +188,7 @@ public final class Genetico {
      * @param numeroCromosomas int
      *
      */
-    public Genetico(Archivo _archivoDatos, GestorLog gestor, int evaluaciones, int Elitismo, boolean OperadorMPX, float probReini,
+    public AlgGenetico_Clase02_Grupo06(AlgArchivo_Clase02_Gropo_06 _archivoDatos, AlgGestorLog_Clase02_Grupo06 gestor, int evaluaciones, int Elitismo, boolean OperadorMPX, float probReini,
             float probMutacion, float probMpx, int numeroCromosomas) {
 
         this._archivoDatos = _archivoDatos;
@@ -204,7 +204,7 @@ public final class Genetico {
         this._vcromosomasPadre = new ArrayList<>();
         this._vcromosomasHijo = new ArrayList<>();
         this.cromosomasElite = new ArrayList<>();
-        this._mejorCromosoma = new Cromosomas(new HashSet<>(), 0.0f);
+        this._mejorCromosoma = new AlgCromosomas_Clase02_Grupo06(new HashSet<>(), 0.0f);
         this._genSinMejora = 0;
 
         if (Elitismo == 0) {
@@ -225,11 +225,11 @@ public final class Genetico {
      * @author David Díaz Jiménez
      * @author Andrés Rojas Ortega
      * @date 18/11/2020
-     * @param aleatorioSemilla Random_p Semilla aleatoria
+     * @param aleatorioSemilla AlgRandom_p_Clase02_Grupo06 Semilla aleatoria
      */
-    void genetico(Random_p aleatorioSemilla) {
+    void genetico(AlgRandom_p_Clase02_Grupo06 aleatorioSemilla) {
 
-        Random_p aleatorio = aleatorioSemilla;
+        AlgRandom_p_Clase02_Grupo06 aleatorio = aleatorioSemilla;
 
         generarCromosomasIniciales(aleatorio);
 
@@ -269,10 +269,10 @@ public final class Genetico {
      * @author David Díaz Jiménez
      * @author Andrés Rojas Ortega
      * @date 13/11/2020
-     * @param alea Random_p Semilla utilizada para generar números
-     * pseudoaleatorios
+     * @param alea AlgRandom_p_Clase02_Grupo06 Semilla utilizada para generar números
+ pseudoaleatorios
      */
-    private void generarCromosomasIniciales(Random_p alea) {
+    private void generarCromosomasIniciales(AlgRandom_p_Clase02_Grupo06 alea) {
 
         int tamCromosoma = _archivoDatos.getTama_Solucion();
         for (int i = 0; i < _numeroCromosomas; i++) {
@@ -285,11 +285,11 @@ public final class Genetico {
                     cromosoma.add(alelo);
                 }
             }
-            _vcromosomas.add(new Cromosomas(cromosoma, 0.0f, true));
+            _vcromosomas.add(new AlgCromosomas_Clase02_Grupo06(cromosoma, 0.0f, true));
         }
         
         while(cromosomasElite.size()< _elitismo){
-            cromosomasElite.add(new Cromosomas(_vcromosomas.get(0).getCromosoma(), _vcromosomas.get(0).getContribucion()));
+            cromosomasElite.add(new AlgCromosomas_Clase02_Grupo06(_vcromosomas.get(0).getCromosoma(), _vcromosomas.get(0).getContribucion()));
         }
     }
     
@@ -301,20 +301,20 @@ public final class Genetico {
      * @param cromosomas ArrayList<Cromosomas>
      * @param ObtenerElite boolean
      */
-    private void obtenerCostesConcurrente(ArrayList<Cromosomas> cromosomas) {
+    private void obtenerCostesConcurrente(ArrayList<AlgCromosomas_Clase02_Grupo06> cromosomas) {
         
         Future<Float> future;
         Future<Float> future2;
         Future<Float> future3;
         Future<Float> future4;
         
-        ArrayList<Cromosomas> copia = new ArrayList<>(cromosomas);
+        ArrayList<AlgCromosomas_Clase02_Grupo06> copia = new ArrayList<>(cromosomas);
 
         int tam = ((_numeroCromosomas) / 4) - 1;
-        future = Main.exec.submit(new CalcCostTask(copia,0, tam));
-        future2 = Main.exec.submit(new CalcCostTask(copia,tam + 1, tam * 2));
-        future3 = Main.exec.submit(new CalcCostTask(copia, tam * 2 + 1, tam * 3));
-        future4 = Main.exec.submit(new CalcCostTask(copia, tam * 3 + 1, _numeroCromosomas - 1));
+        future = AlgMain_Clase02_Grupo06.exec.submit(new CalcCostTask(copia,0, tam));
+        future2 = AlgMain_Clase02_Grupo06.exec.submit(new CalcCostTask(copia,tam + 1, tam * 2));
+        future3 = AlgMain_Clase02_Grupo06.exec.submit(new CalcCostTask(copia, tam * 2 + 1, tam * 3));
+        future4 = AlgMain_Clase02_Grupo06.exec.submit(new CalcCostTask(copia, tam * 3 + 1, _numeroCromosomas - 1));
 
         try {
 
@@ -325,7 +325,7 @@ public final class Genetico {
             
 
         } catch (InterruptedException | ExecutionException ex) {
-            Logger.getLogger(Genetico.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AlgGenetico_Clase02_Grupo06.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }
@@ -339,11 +339,11 @@ public final class Genetico {
      * @param ObtenerElite boolena Indica si la función debe calcular el élite
      * de la población
      */
-    private void obtenerCostes(ArrayList<Cromosomas> cromosomas, boolean ObtenerElite) {
+    private void obtenerCostes(ArrayList<AlgCromosomas_Clase02_Grupo06> cromosomas, boolean ObtenerElite) {
 
         float mejorCoste = 0.0f;
 
-        for (Cromosomas cromosoma : cromosomas) {
+        for (AlgCromosomas_Clase02_Grupo06 cromosoma : cromosomas) {
 
             if (cromosoma.isRecalcular() == true || cromosoma.getContribucion() == 0.0f) {
                 float coste = calcularCoste(cromosoma.getCromosoma());
@@ -357,7 +357,7 @@ public final class Genetico {
                     if (ObtenerElite == true) {
 
                         if (mejorCoste > cromosomasElite.get(0).getContribucion()) {
-                            cromosomasElite.add(new Cromosomas(new HashSet<>(cromosoma.getCromosoma()), mejorCoste));
+                            cromosomasElite.add(new AlgCromosomas_Clase02_Grupo06(new HashSet<>(cromosoma.getCromosoma()), mejorCoste));
                             Collections.sort(cromosomasElite);
                             if (cromosomasElite.size() > _elitismo) {
                                 cromosomasElite.remove(0);
@@ -399,9 +399,9 @@ public final class Genetico {
      * @author David Díaz Jiménez
      * @author Andrés Rojas Ortega
      * @date 15/11/2020
-     * @param ale Random_p Utilizado para generar números pseudoaleatoios
+     * @param ale AlgRandom_p_Clase02_Grupo06 Utilizado para generar números pseudoaleatoios
      */
-    private void operadorSeleccion(Random_p ale) {
+    private void operadorSeleccion(AlgRandom_p_Clase02_Grupo06 ale) {
 
         for (int i = 0; i < _numeroCromosomas; i++) {
 
@@ -413,9 +413,9 @@ public final class Genetico {
             }
 
             if (_vcromosomas.get(candidato1).getContribucion() > _vcromosomas.get(candidato2).getContribucion()) {
-                _vcromosomasPadre.add(new Cromosomas(_vcromosomas.get(candidato1)));
+                _vcromosomasPadre.add(new AlgCromosomas_Clase02_Grupo06(_vcromosomas.get(candidato1)));
             } else {
-                _vcromosomasPadre.add(new Cromosomas(_vcromosomas.get(candidato2)));
+                _vcromosomasPadre.add(new AlgCromosomas_Clase02_Grupo06(_vcromosomas.get(candidato2)));
             }
         }
 
@@ -428,9 +428,9 @@ public final class Genetico {
      * @author David Díaz Jiménez
      * @author Andrés Rojas Ortega
      * @date 15/11/2020
-     * @param alea Random_p Utilizado para generar números pseudoaleatorios
+     * @param alea AlgRandom_p_Clase02_Grupo06 Utilizado para generar números pseudoaleatorios
      */
-    private void operadorReproduccion(Random_p alea) {
+    private void operadorReproduccion(AlgRandom_p_Clase02_Grupo06 alea) {
 
         if (_operadorMPX == true) {
 
@@ -450,9 +450,9 @@ public final class Genetico {
      * @author David Díaz Jiménez
      * @author Andrés Rojas Ortega
      * @date 15/11/2020
-     * @param alea Random_p Utilizado para generar números pseudoaleatorios
+     * @param alea AlgRandom_p_Clase02_Grupo06 Utilizado para generar números pseudoaleatorios
      */
-    private void operadorCruce2puntos(Random_p alea) {
+    private void operadorCruce2puntos(AlgRandom_p_Clase02_Grupo06 alea) {
 
         //Recorremos el vector por parejas de padres
         for (int i = 0; i < _numeroCromosomas; i += 2) {
@@ -497,17 +497,17 @@ public final class Genetico {
                 }
 
                 //Almacenamos los hijos generados
-                _vcromosomasHijo.add(new Cromosomas(hijo1, 0.0f, true));
-                _vcromosomasHijo.add(new Cromosomas(hijo2, 0.0f, true));
+                _vcromosomasHijo.add(new AlgCromosomas_Clase02_Grupo06(hijo1, 0.0f, true));
+                _vcromosomasHijo.add(new AlgCromosomas_Clase02_Grupo06(hijo2, 0.0f, true));
 
             } else {
 
                 //Guardamos los padres sin cruzar como resultado del cruce
-                Cromosomas hijo1 = _vcromosomasPadre.get(i);
-                Cromosomas hijo2 = _vcromosomasPadre.get(i + 1);
+                AlgCromosomas_Clase02_Grupo06 hijo1 = _vcromosomasPadre.get(i);
+                AlgCromosomas_Clase02_Grupo06 hijo2 = _vcromosomasPadre.get(i + 1);
 
-                _vcromosomasHijo.add(new Cromosomas(hijo1.getCromosoma(), hijo1.getContribucion()));
-                _vcromosomasHijo.add(new Cromosomas(hijo2.getCromosoma(), hijo2.getContribucion()));
+                _vcromosomasHijo.add(new AlgCromosomas_Clase02_Grupo06(hijo1.getCromosoma(), hijo1.getContribucion()));
+                _vcromosomasHijo.add(new AlgCromosomas_Clase02_Grupo06(hijo2.getCromosoma(), hijo2.getContribucion()));
 
             }
         }
@@ -519,9 +519,9 @@ public final class Genetico {
      * @author David Díaz Jiménez
      * @author Andrés Rojas Ortega
      * @date 17/11/2020
-     * @param alea Random_p Semilla aleatoria utilizada para generar números
+     * @param alea AlgRandom_p_Clase02_Grupo06 Semilla aleatoria utilizada para generar números
      */
-    private void operadorCruceMPX(Random_p alea) {
+    private void operadorCruceMPX(AlgRandom_p_Clase02_Grupo06 alea) {
 
         for (int i = 0; i <= _numeroCromosomas && _vcromosomasHijo.size() < _numeroCromosomas; i += 2) {
 
@@ -545,13 +545,13 @@ public final class Genetico {
                     cromosoma.add(gen);
                 }
 
-                _vcromosomasHijo.add(new Cromosomas(cromosoma, 0.0f, true));
+                _vcromosomasHijo.add(new AlgCromosomas_Clase02_Grupo06(cromosoma, 0.0f, true));
 
             } else {
-                _vcromosomasHijo.add(new Cromosomas(_vcromosomasPadre.get(padre1).getCromosoma(), 0.0f));
+                _vcromosomasHijo.add(new AlgCromosomas_Clase02_Grupo06(_vcromosomasPadre.get(padre1).getCromosoma(), 0.0f));
 
                 if (_vcromosomasHijo.size() < _numeroCromosomas) {
-                    _vcromosomasHijo.add(new Cromosomas(_vcromosomasPadre.get(padre2).getCromosoma(), 0.0f));
+                    _vcromosomasHijo.add(new AlgCromosomas_Clase02_Grupo06(_vcromosomasPadre.get(padre2).getCromosoma(), 0.0f));
                 }
             }
 
@@ -571,36 +571,36 @@ public final class Genetico {
 
     private void repararConcurrente() {
 
-        Future<ArrayList<Cromosomas>> future;
-        Future<ArrayList<Cromosomas>> future2;
-        Future<ArrayList<Cromosomas>> future3;
-        Future<ArrayList<Cromosomas>> future4;
+        Future<ArrayList<AlgCromosomas_Clase02_Grupo06>> future;
+        Future<ArrayList<AlgCromosomas_Clase02_Grupo06>> future2;
+        Future<ArrayList<AlgCromosomas_Clase02_Grupo06>> future3;
+        Future<ArrayList<AlgCromosomas_Clase02_Grupo06>> future4;
 
-        ArrayList<Cromosomas> copia = new ArrayList<>(_vcromosomasHijo);
+        ArrayList<AlgCromosomas_Clase02_Grupo06> copia = new ArrayList<>(_vcromosomasHijo);
 
         int tam = ((_numeroCromosomas) / 4) - 1;
-        future = Main.exec.submit(new RepairTask(copia, 0, tam));
-        future2 = Main.exec.submit(new RepairTask(copia, tam + 1, tam * 2));
-        future3 = Main.exec.submit(new RepairTask(copia, tam * 2 + 1, tam * 3));
-        future4 = Main.exec.submit(new RepairTask(copia, tam * 3 + 1, _numeroCromosomas - 1));
+        future = AlgMain_Clase02_Grupo06.exec.submit(new RepairTask(copia, 0, tam));
+        future2 = AlgMain_Clase02_Grupo06.exec.submit(new RepairTask(copia, tam + 1, tam * 2));
+        future3 = AlgMain_Clase02_Grupo06.exec.submit(new RepairTask(copia, tam * 2 + 1, tam * 3));
+        future4 = AlgMain_Clase02_Grupo06.exec.submit(new RepairTask(copia, tam * 3 + 1, _numeroCromosomas - 1));
 
         try {
             _vcromosomasHijo.clear();
-            for (Cromosomas cromo : future.get()) {
+            for (AlgCromosomas_Clase02_Grupo06 cromo : future.get()) {
                 _vcromosomasHijo.add(cromo);
             }
-            for (Cromosomas cromo : future2.get()) {
+            for (AlgCromosomas_Clase02_Grupo06 cromo : future2.get()) {
                 _vcromosomasHijo.add(cromo);
             }
-            for (Cromosomas cromo : future3.get()) {
+            for (AlgCromosomas_Clase02_Grupo06 cromo : future3.get()) {
                 _vcromosomasHijo.add(cromo);
             }
-            for (Cromosomas cromo : future4.get()) {
+            for (AlgCromosomas_Clase02_Grupo06 cromo : future4.get()) {
                 _vcromosomasHijo.add(cromo);
             }
 
         } catch (InterruptedException | ExecutionException ex) {
-            Logger.getLogger(Genetico.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AlgGenetico_Clase02_Grupo06.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -679,11 +679,11 @@ public final class Genetico {
      * @author David Díaz Jiménez
      * @author Andrés Rojas Ortega
      * @date 16/11/2020
-     * @param ale Random_p Semilla aleatoria para generar números
+     * @param ale AlgRandom_p_Clase02_Grupo06 Semilla aleatoria para generar números
      */
-    private void operadorMutación(Random_p ale) {
+    private void operadorMutación(AlgRandom_p_Clase02_Grupo06 ale) {
 
-        for (Cromosomas Cromosoma : _vcromosomasHijo) {
+        for (AlgCromosomas_Clase02_Grupo06 Cromosoma : _vcromosomasHijo) {
 
             ArrayList<Integer> alelosMutados = new ArrayList<>();
             ArrayList<Integer> alelosNuevos = new ArrayList<>();
@@ -730,7 +730,7 @@ public final class Genetico {
      */
     private void registroConfiguración() {
         _gestor.escribirArchivo("Cromosomas Iniciales: ");
-        for (Cromosomas cromosoma : _vcromosomas) {
+        for (AlgCromosomas_Clase02_Grupo06 cromosoma : _vcromosomas) {
             _gestor.escribirArchivo(cromosoma.getCromosoma().toString());
         }
     }
@@ -744,7 +744,7 @@ public final class Genetico {
     private void registroElites() {
         _gestor.escribirArchivo("");
         _gestor.escribirArchivo("Generación: " + generacion + ", " + _elitismo + " mejores individuos de la población");
-        for (Cromosomas cromosoma : cromosomasElite) {
+        for (AlgCromosomas_Clase02_Grupo06 cromosoma : cromosomasElite) {
             _gestor.escribirArchivo(cromosoma.getCromosoma().toString());
         }
         _gestor.escribirArchivo("Mejor coste hasta el momento: " + _mejorCromosoma.getContribucion());
@@ -759,8 +759,8 @@ public final class Genetico {
     private void operadorElitismo() {
 
         if (_generacional == true) {
-            for (Cromosomas Mejores : cromosomasElite) {
-                _vcromosomasHijo.add(new Cromosomas(Mejores));
+            for (AlgCromosomas_Clase02_Grupo06 Mejores : cromosomasElite) {
+                _vcromosomasHijo.add(new AlgCromosomas_Clase02_Grupo06(Mejores));
             }
         }
 
@@ -771,7 +771,7 @@ public final class Genetico {
         }
 
         int i = 1;
-        for (Cromosomas elite : cromosomasElite) {
+        for (AlgCromosomas_Clase02_Grupo06 elite : cromosomasElite) {
             elite.setCromosoma(_vcromosomasHijo.get(_numeroCromosomas - i).getCromosoma());
             elite.setContribucion(_vcromosomasHijo.get(_numeroCromosomas - i).getContribucion());
             i++;
@@ -784,7 +784,7 @@ public final class Genetico {
         _vcromosomasPadre.clear();
 
         if (cromosomasElite.get(0).getContribucion() > _mejorCromosoma.getContribucion()) {
-            _mejorCromosoma = new Cromosomas(cromosomasElite.get(0));
+            _mejorCromosoma = new AlgCromosomas_Clase02_Grupo06(cromosomasElite.get(0));
         }
 
         registroElites();
@@ -806,8 +806,8 @@ public final class Genetico {
         _gestor.escribirArchivo("Mejor coste: " + coste);
         _gestor.escribirArchivo("Mejor cromosoma: " + _mejorCromosoma.getCromosoma());
         
-        Main.console.presentarSalida("Mejor Coste:  " + _mejorCromosoma.getContribucion());
-        Main.console.presentarSalida("");
+        AlgMain_Clase02_Grupo06.console.presentarSalida("Mejor Coste:  " + _mejorCromosoma.getContribucion());
+        AlgMain_Clase02_Grupo06.console.presentarSalida("");
 
     }
 }

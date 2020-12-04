@@ -20,7 +20,7 @@ import org.apache.commons.lang3.StringUtils;
  * @author David Díaz Jiménez
  * @date 27/09/2020
  */
-public class Configurador {
+public class AlgConfigurador_Clase02_Grupo06 {
 
     ///Atributos de la clase:
     ArrayList<String> directoriosDatos;///<Almacena los directorios donde se 
@@ -46,7 +46,7 @@ public class Configurador {
      * @param ruta String Contiene la ruta completa del archivo que contiene la
      * información de los parámetros
      */
-    public Configurador(String ruta) {
+    public AlgConfigurador_Clase02_Grupo06(String ruta) {
 
         directoriosDatos = new ArrayList<>();
 
@@ -102,7 +102,7 @@ public class Configurador {
             b.close();
 
         } catch (IOException e) {
-            Main.console.presentarSalida("No se ha encontrado el archivo de configuración");
+            AlgMain_Clase02_Grupo06.console.presentarSalida("No se ha encontrado el archivo de configuración");
         } finally {
             try {
                 if (null != f) {

@@ -11,12 +11,12 @@ package es.meta.metaheuristicas_practica_2;
  * @author David Díaz Jiménez
  * @date 03/10/2020
  */
-public final class Timer {
+public final class AlgTimer_Clase02_Grupo06 {
 
     private long _inicio;
     private long _fin;
 
-    public Timer() {
+    public AlgTimer_Clase02_Grupo06() {
 
         this._fin = 0;
         this._inicio = 0;

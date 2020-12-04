@@ -1,44 +1,42 @@
 \BOOKMARK [1][-]{section.1}{Definici\363n y an\341lisis del problema}{}% 1
 \BOOKMARK [2][-]{subsection.1.1}{Representaci\363n de la soluci\363n}{section.1}% 2
 \BOOKMARK [2][-]{subsection.1.2}{Funci\363n objetivo}{section.1}% 3
-\BOOKMARK [2][-]{subsection.1.3}{Operadores comunes}{section.1}% 4
-\BOOKMARK [1][-]{section.2}{Clases auxiliares}{}% 5
-\BOOKMARK [2][-]{subsection.2.1}{Archivo}{section.2}% 6
-\BOOKMARK [2][-]{subsection.2.2}{Configurador}{section.2}% 7
-\BOOKMARK [2][-]{subsection.2.3}{ElementoSolucion}{section.2}% 8
-\BOOKMARK [2][-]{subsection.2.4}{GestorLog}{section.2}% 9
-\BOOKMARK [2][-]{subsection.2.5}{Metaheuristicas}{section.2}% 10
-\BOOKMARK [2][-]{subsection.2.6}{Pair}{section.2}% 11
-\BOOKMARK [2][-]{subsection.2.7}{RandomP}{section.2}% 12
-\BOOKMARK [2][-]{subsection.2.8}{Timer}{section.2}% 13
-\BOOKMARK [1][-]{section.3}{Pseudoc\363digo}{}% 14
-\BOOKMARK [2][-]{subsection.3.1}{Algoritmo principal}{section.3}% 15
-\BOOKMARK [2][-]{subsection.3.2}{Generaci\363n de la poblaci\363n inicial}{section.3}% 16
-\BOOKMARK [2][-]{subsection.3.3}{Operador de evaluaci\363n}{section.3}% 17
-\BOOKMARK [2][-]{subsection.3.4}{Selecci\363n de los individuos \351lites}{section.3}% 18
-\BOOKMARK [2][-]{subsection.3.5}{Operador de cruce}{section.3}% 19
-\BOOKMARK [2][-]{subsection.3.6}{Operador de selecci\363n}{section.3}% 20
-\BOOKMARK [2][-]{subsection.3.7}{Torneo binario}{section.3}% 21
-\BOOKMARK [2][-]{subsection.3.8}{Cruce MPX}{section.3}% 22
-\BOOKMARK [2][-]{subsection.3.9}{Cruce en dos puntos}{section.3}% 23
-\BOOKMARK [2][-]{subsection.3.10}{Operador de reparaci\363n}{section.3}% 24
-\BOOKMARK [2][-]{subsection.3.11}{Funci\363n soluci\363n}{section.3}% 25
-\BOOKMARK [2][-]{subsection.3.12}{Calculo de aportes}{section.3}% 26
-\BOOKMARK [2][-]{subsection.3.13}{C\341lculo del individuo con mayor aporte}{section.3}% 27
-\BOOKMARK [2][-]{subsection.3.14}{Operador de mutaci\363n}{section.3}% 28
-\BOOKMARK [2][-]{subsection.3.15}{Operador de elitismo}{section.3}% 29
-\BOOKMARK [1][-]{section.4}{Experimentos y an\341lisis de resultados}{}% 30
-\BOOKMARK [2][-]{subsection.4.1}{Procedimiento de desarrollo de la pr\341ctica}{section.4}% 31
-\BOOKMARK [3][-]{subsubsection.4.1.1}{Equipo de pruebas}{subsection.4.1}% 32
-\BOOKMARK [3][-]{subsubsection.4.1.2}{Manual de usuario}{subsection.4.1}% 33
-\BOOKMARK [2][-]{subsection.4.2}{Par\341metros de los algoritmos}{section.4}% 34
-\BOOKMARK [3][-]{subsubsection.4.2.1}{Gen\351tico}{subsection.4.2}% 35
-\BOOKMARK [3][-]{subsubsection.4.2.2}{Semillas}{subsection.4.2}% 36
-\BOOKMARK [2][-]{subsection.4.3}{An\341lisis de los resultados}{section.4}% 37
-\BOOKMARK [3][-]{subsubsection.4.3.1}{Efectos de la mutaci\363n}{subsection.4.3}% 38
-\BOOKMARK [3][-]{subsubsection.4.3.2}{Resultados obtenidos durante la experimentaci\363n}{subsection.4.3}% 39
-\BOOKMARK [3][-]{subsubsection.4.3.3}{Cruce MPX con elitismo 2 vs elitismo 3}{subsection.4.3}% 40
-\BOOKMARK [3][-]{subsubsection.4.3.4}{Cruce en dos puntos con elitismo 2 vs elitismo 3}{subsection.4.3}% 41
-\BOOKMARK [3][-]{subsubsection.4.3.5}{Cruce Mpx con elitismo 3 vs cruce en dos puntos con elitismo 3}{subsection.4.3}% 42
-\BOOKMARK [3][-]{subsubsection.4.3.6}{Posibles mejoras}{subsection.4.3}% 43
-\BOOKMARK [3][-]{subsubsection.4.3.7}{Conclusiones finales}{subsection.4.3}% 44
+\BOOKMARK [1][-]{section.2}{Clases auxiliares}{}% 4
+\BOOKMARK [2][-]{subsection.2.1}{Archivo}{section.2}% 5
+\BOOKMARK [2][-]{subsection.2.2}{Configurador}{section.2}% 6
+\BOOKMARK [2][-]{subsection.2.3}{Cromosomas}{section.2}% 7
+\BOOKMARK [2][-]{subsection.2.4}{GestorLog}{section.2}% 8
+\BOOKMARK [2][-]{subsection.2.5}{Metaheuristicas}{section.2}% 9
+\BOOKMARK [2][-]{subsection.2.6}{RandomP}{section.2}% 10
+\BOOKMARK [2][-]{subsection.2.7}{Timer}{section.2}% 11
+\BOOKMARK [1][-]{section.3}{Pseudoc\363digo}{}% 12
+\BOOKMARK [2][-]{subsection.3.1}{Algoritmo principal}{section.3}% 13
+\BOOKMARK [2][-]{subsection.3.2}{Generaci\363n de la poblaci\363n inicial}{section.3}% 14
+\BOOKMARK [2][-]{subsection.3.3}{Operador de evaluaci\363n}{section.3}% 15
+\BOOKMARK [2][-]{subsection.3.4}{Selecci\363n de los individuos \351lites}{section.3}% 16
+\BOOKMARK [2][-]{subsection.3.5}{Operador de cruce}{section.3}% 17
+\BOOKMARK [2][-]{subsection.3.6}{Operador de selecci\363n}{section.3}% 18
+\BOOKMARK [2][-]{subsection.3.7}{Torneo binario}{section.3}% 19
+\BOOKMARK [2][-]{subsection.3.8}{Cruce MPX}{section.3}% 20
+\BOOKMARK [2][-]{subsection.3.9}{Cruce en dos puntos}{section.3}% 21
+\BOOKMARK [2][-]{subsection.3.10}{Operador de reparaci\363n}{section.3}% 22
+\BOOKMARK [2][-]{subsection.3.11}{Funci\363n soluci\363n}{section.3}% 23
+\BOOKMARK [2][-]{subsection.3.12}{Calculo de aportes}{section.3}% 24
+\BOOKMARK [2][-]{subsection.3.13}{C\341lculo del individuo con mayor aporte}{section.3}% 25
+\BOOKMARK [2][-]{subsection.3.14}{Operador de mutaci\363n}{section.3}% 26
+\BOOKMARK [2][-]{subsection.3.15}{Operador de elitismo}{section.3}% 27
+\BOOKMARK [1][-]{section.4}{Experimentos y an\341lisis de resultados}{}% 28
+\BOOKMARK [2][-]{subsection.4.1}{Procedimiento de desarrollo de la pr\341ctica}{section.4}% 29
+\BOOKMARK [3][-]{subsubsection.4.1.1}{Equipo de pruebas}{subsection.4.1}% 30
+\BOOKMARK [3][-]{subsubsection.4.1.2}{Manual de usuario}{subsection.4.1}% 31
+\BOOKMARK [2][-]{subsection.4.2}{Par\341metros de los algoritmos}{section.4}% 32
+\BOOKMARK [3][-]{subsubsection.4.2.1}{Gen\351tico}{subsection.4.2}% 33
+\BOOKMARK [3][-]{subsubsection.4.2.2}{Semillas}{subsection.4.2}% 34
+\BOOKMARK [2][-]{subsection.4.3}{An\341lisis de los resultados}{section.4}% 35
+\BOOKMARK [3][-]{subsubsection.4.3.1}{Efectos de la mutaci\363n}{subsection.4.3}% 36
+\BOOKMARK [3][-]{subsubsection.4.3.2}{Resultados obtenidos durante la experimentaci\363n}{subsection.4.3}% 37
+\BOOKMARK [3][-]{subsubsection.4.3.3}{Cruce MPX con elitismo 2 vs elitismo 3}{subsection.4.3}% 38
+\BOOKMARK [3][-]{subsubsection.4.3.4}{Cruce en dos puntos con elitismo 2 vs elitismo 3}{subsection.4.3}% 39
+\BOOKMARK [3][-]{subsubsection.4.3.5}{Cruce Mpx con elitismo 3 vs cruce en dos puntos con elitismo 3}{subsection.4.3}% 40
+\BOOKMARK [3][-]{subsubsection.4.3.6}{Posibles mejoras}{subsection.4.3}% 41
+\BOOKMARK [3][-]{subsubsection.4.3.7}{Conclusiones finales}{subsection.4.3}% 42

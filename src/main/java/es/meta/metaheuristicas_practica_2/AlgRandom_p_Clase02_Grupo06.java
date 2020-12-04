@@ -11,7 +11,7 @@ package es.meta.metaheuristicas_practica_2;
  * @author David Díaz Jiménez
  * @date 03/10/2020
  */
-public final class Random_p {
+public final class AlgRandom_p_Clase02_Grupo06 {
 
     long Seed = 0L;
     private static final int MASK = 2147483647;

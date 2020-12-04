@@ -21,7 +21,7 @@ import java.io.IOException;
  * @author David Díaz Jiménez
  * @date 27/09/2020
  */
-public final class Archivo {
+public final class AlgArchivo_Clase02_Gropo_06 {
 
     ///Atributos de la clase:
     private String _nombre;///<Nombre del objeto                                        
@@ -41,7 +41,7 @@ public final class Archivo {
      * @throws FileNotFoundException
      * @throws IOException
      */
-    Archivo(String nombre, String ruta)
+    AlgArchivo_Clase02_Gropo_06(String nombre, String ruta)
             throws FileNotFoundException, IOException {
 
         _nombre = nombre;
